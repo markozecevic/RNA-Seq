@@ -1,0 +1,41 @@
+--- 
+title: "Analiza RNA-Seq podataka"
+author: "marko.zecevic@sbgenomics.com"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+github-repo: markozecevic/RNA-Seq
+description: "Materijali za deo kursa posvecen analizi RNA-Seq podataka"
+---
+
+# Podesavanja
+
+Linux okruzenje sa instaliranim svim neophodnim paketima i IDEom je dokerizovano i okaceno na DockerHub.
+
+Nakon instalacije Docker-a, potrebno je odraditi pull (~4.3 GB download).
+
+```console
+docker pull markoz/rnastudio
+```
+
+Zatim treba klonirati GitHub repo sa meterijalima.
+
+```console
+git clone git@github.com:markozecevic/RNA-Seq.git
+```
+
+Sada kada imamo image i materijale, pokrecemo kontejner komandom:
+
+```console
+docker run -e PASSWORD=etf -p 8787:8787 -v /Users/markoz/work/etf/RNA-Seq:/home/rstudio/materijali -e ROOT=TRUE markoz/rnastudio
+```
+
+U browseru otvoriti http://localhost:8787/ (user: "rstudio, pass: "etf"). Sledece komande ce podesiti radni folder i izrenderovati materijale:
+
+```{r, eval=FALSE}
+setwd("~/materijali")
+bookdown::render_book("index.Rmd", "bookdown::gitbook")
+```
