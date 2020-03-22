@@ -1,0 +1,6 @@
+book_filename: "RNA-Seq"
+output_dir: "docs"
+language:
+  ui:
+    chapter_name: "Poglavlje "
+delete_merged_file: true
