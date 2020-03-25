@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Poglavlje 3 Poravnanje | Analiza RNA-Seq podataka</title>
+  <title>2 Poravnanje | Analiza RNA-Seq podataka</title>
   <meta name="description" content="Materijali za deo kursa posvecen analizi RNA-Seq podataka" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Poglavlje 3 Poravnanje | Analiza RNA-Seq podataka" />
+  <meta property="og:title" content="2 Poravnanje | Analiza RNA-Seq podataka" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="markozecevic/RNA-Seq" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Poglavlje 3 Poravnanje | Analiza RNA-Seq podataka" />
+  <meta name="twitter:title" content="2 Poravnanje | Analiza RNA-Seq podataka" />
   
   <meta name="twitter:description" content="Materijali za deo kursa posvecen analizi RNA-Seq podataka" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="marko.zecevic@sbgenomics.com" />
 
 
-<meta name="date" content="2020-03-22" />
+<meta name="date" content="2020-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,29 +127,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Podesavanja</a></li>
-<li class="chapter" data-level="2" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>2</b> Uvod</a><ul>
-<li class="chapter" data-level="2.1" data-path="uvod.html"><a href="uvod.html#the-central-dogma-of-molecular-biology"><i class="fa fa-check"></i><b>2.1</b> The central dogma of molecular biology</a></li>
-<li class="chapter" data-level="2.2" data-path="uvod.html"><a href="uvod.html#why-measure-gene-expression"><i class="fa fa-check"></i><b>2.2</b> Why measure gene expression?</a></li>
-<li class="chapter" data-level="2.3" data-path="uvod.html"><a href="uvod.html#before-sequencing---library-prep"><i class="fa fa-check"></i><b>2.3</b> Before sequencing - library prep!</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="uvod.html"><a href="uvod.html#dna-microarrays"><i class="fa fa-check"></i><b>2.3.1</b> DNA microarrays</a></li>
-<li class="chapter" data-level="2.3.2" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>2.3.2</b> RNA-Seq</a></li>
-<li class="chapter" data-level="2.3.3" data-path="uvod.html"><a href="uvod.html#rna-seq-analysis-goals"><i class="fa fa-check"></i><b>2.3.3</b> RNA-Seq analysis goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Podesavanja</a></li>
+<li class="chapter" data-level="1" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>1</b> Uvod</a><ul>
+<li class="chapter" data-level="1.1" data-path="uvod.html"><a href="uvod.html#centralna-dogma-molekularne-biologije"><i class="fa fa-check"></i><b>1.1</b> Centralna dogma molekularne biologije</a></li>
+<li class="chapter" data-level="1.2" data-path="uvod.html"><a href="uvod.html#transkripti"><i class="fa fa-check"></i><b>1.2</b> Transkripti</a></li>
+<li class="chapter" data-level="1.3" data-path="uvod.html"><a href="uvod.html#dna-microarrays"><i class="fa fa-check"></i><b>1.3</b> DNA microarrays</a></li>
+<li class="chapter" data-level="1.4" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>1.4</b> RNA-Seq</a></li>
+<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#rna-seq-analysis-goals"><i class="fa fa-check"></i><b>1.5</b> RNA-Seq analysis goals</a></li>
 </ul></li>
+<li class="chapter" data-level="2" data-path="poravnanje.html"><a href="poravnanje.html"><i class="fa fa-check"></i><b>2</b> Poravnanje</a><ul>
+<li class="chapter" data-level="2.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>2.1</b> Alignment challenges</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="poravnanje.html"><a href="poravnanje.html#how-tophat2-handles-these-issues"><i class="fa fa-check"></i><b>2.1.1</b> How Tophat2 handles these issues</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="poravnanje.html"><a href="poravnanje.html"><i class="fa fa-check"></i><b>3</b> Poravnanje</a><ul>
-<li class="chapter" data-level="3.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>3.1</b> Alignment challenges</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="poravnanje.html"><a href="poravnanje.html#how-tophat2-handles-these-issues"><i class="fa fa-check"></i><b>3.1.1</b> How Tophat2 handles these issues</a></li>
+<li class="chapter" data-level="2.2" data-path="poravnanje.html"><a href="poravnanje.html#tophat2-algorithm"><i class="fa fa-check"></i><b>2.2</b> Tophat2 algorithm</a></li>
+<li class="chapter" data-level="2.3" data-path="poravnanje.html"><a href="poravnanje.html#alignment-file"><i class="fa fa-check"></i><b>2.3</b> Alignment file</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="poravnanje.html"><a href="poravnanje.html#tophat2-algorithm"><i class="fa fa-check"></i><b>3.2</b> Tophat2 algorithm</a></li>
-<li class="chapter" data-level="3.3" data-path="poravnanje.html"><a href="poravnanje.html#alignment-file"><i class="fa fa-check"></i><b>3.3</b> Alignment file</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="kvantifikacija.html"><a href="kvantifikacija.html"><i class="fa fa-check"></i><b>4</b> Kvantifikacija</a><ul>
-<li class="chapter" data-level="4.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#motivation-for-rna-seq-quantification"><i class="fa fa-check"></i><b>4.1</b> Motivation for RNA-Seq quantification</a></li>
-<li class="chapter" data-level="4.2" data-path="kvantifikacija.html"><a href="kvantifikacija.html#rna-seq-quantification"><i class="fa fa-check"></i><b>4.2</b> RNA-Seq quantification</a></li>
-<li class="chapter" data-level="4.3" data-path="kvantifikacija.html"><a href="kvantifikacija.html#gene-level-quantification"><i class="fa fa-check"></i><b>4.3</b> Gene level quantification</a></li>
-<li class="chapter" data-level="4.4" data-path="kvantifikacija.html"><a href="kvantifikacija.html#within-sample-normalization"><i class="fa fa-check"></i><b>4.4</b> (Within-sample) Normalization</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#different-units"><i class="fa fa-check"></i><b>4.4.1</b> Different units</a></li>
+<li class="chapter" data-level="3" data-path="kvantifikacija.html"><a href="kvantifikacija.html"><i class="fa fa-check"></i><b>3</b> Kvantifikacija</a><ul>
+<li class="chapter" data-level="3.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#motivation-for-rna-seq-quantification"><i class="fa fa-check"></i><b>3.1</b> Motivation for RNA-Seq quantification</a></li>
+<li class="chapter" data-level="3.2" data-path="kvantifikacija.html"><a href="kvantifikacija.html#rna-seq-quantification"><i class="fa fa-check"></i><b>3.2</b> RNA-Seq quantification</a></li>
+<li class="chapter" data-level="3.3" data-path="kvantifikacija.html"><a href="kvantifikacija.html#gene-level-quantification"><i class="fa fa-check"></i><b>3.3</b> Gene level quantification</a></li>
+<li class="chapter" data-level="3.4" data-path="kvantifikacija.html"><a href="kvantifikacija.html#within-sample-normalization"><i class="fa fa-check"></i><b>3.4</b> (Within-sample) Normalization</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#different-units"><i class="fa fa-check"></i><b>3.4.1</b> Different units</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -170,11 +168,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="poravnanje" class="section level1">
-<h1><span class="header-section-number">Poglavlje 3</span> Poravnanje</h1>
+<h1><span class="header-section-number">2</span> Poravnanje</h1>
 <p>* Adapted from <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2013-14-4-r36">Tophat2 paper</a></p>
 <p><img src="images/RNA-Seq-alignment.png" width="550"></p>
 <div id="alignment-challenges" class="section level2">
-<h2><span class="header-section-number">3.1</span> Alignment challenges</h2>
+<h2><span class="header-section-number">2.1</span> Alignment challenges</h2>
 <p>The first step in the analysis process is to map the RNA-Seq reads against the reference genome, which provides the location from which the reads originated.</p>
 <p>In contrast to DNA-Seq alignment, RNA-Seq mapping algorithms have two additional challenges:</p>
 <ol style="list-style-type: decimal">
@@ -195,7 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>A read spanning multiple exons from genes with processed pseudogene copies can be aligned to the pseudogene copies instead of the gene from which it originates.</li>
 </ol>
 <div id="how-tophat2-handles-these-issues" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> How Tophat2 handles these issues</h3>
+<h3><span class="header-section-number">2.1.1</span> How Tophat2 handles these issues</h3>
 <ol style="list-style-type: decimal">
 <li><p>If a read extends only a few bases into one of two adjacent exons, then it often happens that the read will align equally well, but incorrectly, with the sequence of the intervening intron. To handle this problem, the appropriate algorithm detects potential splice sites for introns (GT-AG, GC-AG, and AT-AC). It uses these candidate splice sites in a subsequent step to correctly align multiexon-spanning reads.</p></li>
 <li><p>Concerning the human genome, for which there are relatively comprehensive annotations of protein-coding genes, the annotations can be used to map reads more accurately by aligning the reads preferentially to real genes rather than pseudogenes.</p></li>
@@ -203,7 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div id="tophat2-algorithm" class="section level2">
-<h2><span class="header-section-number">3.2</span> Tophat2 algorithm</h2>
+<h2><span class="header-section-number">2.2</span> Tophat2 algorithm</h2>
 <p><img src="images/legend.png" width="600">
 <img src="images/th1.png" width="600">
 
@@ -220,7 +218,7 @@ Given RNA-Seq reads as input, TopHat2 begins by mapping reads against the known 
 <p>For paired-end reads, TopHat2 processes the two reads separately through the same mapping stages described above. In the final stage, the independently aligned reads are analyzed together to produce paired alignments, taking into consideration additional factors including fragment length and orientation.</p>
 </div>
 <div id="alignment-file" class="section level2">
-<h2><span class="header-section-number">3.3</span> Alignment file</h2>
+<h2><span class="header-section-number">2.3</span> Alignment file</h2>
 <p><img src="images/20110524zurichngs-1st-pub-61-728.jpg" width="700"></p>
 <p>CIGAR: a string describing how the read aligns with the reference. It consists of one or more components. Each component comprises an operator and the number of bases which the operator applies to. Operators are: MIDNSHP=X.</p>
 <p><a href="https://broadinstitute.github.io/picard/explain-flags.html" class="uri">https://broadinstitute.github.io/picard/explain-flags.html</a></p>

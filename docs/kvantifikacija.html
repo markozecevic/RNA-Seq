@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Poglavlje 4 Kvantifikacija | Analiza RNA-Seq podataka</title>
+  <title>3 Kvantifikacija | Analiza RNA-Seq podataka</title>
   <meta name="description" content="Materijali za deo kursa posvecen analizi RNA-Seq podataka" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Poglavlje 4 Kvantifikacija | Analiza RNA-Seq podataka" />
+  <meta property="og:title" content="3 Kvantifikacija | Analiza RNA-Seq podataka" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="markozecevic/RNA-Seq" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Poglavlje 4 Kvantifikacija | Analiza RNA-Seq podataka" />
+  <meta name="twitter:title" content="3 Kvantifikacija | Analiza RNA-Seq podataka" />
   
   <meta name="twitter:description" content="Materijali za deo kursa posvecen analizi RNA-Seq podataka" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="marko.zecevic@sbgenomics.com" />
 
 
-<meta name="date" content="2020-03-22" />
+<meta name="date" content="2020-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,29 +127,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Podesavanja</a></li>
-<li class="chapter" data-level="2" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>2</b> Uvod</a><ul>
-<li class="chapter" data-level="2.1" data-path="uvod.html"><a href="uvod.html#the-central-dogma-of-molecular-biology"><i class="fa fa-check"></i><b>2.1</b> The central dogma of molecular biology</a></li>
-<li class="chapter" data-level="2.2" data-path="uvod.html"><a href="uvod.html#why-measure-gene-expression"><i class="fa fa-check"></i><b>2.2</b> Why measure gene expression?</a></li>
-<li class="chapter" data-level="2.3" data-path="uvod.html"><a href="uvod.html#before-sequencing---library-prep"><i class="fa fa-check"></i><b>2.3</b> Before sequencing - library prep!</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="uvod.html"><a href="uvod.html#dna-microarrays"><i class="fa fa-check"></i><b>2.3.1</b> DNA microarrays</a></li>
-<li class="chapter" data-level="2.3.2" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>2.3.2</b> RNA-Seq</a></li>
-<li class="chapter" data-level="2.3.3" data-path="uvod.html"><a href="uvod.html#rna-seq-analysis-goals"><i class="fa fa-check"></i><b>2.3.3</b> RNA-Seq analysis goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Podesavanja</a></li>
+<li class="chapter" data-level="1" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>1</b> Uvod</a><ul>
+<li class="chapter" data-level="1.1" data-path="uvod.html"><a href="uvod.html#centralna-dogma-molekularne-biologije"><i class="fa fa-check"></i><b>1.1</b> Centralna dogma molekularne biologije</a></li>
+<li class="chapter" data-level="1.2" data-path="uvod.html"><a href="uvod.html#transkripti"><i class="fa fa-check"></i><b>1.2</b> Transkripti</a></li>
+<li class="chapter" data-level="1.3" data-path="uvod.html"><a href="uvod.html#dna-microarrays"><i class="fa fa-check"></i><b>1.3</b> DNA microarrays</a></li>
+<li class="chapter" data-level="1.4" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>1.4</b> RNA-Seq</a></li>
+<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#rna-seq-analysis-goals"><i class="fa fa-check"></i><b>1.5</b> RNA-Seq analysis goals</a></li>
 </ul></li>
+<li class="chapter" data-level="2" data-path="poravnanje.html"><a href="poravnanje.html"><i class="fa fa-check"></i><b>2</b> Poravnanje</a><ul>
+<li class="chapter" data-level="2.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>2.1</b> Alignment challenges</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="poravnanje.html"><a href="poravnanje.html#how-tophat2-handles-these-issues"><i class="fa fa-check"></i><b>2.1.1</b> How Tophat2 handles these issues</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="poravnanje.html"><a href="poravnanje.html"><i class="fa fa-check"></i><b>3</b> Poravnanje</a><ul>
-<li class="chapter" data-level="3.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>3.1</b> Alignment challenges</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="poravnanje.html"><a href="poravnanje.html#how-tophat2-handles-these-issues"><i class="fa fa-check"></i><b>3.1.1</b> How Tophat2 handles these issues</a></li>
+<li class="chapter" data-level="2.2" data-path="poravnanje.html"><a href="poravnanje.html#tophat2-algorithm"><i class="fa fa-check"></i><b>2.2</b> Tophat2 algorithm</a></li>
+<li class="chapter" data-level="2.3" data-path="poravnanje.html"><a href="poravnanje.html#alignment-file"><i class="fa fa-check"></i><b>2.3</b> Alignment file</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="poravnanje.html"><a href="poravnanje.html#tophat2-algorithm"><i class="fa fa-check"></i><b>3.2</b> Tophat2 algorithm</a></li>
-<li class="chapter" data-level="3.3" data-path="poravnanje.html"><a href="poravnanje.html#alignment-file"><i class="fa fa-check"></i><b>3.3</b> Alignment file</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="kvantifikacija.html"><a href="kvantifikacija.html"><i class="fa fa-check"></i><b>4</b> Kvantifikacija</a><ul>
-<li class="chapter" data-level="4.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#motivation-for-rna-seq-quantification"><i class="fa fa-check"></i><b>4.1</b> Motivation for RNA-Seq quantification</a></li>
-<li class="chapter" data-level="4.2" data-path="kvantifikacija.html"><a href="kvantifikacija.html#rna-seq-quantification"><i class="fa fa-check"></i><b>4.2</b> RNA-Seq quantification</a></li>
-<li class="chapter" data-level="4.3" data-path="kvantifikacija.html"><a href="kvantifikacija.html#gene-level-quantification"><i class="fa fa-check"></i><b>4.3</b> Gene level quantification</a></li>
-<li class="chapter" data-level="4.4" data-path="kvantifikacija.html"><a href="kvantifikacija.html#within-sample-normalization"><i class="fa fa-check"></i><b>4.4</b> (Within-sample) Normalization</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#different-units"><i class="fa fa-check"></i><b>4.4.1</b> Different units</a></li>
+<li class="chapter" data-level="3" data-path="kvantifikacija.html"><a href="kvantifikacija.html"><i class="fa fa-check"></i><b>3</b> Kvantifikacija</a><ul>
+<li class="chapter" data-level="3.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#motivation-for-rna-seq-quantification"><i class="fa fa-check"></i><b>3.1</b> Motivation for RNA-Seq quantification</a></li>
+<li class="chapter" data-level="3.2" data-path="kvantifikacija.html"><a href="kvantifikacija.html#rna-seq-quantification"><i class="fa fa-check"></i><b>3.2</b> RNA-Seq quantification</a></li>
+<li class="chapter" data-level="3.3" data-path="kvantifikacija.html"><a href="kvantifikacija.html#gene-level-quantification"><i class="fa fa-check"></i><b>3.3</b> Gene level quantification</a></li>
+<li class="chapter" data-level="3.4" data-path="kvantifikacija.html"><a href="kvantifikacija.html#within-sample-normalization"><i class="fa fa-check"></i><b>3.4</b> (Within-sample) Normalization</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#different-units"><i class="fa fa-check"></i><b>3.4.1</b> Different units</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -170,12 +168,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="kvantifikacija" class="section level1">
-<h1><span class="header-section-number">Poglavlje 4</span> Kvantifikacija</h1>
+<h1><span class="header-section-number">3</span> Kvantifikacija</h1>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="im">import</span> time</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="im">import</span> pandas <span class="im">as</span> pd</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="im">import</span> pysam</a></code></pre></div>
 <div id="motivation-for-rna-seq-quantification" class="section level2">
-<h2><span class="header-section-number">4.1</span> Motivation for RNA-Seq quantification</h2>
+<h2><span class="header-section-number">3.1</span> Motivation for RNA-Seq quantification</h2>
 <ul>
 <li>Typical studies:
 <ul>
@@ -188,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <div id="rna-seq-quantification" class="section level2">
-<h2><span class="header-section-number">4.2</span> RNA-Seq quantification</h2>
+<h2><span class="header-section-number">3.2</span> RNA-Seq quantification</h2>
 <p>Counting versus probabilistic estimation dilemma is (mostly) about doing analysis on gene versus transcript level.
 - When quantifying on <strong>gene</strong> level - we simply count the number of reads aligned to each gene.
 - On <strong>transcript</strong> level, we need an algorithm such as the Expectation Maximization (EM, pictured below) to deal with the uncertainty.</p>
@@ -199,7 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>However, the use of gene counts for statistical analysis can mask transcript-level dynamics. A popular alternative nowadays is to estimate the transcript abundances and then aggregate to gene level, or perform the entire analysis on trancsript level (testing for differential expression) and then aggregate the results.</p>
 </div>
 <div id="gene-level-quantification" class="section level2">
-<h2><span class="header-section-number">4.3</span> Gene level quantification</h2>
+<h2><span class="header-section-number">3.3</span> Gene level quantification</h2>
 <p>We shall, for simplicity’s sake, only perform gene level quantification. Even though it has some drawbacks, it’s a strategy still used by most genomic scientists. Here’s what we have at the beginning of the quantification step and what we want to estimate:</p>
 <ul>
 <li>We <strong>have</strong>: aligned reads and annotations. A file format called SAM/BAM is now the standard formats for next-generation sequence alignments.</li>
@@ -257,7 +255,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb18-9" data-line-number="9">        naive_gene_count <span class="op">+=</span> <span class="dv">1</span></a>
 <a class="sourceLine" id="cb18-10" data-line-number="10"> </a>
 <a class="sourceLine" id="cb18-11" data-line-number="11"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))   </a></code></pre></div>
-<pre><code>## --- 2.3253979682922363 seconds ---</code></pre>
+<pre><code>## --- 2.6046552658081055 seconds ---</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="bu">print</span>(naive_gene_count)</a></code></pre></div>
 <pre><code>## 1016</code></pre>
 <p>The problem with this approach is that to do this, you will need to store the entire file in memory. Worse than that, in order to find the reads within a single gene, you would need to iterate over the entire file, which can contain hundreds of millions of reads. This is quite slow even for a single gene, but will only increase if you want to look at many genes.</p>
@@ -272,7 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb23-6" data-line-number="6">    pysam_gene_count <span class="op">+=</span> <span class="dv">1</span></a>
 <a class="sourceLine" id="cb23-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb23-8" data-line-number="8"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))   </a></code></pre></div>
-<pre><code>## --- 0.014104366302490234 seconds ---</code></pre>
+<pre><code>## --- 0.01069951057434082 seconds ---</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="bu">print</span>(pysam_gene_count)</a></code></pre></div>
 <pre><code>## 1016</code></pre>
 <p>Not surprisingly, they are the same - the big difference is that the second method is significantly faster. The reason for this is that Pysam (like Samtools, Picard, and other similar toolkits) make use of clever tricks to index the file by genomic positions to more efficiently search for reads within a given genomic interval.</p>
@@ -309,7 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb30-10" data-line-number="10">        gene_counts.update({tokens[<span class="dv">3</span>].rstrip() : count})  </a>
 <a class="sourceLine" id="cb30-11" data-line-number="11">        </a>
 <a class="sourceLine" id="cb30-12" data-line-number="12"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time)) </a></code></pre></div>
-<pre><code>## --- 1.7020409107208252 seconds ---</code></pre>
+<pre><code>## --- 1.7406764030456543 seconds ---</code></pre>
 <p>Now it’s easy to query the gene counts for different genes.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="bu">print</span>(gene_counts.get(<span class="st">&quot;ARFGEF2&quot;</span>))</a></code></pre></div>
 <pre><code>## 7283</code></pre>
@@ -319,7 +317,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## 1641</code></pre>
 </div>
 <div id="within-sample-normalization" class="section level2">
-<h2><span class="header-section-number">4.4</span> (Within-sample) Normalization</h2>
+<h2><span class="header-section-number">3.4</span> (Within-sample) Normalization</h2>
 <p>In previous slides, we’ve seen how we can compute raw <em>counts</em>, i.e. number of reads that align to a particular feature (gene or transcript).</p>
 <p><span class="math display">\[X_{i}\]</span></p>
 <p>These numbers are heavily dependent on two things:
@@ -328,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[\widetilde{l_{i}}=l_{i}-\mu_{FLD}+1\]</span></p>
 <p>Since counts are NOT scaled by the length of the feature, all units in this category are not comparable within a sample without adjusting for the feature length!</p>
 <div id="different-units" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Different units</h3>
+<h3><span class="header-section-number">3.4.1</span> Different units</h3>
 <ul>
 <li><strong>R</strong>eads <strong>P</strong>er <strong>K</strong>ilobase per <strong>M</strong>illion reads mapped (<strong>RPKM</strong>), or for the paired-end reads: <strong>FPKM</strong> (<strong>F</strong>ragments instead of <strong>R</strong>eads).</li>
 </ul>
@@ -448,7 +446,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb53-3" data-line-number="3">gene_counts <span class="op">=</span> tpm(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, bamfile)</a>
 <a class="sourceLine" id="cb53-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb53-5" data-line-number="5"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))  </a></code></pre></div>
-<pre><code>## --- 2.6655659675598145 seconds ---</code></pre>
+<pre><code>## --- 2.7106235027313232 seconds ---</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb55-1" data-line-number="1">gene_counts.head(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##             raw_count  gene_length          tpm
 ## DEFB125          1016         9845   162.980261
@@ -493,7 +491,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb58-3" data-line-number="3">gene_counts_rpkm <span class="op">=</span> rpkm(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, bamfile)</a>
 <a class="sourceLine" id="cb58-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb58-5" data-line-number="5"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))  </a></code></pre></div>
-<pre><code>## --- 2.649656057357788 seconds ---</code></pre>
+<pre><code>## --- 2.8218936920166016 seconds ---</code></pre>
 <div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb60-1" data-line-number="1">gene_counts_rpkm.head(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##             raw_count  gene_length        rpkm
 ## DEFB125        1016.0       9845.0   61.832560
@@ -510,6 +508,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
+
+
+
+
+
+
+
             </section>
 
           </div>

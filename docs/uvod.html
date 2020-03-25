@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Poglavlje 2 Uvod | Analiza RNA-Seq podataka</title>
+  <title>1 Uvod | Analiza RNA-Seq podataka</title>
   <meta name="description" content="Materijali za deo kursa posvecen analizi RNA-Seq podataka" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Poglavlje 2 Uvod | Analiza RNA-Seq podataka" />
+  <meta property="og:title" content="1 Uvod | Analiza RNA-Seq podataka" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="markozecevic/RNA-Seq" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Poglavlje 2 Uvod | Analiza RNA-Seq podataka" />
+  <meta name="twitter:title" content="1 Uvod | Analiza RNA-Seq podataka" />
   
   <meta name="twitter:description" content="Materijali za deo kursa posvecen analizi RNA-Seq podataka" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="marko.zecevic@sbgenomics.com" />
 
 
-<meta name="date" content="2020-03-22" />
+<meta name="date" content="2020-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,29 +127,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Podesavanja</a></li>
-<li class="chapter" data-level="2" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>2</b> Uvod</a><ul>
-<li class="chapter" data-level="2.1" data-path="uvod.html"><a href="uvod.html#the-central-dogma-of-molecular-biology"><i class="fa fa-check"></i><b>2.1</b> The central dogma of molecular biology</a></li>
-<li class="chapter" data-level="2.2" data-path="uvod.html"><a href="uvod.html#why-measure-gene-expression"><i class="fa fa-check"></i><b>2.2</b> Why measure gene expression?</a></li>
-<li class="chapter" data-level="2.3" data-path="uvod.html"><a href="uvod.html#before-sequencing---library-prep"><i class="fa fa-check"></i><b>2.3</b> Before sequencing - library prep!</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="uvod.html"><a href="uvod.html#dna-microarrays"><i class="fa fa-check"></i><b>2.3.1</b> DNA microarrays</a></li>
-<li class="chapter" data-level="2.3.2" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>2.3.2</b> RNA-Seq</a></li>
-<li class="chapter" data-level="2.3.3" data-path="uvod.html"><a href="uvod.html#rna-seq-analysis-goals"><i class="fa fa-check"></i><b>2.3.3</b> RNA-Seq analysis goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Podesavanja</a></li>
+<li class="chapter" data-level="1" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>1</b> Uvod</a><ul>
+<li class="chapter" data-level="1.1" data-path="uvod.html"><a href="uvod.html#centralna-dogma-molekularne-biologije"><i class="fa fa-check"></i><b>1.1</b> Centralna dogma molekularne biologije</a></li>
+<li class="chapter" data-level="1.2" data-path="uvod.html"><a href="uvod.html#transkripti"><i class="fa fa-check"></i><b>1.2</b> Transkripti</a></li>
+<li class="chapter" data-level="1.3" data-path="uvod.html"><a href="uvod.html#dna-microarrays"><i class="fa fa-check"></i><b>1.3</b> DNA microarrays</a></li>
+<li class="chapter" data-level="1.4" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>1.4</b> RNA-Seq</a></li>
+<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#rna-seq-analysis-goals"><i class="fa fa-check"></i><b>1.5</b> RNA-Seq analysis goals</a></li>
 </ul></li>
+<li class="chapter" data-level="2" data-path="poravnanje.html"><a href="poravnanje.html"><i class="fa fa-check"></i><b>2</b> Poravnanje</a><ul>
+<li class="chapter" data-level="2.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>2.1</b> Alignment challenges</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="poravnanje.html"><a href="poravnanje.html#how-tophat2-handles-these-issues"><i class="fa fa-check"></i><b>2.1.1</b> How Tophat2 handles these issues</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="poravnanje.html"><a href="poravnanje.html"><i class="fa fa-check"></i><b>3</b> Poravnanje</a><ul>
-<li class="chapter" data-level="3.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>3.1</b> Alignment challenges</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="poravnanje.html"><a href="poravnanje.html#how-tophat2-handles-these-issues"><i class="fa fa-check"></i><b>3.1.1</b> How Tophat2 handles these issues</a></li>
+<li class="chapter" data-level="2.2" data-path="poravnanje.html"><a href="poravnanje.html#tophat2-algorithm"><i class="fa fa-check"></i><b>2.2</b> Tophat2 algorithm</a></li>
+<li class="chapter" data-level="2.3" data-path="poravnanje.html"><a href="poravnanje.html#alignment-file"><i class="fa fa-check"></i><b>2.3</b> Alignment file</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="poravnanje.html"><a href="poravnanje.html#tophat2-algorithm"><i class="fa fa-check"></i><b>3.2</b> Tophat2 algorithm</a></li>
-<li class="chapter" data-level="3.3" data-path="poravnanje.html"><a href="poravnanje.html#alignment-file"><i class="fa fa-check"></i><b>3.3</b> Alignment file</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="kvantifikacija.html"><a href="kvantifikacija.html"><i class="fa fa-check"></i><b>4</b> Kvantifikacija</a><ul>
-<li class="chapter" data-level="4.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#motivation-for-rna-seq-quantification"><i class="fa fa-check"></i><b>4.1</b> Motivation for RNA-Seq quantification</a></li>
-<li class="chapter" data-level="4.2" data-path="kvantifikacija.html"><a href="kvantifikacija.html#rna-seq-quantification"><i class="fa fa-check"></i><b>4.2</b> RNA-Seq quantification</a></li>
-<li class="chapter" data-level="4.3" data-path="kvantifikacija.html"><a href="kvantifikacija.html#gene-level-quantification"><i class="fa fa-check"></i><b>4.3</b> Gene level quantification</a></li>
-<li class="chapter" data-level="4.4" data-path="kvantifikacija.html"><a href="kvantifikacija.html#within-sample-normalization"><i class="fa fa-check"></i><b>4.4</b> (Within-sample) Normalization</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#different-units"><i class="fa fa-check"></i><b>4.4.1</b> Different units</a></li>
+<li class="chapter" data-level="3" data-path="kvantifikacija.html"><a href="kvantifikacija.html"><i class="fa fa-check"></i><b>3</b> Kvantifikacija</a><ul>
+<li class="chapter" data-level="3.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#motivation-for-rna-seq-quantification"><i class="fa fa-check"></i><b>3.1</b> Motivation for RNA-Seq quantification</a></li>
+<li class="chapter" data-level="3.2" data-path="kvantifikacija.html"><a href="kvantifikacija.html#rna-seq-quantification"><i class="fa fa-check"></i><b>3.2</b> RNA-Seq quantification</a></li>
+<li class="chapter" data-level="3.3" data-path="kvantifikacija.html"><a href="kvantifikacija.html#gene-level-quantification"><i class="fa fa-check"></i><b>3.3</b> Gene level quantification</a></li>
+<li class="chapter" data-level="3.4" data-path="kvantifikacija.html"><a href="kvantifikacija.html#within-sample-normalization"><i class="fa fa-check"></i><b>3.4</b> (Within-sample) Normalization</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="kvantifikacija.html"><a href="kvantifikacija.html#different-units"><i class="fa fa-check"></i><b>3.4.1</b> Different units</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -170,52 +168,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="uvod" class="section level1">
-<h1><span class="header-section-number">Poglavlje 2</span> Uvod</h1>
-<p>Dezoksiribonukleinska kiselina (DNA) se nalazi u unutrašnjosti ćelija, organizovana u obliku hromozoma - dugačkih vlaknastih struktura. Kod čoveka je hromozom dvostruki, spiralno uvijeni lanac od 50 do 250 miliona nukleotida. Segment tog niza koji kodira RNA (ribonukleinska kiselina) molekul naziva se gen, a ceo skup genetskih instrukcija koje nosi neki organizam - genom. Humani genom sadrži nešto više od 20,000 gena.</p>
-<p>Poznato nam je da u svakoj ćeliji našeg organizma imamo praktično isti DNA (osim u haploidnim polnim ćelijama), ali isto tako znamo i da neke od tih ćelije vrše potpuno različite funkcije. Metabolizam ćelije kože i ćelije nervnog sistema se razlikuje, ali zašto kada je osnovni genetski kod isti?</p>
-<div id="the-central-dogma-of-molecular-biology" class="section level2">
-<h2><span class="header-section-number">2.1</span> The central dogma of molecular biology</h2>
-<p>(over)simplified: “DNA makes RNA, RNA makes proteins, proteins make us.”</p>
-<p>Centralna dogma molekularne biologije definise smer protoka biološke informacije: DNA kodira RNA, a RNA kodira protein (naravno, da bi regulacija bila moguća postoje i efekti suprotnog smera).</p>
-<p>I RNA i DNA molekuli su nizovi nukleotida. Nukleotidi koji čine DNA su adenin (A), guanin (G), citozin (C) i timin (T), dok se kod RNA timin zamenjuje uracilom (U).</p>
-<p><img src="images/dogma.png" width="500"></p>
-<ul>
-<li>Transcription</li>
-<li>Splicing</li>
-<li>Translation</li>
-</ul>
-<p>Genes active and their transcription rates and different for different cells.</p>
-<p>Informacija sadržana u segmentu DNA niza se može kopirati u RNA (kroz proces koji nazivamo ‘transkripcija’ uz posredstvo enzima RNA-polimeraze), informacijska RNA (mRNA) nastaje od pre-mRNA (procesom ‘splajsovanja’, u kojem se uklanjaju tzv. intronske regije/introni) i proteini se sintetišu nizanjem amino kiselina po mRNA šablonu (‘translacija’). Translacija se obavlja unutar ribozoma, organele sačinjene od ribozomalne RNA (rRNA) i proteina.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/2BwWavExcFI" frameborder="0" allowfullscreen>
+<h1><span class="header-section-number">1</span> Uvod</h1>
+<p>Dezoksiribonukleinska kiselina (DNA) je molekul nosilac naslednih informacija. Kod eukariotskih organizama, najveci broj ovih molekula nalazi se u jedru celije, a manji broj u organelama kao sto su mitohondrije i hloroplasti (u biljkama). Uglavnom je organizovana u hromozome - dugačke vlaknaste strukture. Kod čoveka je hromozom dvostruki, spiralno uvijeni lanac od 50 do 250 miliona nukleotida. Jedan segment tog niza koji kodira molekul ribonukleinske kiseline (RNA) naziva se <strong>gen</strong>, a ceo skup genetskih instrukcija koje nosi neki organizam - <strong>genom</strong>. Humani genom sadrži više od 20,000 gena.</p>
+<p>RNA kao i DNA molekuli su nizovi nukleotida. Nukleotidi koji čine DNA su adenin (A), guanin (G), citozin (C) i timin (T), dok se kod RNA timin zamenjuje uracilom (U).</p>
+<p>Svaka ćelija našeg organizma sadrzi praktično istu DNA (osim u <a href="https://sr.wikipedia.org/wiki/%D0%9F%D0%BB%D0%BE%D0%B8%D0%B4%D0%B8%D1%98%D0%B0">haploidnim</a> polnim ćelijama), ali neke od tih ćelija vrše potpuno različite funkcije. Folikularna celija stitaste zlezde i glatka misicna ćelija ocigledno imaju drasticno razlicit metabolizam, ali kako kada je osnovni genetski kod isti?</p>
+<div id="centralna-dogma-molekularne-biologije" class="section level2">
+<h2><span class="header-section-number">1.1</span> Centralna dogma molekularne biologije</h2>
+<p>(pre)pojednostavljeno: “DNA gradi RNA, RNA gradi proteine, proteini grade nas.”</p>
+<p>Centralna dogma molekularne biologije definise glavni smer toka biološke informacije: DNA kodira RNA, a RNA kodira protein.</p>
+<center>
+<img src="images/dogma.png" width="500">
+</center>
+<p><br></p>
+<p>U ovom toku informacije razlikujemo tri glavna procesa:</p>
+<ol style="list-style-type: decimal">
+<li>Informacija sadržana u segmentu DNA niza se može kopirati u RNA kroz proces koji nazivamo <strong>transkripcija</strong> uz posredstvo enzima RNA-polimeraze.</li>
+<li>Informacijska RNA (mRNA) nastaje od pre-mRNA procesom <strong>splajsovanja</strong>, u kojem se uklanjaju tzv. intronske regije (introni).</li>
+<li><strong>Translacijom</strong> nazivan proces sintetizovanja proteina nizanjem amino kiselina po mRNA šablonu. Translacija se obavlja unutar ribozoma - organele sačinjene od ribozomalne RNA (rRNA) i proteina.</li>
+</ol>
+<br>
+<center>
+<iframe width="560" height="315" align="middle" src="https://www.youtube.com/embed/2BwWavExcFI" frameborder="0" allowfullscreen>
 </iframe>
-<p>There are other types of RNA besides messenger RNA (mRNA): transfer RNA (tRNA), ribosomal RNA (rRNA), small and long non coding RNA (ncRNA).</p>
-<p>Tipovi RNA: informacijska ili messenger RNA (mRNA) zastupljena je sa oko ~5% u ćelijama sisara, ribozomalna RNA (rRNA) ~80%, transportna RNA koja takođe učestvuje u procesu translacije (tRNA) ~15% …</p>
-<p><br>
-<img src="images/Peptide_syn.png" width="400"></p>
-<p>Na enhancere se vezuju transcription faktori koji interaguju sa RNA-polimerazom (koja se vezuje na promoterski region gena) i povećavaju šansu da dođe to transkripcije. Postoje i regije koje imaju suprotnu regulatornu ulogu: silenceri.</p>
-<p>UTR = untranslated region, ne kodira protein</p>
-<p><img src="images/proc2.png" width="500"></p>
-<p><img src="images/proc1.png" width="500"></p>
-<p><img src="images/proc3.png" width="500"></p>
-<p><img src="images/proc4.png" width="500"></p>
-<p>From a single gene, multiple <strong>transcripts</strong>(<strong>isoforms</strong>) can (and usually will) be formed.</p>
-<p><br>
-<img src="images/isoforms.png" width="700"></p>
+</center>
+<p><br></p>
+<p>Ovo je pojednostavljeno vidjenje jer postoje i efekti suprotnog smera. Intinuitivno nam je jasno da aktivnost odredjenog gena varira u vremenu i od celije do celije - dakle neki sistem regulacije postoji.</p>
+<br>
+<center>
+<img src="images/proc2.png" width="500">
+</center>
+<p><br></p>
+<p>Promoterski region je segment duzine 100-1000 baza koji se nalazi uz gen na 5’ strani. Ovde se inicijalno vezuje RNA-polimeraza i zapocinje proces transkripcije. Pojacivaci (<em>enhancers</em>) mogu biti i udaljeni od pocetka gena i locirani u bilo kom pravcu. Na njih se vezuju transcription faktori koji interaguju sa RNA-polimerazom i tako povećavaju šansu da dođe to transkripcije. Postoje i regioni koje imaju suprotnu regulatornu ulogu.</p>
+<br>
+<center>
+<img src="images/proc1.png" width="500">
+</center>
+<p><br></p>
+<p>Prvi proizvod transkripcije je takozvani primarni transkript (pre-mRNA). On je doslovno prepisan <em>coding strand</em> od pocetka do kraja gena, osim sto je svako T zamenjeno sa U<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. U procesu formiranja zrele RNA intronske sekvence bivaju uklonjene.</p>
+<br>
+<center>
+<img src="images/proc3.png" width="500">
+</center>
+<p><br></p>
+<p>Sinteza proteina se obavlja u ribozomima u procesu u kojem se kod zapisan sa cetiri nukleinske kiseline prevodi u kod 20 aminokiselina koje se nizu po odredjenom obrascu. Ulogu prevodioca igraju tRNA molekuli koji jednim svojim krajem prepoznaju odgovarajuci (komplementaran) kodon<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> na mRNA, a na drugom kraju nose odgovarajuću aminokiselinu.</p>
+<p>UTR = <em>untranslated region</em>, ne kodira protein.</p>
+<br>
+<center>
+<img src="images/proc4.png" width="500">
+</center>
+<p><br></p>
+<p>Spomenuli smo ribozome i tRNA, pa je vreme da napomenemo da postoji vise vrsta RNA molekula: informacijska (mRNA), transfer RNA (tRNA), ribosomalna RNA (rRNA), kratka i duga nekodirajuca RNA (ncRNA).</p>
+<p>Informacijska ili messenger RNA (mRNA) zastupljena je sa oko ~5% u ćelijama sisara, ribozomalna RNA (rRNA) ~80%, transportna RNA koja takođe učestvuje u procesu translacije (tRNA) ~15% …</p>
+<br>
+<center>
+<img src="images/Peptide_syn.png" width="400">
+</center>
+<p><br></p>
+</div>
+<div id="transkripti" class="section level2">
+<h2><span class="header-section-number">1.2</span> Transkripti</h2>
+<p>Od jednog gena, nakon slajsinga, mogu nastati razlicite varijante mRNA molekula koje nazivamo <strong>transkripti</strong> (ili <strong>izoforme</strong>). Ekvivalentno relaciji gen-genom, ‘katalog’ svih mogućih transkripata zovemo <strong>transkritom</strong>.</p>
+<br>
+<center>
+<img src="images/isoforms.png" width="700">
+</center>
 <p>Alternativno splajsovanje je proces kojim od pre-mRNA koji je doslovno prepisan DNA kod nastaje mRNA koji će kodirati protein. Splajsovanjem dolazi do odstranjivanja intronskih regija (introna), ali se isto može desiti i pojedinim eksonima. Rezultujući različiti mRNA molekuli mogu biti translirani u različite proteine, odnosno - jedan gen može da kodira više proteina.</p>
 <p>Alternativno splajsovanje se javlja kao normalna pojava kod eukariota, gde znatno povećava raznovrsnost proteina. Kod ljudi preko 80% gena su alternativno splajsovani. Brojni modovi alternativnog splajsovanja su uočeni, od kojih najčešći jeste preskakanje eksona. U tom modu, pojedini ekson može biti uključen u mRNA pod nekim uslovima ili u pojedinim tkivima, i izostavljen iz mRNA u drugim.</p>
 <p>Ovo je nešto što će otežati problem alignmenta (poravnanja) na referentni genom. Aligner mora biti ‘splice aware’!</p>
-<p>Rezultat splajsinga nazivamo ‘transkript’ (ili ‘izoforma’). To je jedna od varijanti mRNA molekula koja može nastati od nekog gena. Ekvivalentno relaciji gen-genom, ‘katalog’ svih mogućih transkripata nazivamo ‘transkritom’.</p>
 </div>
-<div id="why-measure-gene-expression" class="section level2">
-<h2><span class="header-section-number">2.2</span> Why measure gene expression?</h2>
-<p>Proteini (belančevine) predstavljaju za žive sisteme najznačajnije organske molekule. Osim što izgrađuju ćeliju i njene delove, proteini obavljaju i sve osnovne funkcije u organizmu.</p>
-<p>Izuzetno je komplikovano direktno izmeriti relativnu zastupljenost određenog proteina u uzorku. Zato merimo relativnu zastupljenost mRNA molekula koji kodira taj protein!</p>
-<p><strong>Because gene expression correlates with protein expression!</strong></p>
-<p>Even though nearly every cell in an organism’s body contains the same set of genes, only a fraction of these genes are used in any given cell at any given time. It is this carefully controlled pattern of what is called “gene expression” that makes a liver cell different from a muscle cell, and a healthy cell different from a cancer cell.</p>
-<p>By measuring gene expression, we can identify active and inactive genes in a cell or tissue. This knowledge is important for drug discovery and creating diagnostic tests.</p>
+<div id="dna-microarrays" class="section level2">
+<h2><span class="header-section-number">1.3</span> DNA microarrays</h2>
+<ul>
+<li>Around since late 80’s.</li>
+<li>Microscope slides with thousands of tiny spots, each spot containing a known DNA sequence or gene. These sequences act as probes to detect gene expression.</li>
+<li>Molecules in the sample are labeled with fluorescent probes.</li>
+<li>The process in which the sample molecules bind to the DNA probes on the slide is called hybridization.</li>
+<li>Following hybridization, the microarray is scanned to measure the expression of each gene printed on the slide.</li>
+</ul>
+<br>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1_wDrqgS8w8" frameborder="0" allowfullscreen>
+</iframe>
+</center>
+<p><br></p>
 </div>
-<div id="before-sequencing---library-prep" class="section level2">
-<h2><span class="header-section-number">2.3</span> Before sequencing - library prep!</h2>
+<div id="rna-seq" class="section level2">
+<h2><span class="header-section-number">1.4</span> RNA-Seq</h2>
+<ul>
+<li>A major breakthrough (replaced microarrays) in the late 00’s and has been widely used since.</li>
+<li>Uses next-generation sequencing (NGS) to reveal the presence and quantity of RNA in a biological sample at a given moment.</li>
+<li>Able to detect novel (undiscovered) isoforms and has a broader dynamic range compapred to microarrays.</li>
+</ul>
+<br>
+<center>
+<img src="images/Bo7TRo5IUAAJ6KD.jpg" width="450">
+</center>
+<p><br></p>
+<br>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/womKfikWlxM" frameborder="0" allowfullscreen>
+</iframe>
+</center>
+<p><br></p>
 <p>Choosing the appropriate sequencing protocol:</p>
 <ul>
 <li><p>Most of the RNA in a cell is ribosomal RNA (an RNA component of ribosome which is approx 60% rRNA and 40% protein). This is an issue since most scientists (and enthusiasts like us) will be interested in mRNA because of its protein coding function. There are two popular methods for increasing mRNA concentration in your samples:</p>
@@ -229,45 +283,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>…</p></li>
 </ul>
 <p>Then what? Microarrays or RNA-Seq!</p>
-<div id="dna-microarrays" class="section level3">
-<h3><span class="header-section-number">2.3.1</span> DNA microarrays</h3>
-<ul>
-<li>Around since late 80’s.</li>
-<li>Microscope slides with thousands of tiny spots, each spot containing a known DNA sequence or gene. These sequences act as probes to detect gene expression.</li>
-<li>Molecules in the sample are labeled with fluorescent probes.</li>
-<li>The process in which the sample molecules bind to the DNA probes on the slide is called hybridization.</li>
-<li>Following hybridization, the microarray is scanned to measure the expression of each gene printed on the slide.</li>
-</ul>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1_wDrqgS8w8" frameborder="0" allowfullscreen>
-</iframe>
 </div>
-<div id="rna-seq" class="section level3">
-<h3><span class="header-section-number">2.3.2</span> RNA-Seq</h3>
-<ul>
-<li>A major breakthrough (replaced microarrays) in the late 00’s and has been widely used since.</li>
-<li>Uses next-generation sequencing (NGS) to reveal the presence and quantity of RNA in a biological sample at a given moment.</li>
-<li>Able to detect novel (undiscovered) isoforms and has a broader dynamic range compapred to microarrays.</li>
-</ul>
-<p><img src="images/Bo7TRo5IUAAJ6KD.jpg" width="450"></p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/womKfikWlxM" frameborder="0" allowfullscreen>
-</iframe>
-</div>
-<div id="rna-seq-analysis-goals" class="section level3">
-<h3><span class="header-section-number">2.3.3</span> RNA-Seq analysis goals</h3>
+<div id="rna-seq-analysis-goals" class="section level2">
+<h2><span class="header-section-number">1.5</span> RNA-Seq analysis goals</h2>
 <ul>
 <li>Reconstruct the full set of transcripts (isoforms) of genes that were present in the original cells. This catalogue of transcripts is called <strong>transcriptome</strong>.</li>
 <li>Estimate the expression levels for all transcripts.</li>
 </ul>
-<p>The basics will be laid out in following lectures:</p>
-<ol style="list-style-type: decimal">
-<li>Introduction</li>
-<li><strong>Alignment</strong></li>
-<li><strong>Quantification</strong></li>
-<li><strong>Differential expression</strong></li>
-</ol>
+<p>Why measure gene expression?</p>
+<p>Proteini (belančevine) predstavljaju za žive sisteme najznačajnije organske molekule. Osim što izgrađuju ćeliju i njene delove, proteini obavljaju i sve osnovne funkcije u organizmu.</p>
+<p>Izuzetno je komplikovano direktno izmeriti relativnu zastupljenost određenog proteina u uzorku. Zato merimo relativnu zastupljenost mRNA molekula koji kodira taj protein!</p>
+<p><strong>Because gene expression correlates with protein expression!</strong></p>
+<p>Even though nearly every cell in an organism’s body contains the same set of genes, only a fraction of these genes are used in any given cell at any given time. It is this carefully controlled pattern of what is called “gene expression” that makes a liver cell different from a muscle cell, and a healthy cell different from a cancer cell.</p>
+<p>By measuring gene expression, we can identify active and inactive genes in a cell or tissue. This knowledge is important for drug discovery and creating diagnostic tests.</p>
 
 </div>
 </div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Khan Academy ima odlicnu ilustraciju citavog procesa transkripcije <a href="https://www.khanacademy.org/science/biology/gene-expression-central-dogma/transcription-of-dna-into-rna/a/overview-of-transcription?modal=1">ovde</a><a href="uvod.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Kodon = niz od 3 susedna nukleotida. Triplet je i najkraci niz nukleotida koji moze da kodira 20 razlicitih aminokiselina jer je <span class="math inline">\(4^{3}&gt;20\)</span>.<a href="uvod.html#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
