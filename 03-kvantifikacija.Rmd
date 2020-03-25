@@ -13,23 +13,26 @@ import pysam
 
 ## Motivation for RNA-Seq quantification
 
-- Typical studies:
-    - DNA-Seq -> alignment -> variant calling -> genome wide association study (GWAS);
+Typical studies:
+
+- DNA-Seq -> alignment -> variant calling -> genome wide association study (GWAS);
   
-    <img src="images/GWAS2-700x438.png" width="400">
+<center><img src="images/GWAS2-700x438.png" width="400"></center>
     
-    - RNA-Seq -> alignment -> quantification -> differential expression analysis
+- RNA-Seq -> alignment -> quantification -> differential expression analysis
     
 ## RNA-Seq quantification
+
+Pod pojmom kvantifikacije, u kontekstu RNA-Seq analize, podrazumevamo procenu relativne zastupljenosti mRNA molekula u uzorku.
 
 Counting versus probabilistic estimation dilemma is (mostly) about doing analysis on gene versus transcript level.
 - When quantifying on **gene** level - we simply count the number of reads aligned to each gene.
 - On **transcript** level, we need an algorithm such as the Expectation Maximization (EM, pictured below) to deal with the uncertainty.
 
 <br>
-<img src="images/em1.png" width="550">
+<center><img src="images/em1.png" width="550"></center>
 
-<img src="images/em2.png" width="550">
+<center><img src="images/em2.png" width="550"></center>
 
 When performing statistical analysis of RNA expression, doing it on gene level compared to transcript level is more robust and experimentally actionable. The biologists will also usually draw their conclusions on gene level since that's the level that the biological pathways are annotated on. 
 
@@ -80,11 +83,6 @@ gene = ('chr20', 87249, 97094)
 
 To start exploring reads from a SAM/BAM file, we first need to load the file.
 
-
-
-
-
-
 ```{python}
 # load BAM file
 bamfile = pysam.AlignmentFile("/opt/aligned/sample_01_accepted_hits.bam", "rb")
@@ -112,8 +110,6 @@ def overlap(x, gene, bamfile):
 ```
 
 
-
-
 ```{python}
 start_time = time.time()
 
@@ -129,12 +125,9 @@ print("--- %s seconds ---" % (time.time() - start_time))
 ```
 
 
-
-
 ```{python}
 print(naive_gene_count)
 ```
-
 
 The problem with this approach is that to do this, you will need to store the entire file in memory. Worse than that, in order to find the reads within a single gene, you would need to iterate over the entire file, which can contain hundreds of millions of reads. This is quite slow even for a single gene, but will only increase if you want to look at many genes.
 
@@ -148,7 +141,6 @@ bam_iter = bamfile.fetch(gene[0], gene[1], gene[2])
 ```
 
 
-
 ```{python}
 start_time = time.time()
 
@@ -159,7 +151,6 @@ for x in bam_iter:
 
 print("--- %s seconds ---" % (time.time() - start_time))   
 ```
-
 
 
 ```{python}

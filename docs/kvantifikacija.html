@@ -136,9 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#rna-seq-analysis-goals"><i class="fa fa-check"></i><b>1.5</b> RNA-Seq analysis goals</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="poravnanje.html"><a href="poravnanje.html"><i class="fa fa-check"></i><b>2</b> Poravnanje</a><ul>
-<li class="chapter" data-level="2.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>2.1</b> Alignment challenges</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="poravnanje.html"><a href="poravnanje.html#how-tophat2-handles-these-issues"><i class="fa fa-check"></i><b>2.1.1</b> How Tophat2 handles these issues</a></li>
-</ul></li>
+<li class="chapter" data-level="2.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>2.1</b> Alignment challenges</a></li>
 <li class="chapter" data-level="2.2" data-path="poravnanje.html"><a href="poravnanje.html#tophat2-algorithm"><i class="fa fa-check"></i><b>2.2</b> Tophat2 algorithm</a></li>
 <li class="chapter" data-level="2.3" data-path="poravnanje.html"><a href="poravnanje.html#alignment-file"><i class="fa fa-check"></i><b>2.3</b> Alignment file</a></li>
 </ul></li>
@@ -174,25 +172,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="im">import</span> pysam</a></code></pre></div>
 <div id="motivation-for-rna-seq-quantification" class="section level2">
 <h2><span class="header-section-number">3.1</span> Motivation for RNA-Seq quantification</h2>
-<ul>
-<li>Typical studies:
+<p>Typical studies:</p>
 <ul>
 <li>DNA-Seq -&gt; alignment -&gt; variant calling -&gt; genome wide association study (GWAS);</li>
 </ul>
-<p><img src="images/GWAS2-700x438.png" width="400"></p>
+<center>
+<img src="images/GWAS2-700x438.png" width="400">
+</center>
 <ul>
 <li>RNA-Seq -&gt; alignment -&gt; quantification -&gt; differential expression analysis</li>
-</ul></li>
 </ul>
 </div>
 <div id="rna-seq-quantification" class="section level2">
 <h2><span class="header-section-number">3.2</span> RNA-Seq quantification</h2>
+<p>Pod pojmom kvantifikacije, u kontekstu RNA-Seq analize, podrazumevamo procenu relativne zastupljenosti mRNA molekula u uzorku.</p>
 <p>Counting versus probabilistic estimation dilemma is (mostly) about doing analysis on gene versus transcript level.
 - When quantifying on <strong>gene</strong> level - we simply count the number of reads aligned to each gene.
 - On <strong>transcript</strong> level, we need an algorithm such as the Expectation Maximization (EM, pictured below) to deal with the uncertainty.</p>
-<p><br>
-<img src="images/em1.png" width="550"></p>
-<p><img src="images/em2.png" width="550"></p>
+<br>
+<center>
+<img src="images/em1.png" width="550">
+</center>
+<center>
+<img src="images/em2.png" width="550">
+</center>
 <p>When performing statistical analysis of RNA expression, doing it on gene level compared to transcript level is more robust and experimentally actionable. The biologists will also usually draw their conclusions on gene level since that’s the level that the biological pathways are annotated on.</p>
 <p>However, the use of gene counts for statistical analysis can mask transcript-level dynamics. A popular alternative nowadays is to estimate the transcript abundances and then aggregate to gene level, or perform the entire analysis on trancsript level (testing for differential expression) and then aggregate the results.</p>
 </div>
@@ -255,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb18-9" data-line-number="9">        naive_gene_count <span class="op">+=</span> <span class="dv">1</span></a>
 <a class="sourceLine" id="cb18-10" data-line-number="10"> </a>
 <a class="sourceLine" id="cb18-11" data-line-number="11"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))   </a></code></pre></div>
-<pre><code>## --- 2.6046552658081055 seconds ---</code></pre>
+<pre><code>## --- 2.236524820327759 seconds ---</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="bu">print</span>(naive_gene_count)</a></code></pre></div>
 <pre><code>## 1016</code></pre>
 <p>The problem with this approach is that to do this, you will need to store the entire file in memory. Worse than that, in order to find the reads within a single gene, you would need to iterate over the entire file, which can contain hundreds of millions of reads. This is quite slow even for a single gene, but will only increase if you want to look at many genes.</p>
@@ -270,7 +273,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb23-6" data-line-number="6">    pysam_gene_count <span class="op">+=</span> <span class="dv">1</span></a>
 <a class="sourceLine" id="cb23-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb23-8" data-line-number="8"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))   </a></code></pre></div>
-<pre><code>## --- 0.01069951057434082 seconds ---</code></pre>
+<pre><code>## --- 0.01112818717956543 seconds ---</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="bu">print</span>(pysam_gene_count)</a></code></pre></div>
 <pre><code>## 1016</code></pre>
 <p>Not surprisingly, they are the same - the big difference is that the second method is significantly faster. The reason for this is that Pysam (like Samtools, Picard, and other similar toolkits) make use of clever tricks to index the file by genomic positions to more efficiently search for reads within a given genomic interval.</p>
@@ -307,7 +310,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb30-10" data-line-number="10">        gene_counts.update({tokens[<span class="dv">3</span>].rstrip() : count})  </a>
 <a class="sourceLine" id="cb30-11" data-line-number="11">        </a>
 <a class="sourceLine" id="cb30-12" data-line-number="12"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time)) </a></code></pre></div>
-<pre><code>## --- 1.7406764030456543 seconds ---</code></pre>
+<pre><code>## --- 1.7198684215545654 seconds ---</code></pre>
 <p>Now it’s easy to query the gene counts for different genes.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="bu">print</span>(gene_counts.get(<span class="st">&quot;ARFGEF2&quot;</span>))</a></code></pre></div>
 <pre><code>## 7283</code></pre>
@@ -446,7 +449,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb53-3" data-line-number="3">gene_counts <span class="op">=</span> tpm(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, bamfile)</a>
 <a class="sourceLine" id="cb53-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb53-5" data-line-number="5"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))  </a></code></pre></div>
-<pre><code>## --- 2.7106235027313232 seconds ---</code></pre>
+<pre><code>## --- 2.7539796829223633 seconds ---</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb55-1" data-line-number="1">gene_counts.head(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##             raw_count  gene_length          tpm
 ## DEFB125          1016         9845   162.980261
@@ -491,7 +494,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb58-3" data-line-number="3">gene_counts_rpkm <span class="op">=</span> rpkm(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, bamfile)</a>
 <a class="sourceLine" id="cb58-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb58-5" data-line-number="5"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))  </a></code></pre></div>
-<pre><code>## --- 2.8218936920166016 seconds ---</code></pre>
+<pre><code>## --- 2.6746280193328857 seconds ---</code></pre>
 <div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb60-1" data-line-number="1">gene_counts_rpkm.head(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##             raw_count  gene_length        rpkm
 ## DEFB125        1016.0       9845.0   61.832560

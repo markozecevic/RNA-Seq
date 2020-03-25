@@ -5,9 +5,9 @@ library(reticulate)
 use_condaenv("compbio", required = TRUE)
 ```
 
-\* Adapted from [Tophat2 paper](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2013-14-4-r36)
+\* Ovo poglavlje je adaptirano iz rada koji opisuje TopHat2 [Tophat2 paper](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2013-14-4-r36) *aligner*.
 
-<img src="images/RNA-Seq-alignment.png" width="550">
+<center><img src="images/RNA-Seq-alignment.png" width="550"></center>
 
 ## Alignment challenges
 
@@ -19,6 +19,9 @@ In contrast to DNA-Seq alignment, RNA-Seq mapping algorithms have two additional
 
 2. The presence of processed pseudogenes, from which some or all introns have been removed, may cause many exon-spanning reads to map incorrectly. This is particularly acute for the human genome, which contains over 14,000 pseudogenes.
 
+Pseudogeni su nefunkcionalni srodnici gena koji su izgubili sposobnost kodiranja proteina ili više ne bivaju izraženi u ćeliji. Mada neki od njih nemaju introne ili promotere (to su najčešće pseudogeni koji su kopirani sa mRNA i inkorporirani nazad u hromozome, poznati kao obrađeni/processed pseudogeni). Oni se smatraju nefunkcionalnim zbog njihovog nedostatka sposobnosti da kodiraju proteine, što je posledica raznih genetičkih oštećenja (prerani stop kodoni, pomeranja okvira čitanja, ili odsustva transkripcije), ili zbog njihove nesposobnosti da kodiraju RNA (kao kod rRNA pseudogena). 
+Pseudogeni se generalno smatraju zadnjom stanicom genomskog materijala koja može biti uklonjena iz genoma, te se često obeležavaju kao *junk* DNA.
+
 Some numbers (Ensembl GRCh37 gene annotations, release 66 from 2012):
 
 - average length of a mature mRNA transcript in the human genome is 2,227 bp.
@@ -29,12 +32,12 @@ Assuming that sequencing reads are uniformly distributed along a transcript, we 
 
 More important for the alignment problem is that around 20% of junction-spanning reads extend by 10 bp or less into one of the exons they span.
 
-<img src="images/gb-2013-14-4-r36-1.jpg" width="550">
+<center><img src="images/gb-2013-14-4-r36-1.jpg" width="550"></center>
 
 1. A read extending a few bases into the flanking exon can be aligned to the intron instead of the exon. 
 2. A read spanning multiple exons from genes with processed pseudogene copies can be aligned to the pseudogene copies instead of the gene from which it originates.
 
-### How Tophat2 handles these issues
+How Tophat2 handles these issues:
 
 1. If a read extends only a few bases into one of two adjacent exons, then it often happens that the read will align equally well, but incorrectly, with the sequence of the intervening intron. To handle this problem, the appropriate algorithm detects potential splice sites for introns (GT-AG, GC-AG, and AT-AC). It uses these candidate splice sites in a subsequent step to correctly align multiexon-spanning reads.
 
@@ -42,25 +45,24 @@ More important for the alignment problem is that around 20% of junction-spanning
 
 ## Tophat2 algorithm
 
+<center><img src="images/legend.png" width="600"></center>
+<center><img src="images/th1.png" width="600"></center>
 
-<img src="images/legend.png" width="600">
-<img src="images/th1.png" width="600">
-
 Given RNA-Seq reads as input, TopHat2 begins by mapping reads against the known transcriptome (if available).
 
-<img src="images/th2.png" width="600">
+<center><img src="images/th2.png" width="600"></center>
 
-TopHat2 aligns unmapped reads against the genome. Any reads contained entirely within exons will be mapped, whereas other spanning introns may not be.
+TopHat2 aligns unmapped reads against the genome. Any reads contained entirely within exons will be mapped, whereas other spanning introns may not be. Tophat interno koristi Bowtie aligner (od istih autora) za klasičan alignment.
 
-<img src="images/th3.png" width="600">
+<center><img src="images/th3.png" width="600"></center>
 
 The unmapped reads are split into smaller non-overlapping segments (25 bp each by default) which are then aligned against the genome.
 
-<img src="images/th4.png" width="600">
+<center><img src="images/th4.png" width="600"></center>
 
 Tophat2 examines any cases in which the left and right segments of the same read are mapped within a user-defined maximum intron size (usually between 50 and 100,000 bp). When this pattern is detected, TopHat2 re-aligns the entire read sequence to that genomic region in order to identify the most likely location of the splice site. It pays attention to the known junction signals (GT-AG, GC-AG, and AT-AC). The resulting spliced sequences are collected as a set of potential transcript fragments. Any reads not mapped in the previous stages (or mapped very poorly) are then re-aligned against this novel transcriptome.
 
-<img src="images/th7.png" width="600">
+<center><img src="images/th7.png" width="600"></center>
 
 After these steps, some of the reads may have been aligned incorrectly by extending an exonic alignment a few bases into the adjacent intron. TopHat2 checks if such alignments extend into the introns identified in the split-alignment phase; if so, it can realign these reads to the adjacent exons instead.
 
@@ -70,7 +72,7 @@ For paired-end reads, TopHat2 processes the two reads separately through the sam
 
 ## Alignment file
 
-<img src="images/20110524zurichngs-1st-pub-61-728.jpg" width="700">
+<center><img src="images/20110524zurichngs-1st-pub-61-728.jpg" width="700"></center>
 
 CIGAR: a string describing how the read aligns with the reference. It consists of one or more components. Each component comprises an operator and the number of bases which the operator applies to. Operators are: MIDNSHP=X.
 
