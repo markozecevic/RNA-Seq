@@ -24,7 +24,7 @@
 <meta name="author" content="marko.zecevic@sbgenomics.com" />
 
 
-<meta name="date" content="2020-03-25" />
+<meta name="date" content="2020-03-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -131,9 +131,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>1</b> Uvod</a><ul>
 <li class="chapter" data-level="1.1" data-path="uvod.html"><a href="uvod.html#centralna-dogma-molekularne-biologije"><i class="fa fa-check"></i><b>1.1</b> Centralna dogma molekularne biologije</a></li>
 <li class="chapter" data-level="1.2" data-path="uvod.html"><a href="uvod.html#transkripti"><i class="fa fa-check"></i><b>1.2</b> Transkripti</a></li>
-<li class="chapter" data-level="1.3" data-path="uvod.html"><a href="uvod.html#dna-microarrays"><i class="fa fa-check"></i><b>1.3</b> DNA microarrays</a></li>
-<li class="chapter" data-level="1.4" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>1.4</b> RNA-Seq</a></li>
-<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#rna-seq-analysis-goals"><i class="fa fa-check"></i><b>1.5</b> RNA-Seq analysis goals</a></li>
+<li class="chapter" data-level="1.3" data-path="uvod.html"><a href="uvod.html#analysis-goals"><i class="fa fa-check"></i><b>1.3</b> Analysis goals</a></li>
+<li class="chapter" data-level="1.4" data-path="uvod.html"><a href="uvod.html#sample-preparation"><i class="fa fa-check"></i><b>1.4</b> Sample preparation</a></li>
+<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#dnk-mikročip-microarray"><i class="fa fa-check"></i><b>1.5</b> DNK mikročip (microarray)</a></li>
+<li class="chapter" data-level="1.6" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>1.6</b> RNA-Seq</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="poravnanje.html"><a href="poravnanje.html"><i class="fa fa-check"></i><b>2</b> Poravnanje</a><ul>
 <li class="chapter" data-level="2.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>2.1</b> Alignment challenges</a></li>
@@ -234,15 +235,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Alternativno splajsovanje se javlja kao normalna pojava kod eukariota, gde znatno povećava raznovrsnost proteina. Kod ljudi preko 80% gena su alternativno splajsovani. Brojni modovi alternativnog splajsovanja su uočeni, od kojih najčešći jeste preskakanje eksona. U tom modu, pojedini ekson može biti uključen u mRNA pod nekim uslovima ili u pojedinim tkivima, i izostavljen iz mRNA u drugim.</p>
 <p>Ovo je nešto što će otežati problem alignmenta (poravnanja) na referentni genom. Aligner mora biti ‘splice aware’!</p>
 </div>
-<div id="dna-microarrays" class="section level2">
-<h2><span class="header-section-number">1.3</span> DNA microarrays</h2>
+<div id="analysis-goals" class="section level2">
+<h2><span class="header-section-number">1.3</span> Analysis goals</h2>
 <ul>
-<li>Around since late 80’s.</li>
-<li>Microscope slides with thousands of tiny spots, each spot containing a known DNA sequence or gene. These sequences act as probes to detect gene expression.</li>
-<li>Molecules in the sample are labeled with fluorescent probes.</li>
-<li>The process in which the sample molecules bind to the DNA probes on the slide is called hybridization.</li>
-<li>Following hybridization, the microarray is scanned to measure the expression of each gene printed on the slide.</li>
+<li>Reconstruct the full set of transcripts (isoforms) of genes that were present in the original cells. This catalogue of transcripts is called <strong>transcriptome</strong>.</li>
+<li>Estimate the expression levels for all transcripts.</li>
 </ul>
+<p>Why measure gene expression?</p>
+<p>Proteini (belančevine) predstavljaju za žive sisteme najznačajnije organske molekule. Osim što izgrađuju ćeliju i njene delove, proteini obavljaju i sve osnovne funkcije u organizmu.</p>
+<p>Izuzetno je komplikovano direktno izmeriti relativnu zastupljenost određenog proteina u uzorku. Zato merimo relativnu zastupljenost mRNA molekula koji kodira taj protein!</p>
+<p><strong>Because gene expression correlates with protein expression!</strong></p>
+<p>Even though nearly every cell in an organism’s body contains the same set of genes, only a fraction of these genes are used in any given cell at any given time. It is this carefully controlled pattern of what is called “gene expression” that makes a liver cell different from a muscle cell, and a healthy cell different from a cancer cell.</p>
+<p>By measuring gene expression, we can identify active and inactive genes in a cell or tissue. This knowledge is important for drug discovery and creating diagnostic tests.</p>
+</div>
+<div id="sample-preparation" class="section level2">
+<h2><span class="header-section-number">1.4</span> Sample preparation</h2>
+<p>Choosing the appropriate protocol:</p>
+<ul>
+<li><p>Most of the RNA in a cell is ribosomal RNA (an RNA component of ribosome which is approx 60% rRNA and 40% protein). This is an issue since most scientists (and enthusiasts like us) will be interested in mRNA because of its protein coding function. There are two popular methods for increasing mRNA concentration in your samples:</p>
+<ol style="list-style-type: decimal">
+<li>poly (A) capture</li>
+<li>ribosomal RNA depletion</li>
+</ol></li>
+<li>There are also total-RNA protocols that do not enrich for a specific RNA type - for “total RNA” studies;</li>
+<li>Different fragment sizes;</li>
+<li>Bulk or single cell RNA-Seq;</li>
+<li><p>…</p></li>
+</ul>
+<p>Then what? Microarrays or RNA-Seq!</p>
+</div>
+<div id="dnk-mikročip-microarray" class="section level2">
+<h2><span class="header-section-number">1.5</span> DNK mikročip (microarray)</h2>
+<p>U upotrebi od kasnih 80ih, DNK mikročip je mikroskopski slajd na kojem je matrica sa više hiljada polja. Svako polje sadrži nekoliko pikomola specifične DNK sekvence - probe, koje detektuju gensku ekspresiju.
+Molekuli RNA uzorka su obelezeni floroscentnim probama. Ovi molekuli se vezuju za sebi komplementarne probe na mikročipu u procesu koji se zove hibridizacija. Ocitavanjem nivoa svetlosti emitovane iz svakog polja odredjuje se relativna zastupljenost te sekvence u uzorku.</p>
 <br>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1_wDrqgS8w8" frameborder="0" allowfullscreen>
@@ -251,7 +276,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><br></p>
 </div>
 <div id="rna-seq" class="section level2">
-<h2><span class="header-section-number">1.4</span> RNA-Seq</h2>
+<h2><span class="header-section-number">1.6</span> RNA-Seq</h2>
 <ul>
 <li>A major breakthrough (replaced microarrays) in the late 00’s and has been widely used since.</li>
 <li>Uses next-generation sequencing (NGS) to reveal the presence and quantity of RNA in a biological sample at a given moment.</li>
@@ -268,32 +293,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </iframe>
 </center>
 <p><br></p>
-<p>Choosing the appropriate sequencing protocol:</p>
-<ul>
-<li><p>Most of the RNA in a cell is ribosomal RNA (an RNA component of ribosome which is approx 60% rRNA and 40% protein). This is an issue since most scientists (and enthusiasts like us) will be interested in mRNA because of its protein coding function. There are two popular methods for increasing mRNA concentration in your samples:</p>
-<ol style="list-style-type: decimal">
-<li>poly (A) capture</li>
-<li>ribosomal RNA depletion</li>
-</ol></li>
-<li>There are also total-RNA protocols that do not enrich for a specific RNA type - for “total RNA” studies;</li>
-<li>Different fragment sizes;</li>
-<li>Bulk or single cell RNA-Seq;</li>
-<li><p>…</p></li>
-</ul>
-<p>Then what? Microarrays or RNA-Seq!</p>
-</div>
-<div id="rna-seq-analysis-goals" class="section level2">
-<h2><span class="header-section-number">1.5</span> RNA-Seq analysis goals</h2>
-<ul>
-<li>Reconstruct the full set of transcripts (isoforms) of genes that were present in the original cells. This catalogue of transcripts is called <strong>transcriptome</strong>.</li>
-<li>Estimate the expression levels for all transcripts.</li>
-</ul>
-<p>Why measure gene expression?</p>
-<p>Proteini (belančevine) predstavljaju za žive sisteme najznačajnije organske molekule. Osim što izgrađuju ćeliju i njene delove, proteini obavljaju i sve osnovne funkcije u organizmu.</p>
-<p>Izuzetno je komplikovano direktno izmeriti relativnu zastupljenost određenog proteina u uzorku. Zato merimo relativnu zastupljenost mRNA molekula koji kodira taj protein!</p>
-<p><strong>Because gene expression correlates with protein expression!</strong></p>
-<p>Even though nearly every cell in an organism’s body contains the same set of genes, only a fraction of these genes are used in any given cell at any given time. It is this carefully controlled pattern of what is called “gene expression” that makes a liver cell different from a muscle cell, and a healthy cell different from a cancer cell.</p>
-<p>By measuring gene expression, we can identify active and inactive genes in a cell or tissue. This knowledge is important for drug discovery and creating diagnostic tests.</p>
 
 </div>
 </div>

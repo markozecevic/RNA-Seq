@@ -24,7 +24,7 @@
 <meta name="author" content="marko.zecevic@sbgenomics.com" />
 
 
-<meta name="date" content="2020-03-25" />
+<meta name="date" content="2020-03-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -131,9 +131,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>1</b> Uvod</a><ul>
 <li class="chapter" data-level="1.1" data-path="uvod.html"><a href="uvod.html#centralna-dogma-molekularne-biologije"><i class="fa fa-check"></i><b>1.1</b> Centralna dogma molekularne biologije</a></li>
 <li class="chapter" data-level="1.2" data-path="uvod.html"><a href="uvod.html#transkripti"><i class="fa fa-check"></i><b>1.2</b> Transkripti</a></li>
-<li class="chapter" data-level="1.3" data-path="uvod.html"><a href="uvod.html#dna-microarrays"><i class="fa fa-check"></i><b>1.3</b> DNA microarrays</a></li>
-<li class="chapter" data-level="1.4" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>1.4</b> RNA-Seq</a></li>
-<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#rna-seq-analysis-goals"><i class="fa fa-check"></i><b>1.5</b> RNA-Seq analysis goals</a></li>
+<li class="chapter" data-level="1.3" data-path="uvod.html"><a href="uvod.html#analysis-goals"><i class="fa fa-check"></i><b>1.3</b> Analysis goals</a></li>
+<li class="chapter" data-level="1.4" data-path="uvod.html"><a href="uvod.html#sample-preparation"><i class="fa fa-check"></i><b>1.4</b> Sample preparation</a></li>
+<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#dnk-mikročip-microarray"><i class="fa fa-check"></i><b>1.5</b> DNK mikročip (microarray)</a></li>
+<li class="chapter" data-level="1.6" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>1.6</b> RNA-Seq</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="poravnanje.html"><a href="poravnanje.html"><i class="fa fa-check"></i><b>2</b> Poravnanje</a><ul>
 <li class="chapter" data-level="2.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>2.1</b> Alignment challenges</a></li>
@@ -258,7 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb18-9" data-line-number="9">        naive_gene_count <span class="op">+=</span> <span class="dv">1</span></a>
 <a class="sourceLine" id="cb18-10" data-line-number="10"> </a>
 <a class="sourceLine" id="cb18-11" data-line-number="11"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))   </a></code></pre></div>
-<pre><code>## --- 2.236524820327759 seconds ---</code></pre>
+<pre><code>## --- 2.872087240219116 seconds ---</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="bu">print</span>(naive_gene_count)</a></code></pre></div>
 <pre><code>## 1016</code></pre>
 <p>The problem with this approach is that to do this, you will need to store the entire file in memory. Worse than that, in order to find the reads within a single gene, you would need to iterate over the entire file, which can contain hundreds of millions of reads. This is quite slow even for a single gene, but will only increase if you want to look at many genes.</p>
@@ -273,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb23-6" data-line-number="6">    pysam_gene_count <span class="op">+=</span> <span class="dv">1</span></a>
 <a class="sourceLine" id="cb23-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb23-8" data-line-number="8"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))   </a></code></pre></div>
-<pre><code>## --- 0.01112818717956543 seconds ---</code></pre>
+<pre><code>## --- 0.011068582534790039 seconds ---</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="bu">print</span>(pysam_gene_count)</a></code></pre></div>
 <pre><code>## 1016</code></pre>
 <p>Not surprisingly, they are the same - the big difference is that the second method is significantly faster. The reason for this is that Pysam (like Samtools, Picard, and other similar toolkits) make use of clever tricks to index the file by genomic positions to more efficiently search for reads within a given genomic interval.</p>
@@ -310,7 +311,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb30-10" data-line-number="10">        gene_counts.update({tokens[<span class="dv">3</span>].rstrip() : count})  </a>
 <a class="sourceLine" id="cb30-11" data-line-number="11">        </a>
 <a class="sourceLine" id="cb30-12" data-line-number="12"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time)) </a></code></pre></div>
-<pre><code>## --- 1.7198684215545654 seconds ---</code></pre>
+<pre><code>## --- 1.663689136505127 seconds ---</code></pre>
 <p>Now it’s easy to query the gene counts for different genes.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="bu">print</span>(gene_counts.get(<span class="st">&quot;ARFGEF2&quot;</span>))</a></code></pre></div>
 <pre><code>## 7283</code></pre>
@@ -449,7 +450,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb53-3" data-line-number="3">gene_counts <span class="op">=</span> tpm(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, bamfile)</a>
 <a class="sourceLine" id="cb53-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb53-5" data-line-number="5"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))  </a></code></pre></div>
-<pre><code>## --- 2.7539796829223633 seconds ---</code></pre>
+<pre><code>## --- 3.323309898376465 seconds ---</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb55-1" data-line-number="1">gene_counts.head(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##             raw_count  gene_length          tpm
 ## DEFB125          1016         9845   162.980261
@@ -494,7 +495,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb58-3" data-line-number="3">gene_counts_rpkm <span class="op">=</span> rpkm(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, bamfile)</a>
 <a class="sourceLine" id="cb58-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb58-5" data-line-number="5"><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))  </a></code></pre></div>
-<pre><code>## --- 2.6746280193328857 seconds ---</code></pre>
+<pre><code>## --- 2.5380518436431885 seconds ---</code></pre>
 <div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb60-1" data-line-number="1">gene_counts_rpkm.head(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##             raw_count  gene_length        rpkm
 ## DEFB125        1016.0       9845.0   61.832560

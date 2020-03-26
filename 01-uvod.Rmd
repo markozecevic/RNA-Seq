@@ -58,41 +58,7 @@ Alternativno splajsovanje se javlja kao normalna pojava kod eukariota, gde znatn
 
 Ovo je nešto što će otežati problem alignmenta (poravnanja) na referentni genom. Aligner mora biti 'splice aware'!
 
-## DNA microarrays
-
-- Around since late 80's.
-- Microscope slides with thousands of tiny spots, each spot containing a known DNA sequence or gene. These sequences act as probes to detect gene expression.
-- Molecules in the sample are labeled with fluorescent probes.
-- The process in which the sample molecules bind to the DNA probes on the slide is called hybridization. 
-- Following hybridization, the microarray is scanned to measure the expression of each gene printed on the slide. 
-    
-<br><center><iframe width="560" height="315" src="https://www.youtube.com/embed/1_wDrqgS8w8" frameborder="0" allowfullscreen></iframe></center><br>
-
-## RNA-Seq
-
-- A major breakthrough (replaced microarrays) in the late 00’s and has been widely used since.
-- Uses next-generation sequencing (NGS) to reveal the presence and quantity of RNA in a biological sample at a given moment.
-- Able to detect novel (undiscovered) isoforms and has a broader dynamic range compapred to microarrays.
-
-<br><center><img src="images/Bo7TRo5IUAAJ6KD.jpg" width="450"></center><br>
-    
-<br><center><iframe width="560" height="315" src="https://www.youtube.com/embed/womKfikWlxM" frameborder="0" allowfullscreen></iframe></center><br>
-
-Choosing the appropriate sequencing protocol:
-
-- Most of the RNA in a cell is ribosomal RNA (an RNA component of ribosome which is approx 60% rRNA and 40% protein). This is an issue since most scientists (and enthusiasts like us) will be interested in mRNA because of its protein coding function. There are two popular methods for increasing mRNA concentration in your samples:
-
-    1. poly (A) capture 
-    2. ribosomal RNA depletion
-
-- There are also total-RNA protocols that do not enrich for a specific RNA type - for "total RNA" studies;
-- Different fragment sizes;
-- Bulk or single cell RNA-Seq;
-- ...
-
-Then what? Microarrays or RNA-Seq!
-
-## RNA-Seq analysis goals
+## Analysis goals
 
 - Reconstruct the full set of transcripts (isoforms) of genes that were present in the original cells. This catalogue of transcripts is called **transcriptome**. 
 - Estimate the expression levels for all transcripts. 
@@ -109,8 +75,36 @@ Even though nearly every cell in an organism's body contains the same set of gen
 
 By measuring gene expression, we can identify active and inactive genes in a cell or tissue. This knowledge is important for drug discovery and creating diagnostic tests.
 
+## Sample preparation
 
+Choosing the appropriate protocol:
 
+- Most of the RNA in a cell is ribosomal RNA (an RNA component of ribosome which is approx 60% rRNA and 40% protein). This is an issue since most scientists (and enthusiasts like us) will be interested in mRNA because of its protein coding function. There are two popular methods for increasing mRNA concentration in your samples:
 
+    1. poly (A) capture 
+    2. ribosomal RNA depletion
 
+- There are also total-RNA protocols that do not enrich for a specific RNA type - for "total RNA" studies;
+- Different fragment sizes;
+- Bulk or single cell RNA-Seq;
+- ...
+
+Then what? Microarrays or RNA-Seq!
+
+## DNK mikročip (microarray)
+
+U upotrebi od kasnih 80ih, DNK mikročip je mikroskopski slajd na kojem je matrica sa više hiljada polja. Svako polje sadrži nekoliko pikomola specifične DNK sekvence - probe, koje detektuju gensku ekspresiju.
+Molekuli RNA uzorka su obelezeni floroscentnim probama. Ovi molekuli se vezuju za sebi komplementarne probe na mikročipu u procesu koji se zove hibridizacija. Ocitavanjem nivoa svetlosti emitovane iz svakog polja odredjuje se relativna zastupljenost te sekvence u uzorku.
+
+<br><center><iframe width="560" height="315" src="https://www.youtube.com/embed/1_wDrqgS8w8" frameborder="0" allowfullscreen></iframe></center><br>
+
+## RNA-Seq
+
+- A major breakthrough (replaced microarrays) in the late 00’s and has been widely used since.
+- Uses next-generation sequencing (NGS) to reveal the presence and quantity of RNA in a biological sample at a given moment.
+- Able to detect novel (undiscovered) isoforms and has a broader dynamic range compapred to microarrays.
+
+<br><center><img src="images/Bo7TRo5IUAAJ6KD.jpg" width="450"></center><br>
+    
+<br><center><iframe width="560" height="315" src="https://www.youtube.com/embed/womKfikWlxM" frameborder="0" allowfullscreen></iframe></center><br>
 

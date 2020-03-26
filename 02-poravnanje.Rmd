@@ -5,7 +5,7 @@ library(reticulate)
 use_condaenv("compbio", required = TRUE)
 ```
 
-\* Ovo poglavlje je adaptirano iz rada koji opisuje TopHat2 [Tophat2 paper](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2013-14-4-r36) *aligner*.
+\* Ovo poglavlje je adaptirano iz rada koji opisuje [TopHat2](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2013-14-4-r36) *aligner*.
 
 <center><img src="images/RNA-Seq-alignment.png" width="550"></center>
 
