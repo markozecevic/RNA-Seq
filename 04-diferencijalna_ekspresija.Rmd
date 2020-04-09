@@ -229,7 +229,7 @@ ggplot(pcaDF, aes(x=`principal component 1`, y=`principal component 2`, color = 
 
 <img src="images/gpca2.png" width="600">
 
-<img src="images/gpca3" width="600">
+<img src="images/gpca3.png" width="600">
 
 <img src="images/cldendrogram.png" width="600">
 

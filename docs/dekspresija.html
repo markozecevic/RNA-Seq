@@ -591,10 +591,10 @@ What are the major sources of variation in the dataset?</code></pre>
 ## 10             -7122.899              238.8444   treated</code></pre>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw">ggplot</span>(pcaDF, <span class="kw">aes</span>(<span class="dt">x=</span><span class="st">`</span><span class="dt">principal component 1</span><span class="st">`</span>, <span class="dt">y=</span><span class="st">`</span><span class="dt">principal component 2</span><span class="st">`</span>, <span class="dt">color =</span> condition)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb87-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p><img src="images/gpca1.png" width="600"></p>
 <p><img src="images/gpca2.png" width="600"></p>
-<p><img src="images/gpca3" width="600"></p>
+<p><img src="images/gpca3.png" width="600"></p>
 <p><img src="images/cldendrogram.png" width="600"></p>
 </div>
 <div id="intro-to-statistical-inference" class="section level2">
@@ -605,13 +605,13 @@ What are the major sources of variation in the dataset?</code></pre>
 <a class="sourceLine" id="cb88-3" data-line-number="3">aux <span class="op">=</span> {<span class="st">&quot;norm&quot;</span> : normdf.loc[<span class="st">&#39;AL031055.1&#39;</span>], <span class="st">&quot;group&quot;</span> : np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>)}</a>
 <a class="sourceLine" id="cb88-4" data-line-number="4">df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>aux)</a>
 <a class="sourceLine" id="cb88-5" data-line-number="5">sns.stripplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df, jitter<span class="op">=</span><span class="va">True</span>).set_title(<span class="st">&#39;AL031055.1&#39;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb89-1" data-line-number="1">aux <span class="op">=</span> {<span class="st">&quot;norm&quot;</span> : normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>], <span class="st">&quot;group&quot;</span> : np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>)}</a>
 <a class="sourceLine" id="cb89-2" data-line-number="2">df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>aux)</a>
 <a class="sourceLine" id="cb89-3" data-line-number="3">sns.stripplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df, jitter<span class="op">=</span><span class="va">True</span>).set_title(<span class="st">&#39;AL023803.2&#39;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb90-1" data-line-number="1">sns.boxplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df).set_title(<span class="st">&#39;AL023803.2&#39;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb91-1" data-line-number="1">cMean <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>][<span class="dv">0</span>:<span class="dv">5</span>].mean()</a>
 <a class="sourceLine" id="cb91-2" data-line-number="2">tMean <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>][<span class="dv">5</span>:<span class="dv">10</span>].mean()</a>
 <a class="sourceLine" id="cb91-3" data-line-number="3"><span class="bu">print</span>(cMean)</a></code></pre></div>
@@ -642,7 +642,7 @@ What are the major sources of variation in the dataset?</code></pre>
 <a class="sourceLine" id="cb98-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb98-4" data-line-number="4"><span class="kw">hist</span>(b1, <span class="dt">breaks =</span> <span class="dv">50</span>)</a>
 <a class="sourceLine" id="cb98-5" data-line-number="5"><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(betaHat, <span class="op">-</span>betaHat), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">(<span class="kw">sum</span>(b1 <span class="op">&gt;</span><span class="st"> </span><span class="kw">abs</span>(betaHat)) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(b1 <span class="op">&lt;</span><span class="st"> </span>(<span class="op">-</span><span class="kw">abs</span>(betaHat))) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(<span class="kw">length</span>(b1) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.1358641</code></pre>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="co"># plt.hist(means, bins = 20)</span></a>
@@ -754,13 +754,13 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 <a class="sourceLine" id="cb109-8" data-line-number="8">    pvals.append(pval)</a></code></pre></div>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1">pvals &lt;-<span class="st"> </span><span class="kw">unlist</span>(reticulate<span class="op">::</span>py<span class="op">$</span>pvals)</a>
 <a class="sourceLine" id="cb110-2" data-line-number="2"><span class="kw">hist</span>(pvals, <span class="dt">breaks =</span> <span class="dv">20</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 <p><img src="images/significant1.png" width="700"></p>
 <p><img src="images/significant2.png" width="700"></p>
 <p><img src="images/significant3.png" width="700"></p>
 <p><img src="images/significant4.png" width="700"></p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb111-1" data-line-number="1">res[<span class="st">&#39;pval&#39;</span>].plot.hist(bins<span class="op">=</span><span class="dv">20</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 <table>
 <thead>
 <tr class="header">
@@ -839,7 +839,7 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 ## RALGAPB    5.399923e-09  0.000001  True
 ## RTFDC1     7.302393e-08  0.000016  True</code></pre>
 <div class="sourceCode" id="cb115"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb115-1" data-line-number="1">res[<span class="st">&#39;qval&#39;</span>].plot.hist(bins<span class="op">=</span><span class="dv">20</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 
 </div>
 </div>
