@@ -24,7 +24,7 @@
 <meta name="author" content="marko.zecevic@sbgenomics.com" />
 
 
-<meta name="date" content="2020-03-30" />
+<meta name="date" content="2020-04-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -177,59 +177,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="dekspresija" class="section level1">
 <h1><span class="header-section-number">4</span> Diferencijalna ekspresija</h1>
-<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="im">import</span> pysam</a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="im">from</span> scipy <span class="im">import</span> stats</a>
-<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</a>
-<a class="sourceLine" id="cb62-4" data-line-number="4"><span class="im">import</span> glob</a>
-<a class="sourceLine" id="cb62-5" data-line-number="5"><span class="im">import</span> os</a>
-<a class="sourceLine" id="cb62-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb62-7" data-line-number="7"><span class="im">import</span> pandas <span class="im">as</span> pd</a>
-<a class="sourceLine" id="cb62-8" data-line-number="8"><span class="im">import</span> numpy <span class="im">as</span> np</a></code></pre></div>
-<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb63-1" data-line-number="1">paths <span class="op">=</span> glob.glob(<span class="st">&quot;/opt/aligned/*.bam&quot;</span>)</a>
-<a class="sourceLine" id="cb63-2" data-line-number="2">paths</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">library</span>(Biobase)</a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="kw">library</span>(DESeq2)</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb62-4" data-line-number="4"><span class="kw">library</span>(MASS)</a>
+<a class="sourceLine" id="cb62-5" data-line-number="5"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="im">import</span> pysam</a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="im">from</span> scipy <span class="im">import</span> stats</a>
+<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="co"># import matplotlib.pyplot as plt</span></a>
+<a class="sourceLine" id="cb63-4" data-line-number="4"><span class="im">import</span> glob</a>
+<a class="sourceLine" id="cb63-5" data-line-number="5"><span class="im">import</span> os</a>
+<a class="sourceLine" id="cb63-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb63-7" data-line-number="7"><span class="im">import</span> pandas <span class="im">as</span> pd</a>
+<a class="sourceLine" id="cb63-8" data-line-number="8"><span class="im">import</span> numpy <span class="im">as</span> np</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">def</span> read_count(gene, bamfile):</a>
+<a class="sourceLine" id="cb64-2" data-line-number="2">    <span class="co">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="co">    Compute the number of reads contained in a bamfile that overlap</span></a>
+<a class="sourceLine" id="cb64-4" data-line-number="4"><span class="co">    a given interval</span></a>
+<a class="sourceLine" id="cb64-5" data-line-number="5"><span class="co">    &quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb64-6" data-line-number="6">    bam_iter <span class="op">=</span> bamfile.fetch(gene[<span class="dv">0</span>], gene[<span class="dv">1</span>], gene[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb64-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb64-8" data-line-number="8">    pysam_gene_count <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb64-9" data-line-number="9">    </a>
+<a class="sourceLine" id="cb64-10" data-line-number="10">    <span class="cf">for</span> x <span class="kw">in</span> bam_iter:</a>
+<a class="sourceLine" id="cb64-11" data-line-number="11">        pysam_gene_count <span class="op">+=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb64-12" data-line-number="12">        </a>
+<a class="sourceLine" id="cb64-13" data-line-number="13">    <span class="cf">return</span> pysam_gene_count</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb65-1" data-line-number="1">paths <span class="op">=</span> glob.glob(<span class="st">&quot;/opt/aligned/*.bam&quot;</span>)</a>
+<a class="sourceLine" id="cb65-2" data-line-number="2">paths</a></code></pre></div>
 <pre><code>## [&#39;/opt/aligned/sample_02_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_05_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_03_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_06_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_10_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_07_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_09_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_08_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_04_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_01_accepted_hits.bam&#39;]</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="kw">def</span> read_count(gene, bamfile):</a>
-<a class="sourceLine" id="cb65-2" data-line-number="2">    <span class="co">&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="co">    Compute the number of reads contained in a bamfile that overlap</span></a>
-<a class="sourceLine" id="cb65-4" data-line-number="4"><span class="co">    a given interval</span></a>
-<a class="sourceLine" id="cb65-5" data-line-number="5"><span class="co">    &quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb65-6" data-line-number="6">    bam_iter <span class="op">=</span> bamfile.fetch(gene[<span class="dv">0</span>], gene[<span class="dv">1</span>], gene[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb65-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb65-8" data-line-number="8">    pysam_gene_count <span class="op">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb65-9" data-line-number="9">    </a>
-<a class="sourceLine" id="cb65-10" data-line-number="10">    <span class="cf">for</span> x <span class="kw">in</span> bam_iter:</a>
-<a class="sourceLine" id="cb65-11" data-line-number="11">        pysam_gene_count <span class="op">+=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb65-12" data-line-number="12">        </a>
-<a class="sourceLine" id="cb65-13" data-line-number="13">    <span class="cf">return</span> pysam_gene_count</a></code></pre></div>
-<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb66-1" data-line-number="1">counts <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb66-2" data-line-number="2">samples <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb66-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb66-4" data-line-number="4"><span class="cf">for</span> path <span class="kw">in</span> paths:</a>
-<a class="sourceLine" id="cb66-5" data-line-number="5">    sname <span class="op">=</span> os.path.basename(path).replace(<span class="st">&#39;_accepted_hits.bam&#39;</span>, <span class="st">&#39;&#39;</span>)</a>
-<a class="sourceLine" id="cb66-6" data-line-number="6">    bamfile <span class="op">=</span> pysam.AlignmentFile(path)</a>
-<a class="sourceLine" id="cb66-7" data-line-number="7">    gene_counts<span class="op">=</span>{}</a>
-<a class="sourceLine" id="cb66-8" data-line-number="8">    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, <span class="st">&#39;r&#39;</span>) <span class="im">as</span> f:</a>
-<a class="sourceLine" id="cb66-9" data-line-number="9">        <span class="cf">for</span> line <span class="kw">in</span> f:</a>
-<a class="sourceLine" id="cb66-10" data-line-number="10">            tokens <span class="op">=</span> line.split(<span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>)</a>
-<a class="sourceLine" id="cb66-11" data-line-number="11">            gene_local <span class="op">=</span> (tokens[<span class="dv">0</span>], <span class="bu">int</span>(tokens[<span class="dv">1</span>]), <span class="bu">int</span>(tokens[<span class="dv">2</span>]))</a>
-<a class="sourceLine" id="cb66-12" data-line-number="12">            count <span class="op">=</span> read_count(gene_local, bamfile)</a>
-<a class="sourceLine" id="cb66-13" data-line-number="13">            gene_counts.update({tokens[<span class="dv">3</span>].rstrip() : count})  </a>
-<a class="sourceLine" id="cb66-14" data-line-number="14">    counts.append(gene_counts)</a>
-<a class="sourceLine" id="cb66-15" data-line-number="15">    samples.append(sname)</a></code></pre></div>
-<div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb67-1" data-line-number="1">df <span class="op">=</span> pd.DataFrame.from_dict(counts)</a>
-<a class="sourceLine" id="cb67-2" data-line-number="2">df.index <span class="op">=</span> samples</a>
-<a class="sourceLine" id="cb67-3" data-line-number="3">df <span class="op">=</span> df.sort_index().T</a></code></pre></div>
-<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb68-1" data-line-number="1">KiR <span class="op">=</span> np.exp((np.log(df)).mean(axis<span class="op">=</span><span class="dv">1</span>))</a></code></pre></div>
-<pre><code>## /home/rstudio/.local/share/r-miniconda/envs/compbio/bin/python:1: RuntimeWarning: divide by zero encountered in log</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb70-1" data-line-number="1">df <span class="op">=</span> df[(KiR <span class="op">!=</span> <span class="dv">0</span>).values]</a>
-<a class="sourceLine" id="cb70-2" data-line-number="2">KiR <span class="op">=</span> KiR[(KiR <span class="op">!=</span> <span class="dv">0</span>).values]</a></code></pre></div>
-<div id="diferencijalna-eskpresija" class="section level2">
-<h2><span class="header-section-number">4.1</span> Diferencijalna Eskpresija</h2>
-<ul>
-<li>A gene or transcript is declared differentially expressed if an observed change in read counts between two experimental conditions is statistically significant, i.e. if the difference is greater than what would be expected just due to random variation.</li>
-<li>Detecting differentially expressed genes/transcripts across sample groups is among the major goals in the statistical analysis of RNA-seq data.</li>
-</ul>
-<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb71-1" data-line-number="1">df.head(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb67-1" data-line-number="1">counts <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb67-2" data-line-number="2">samples <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb67-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb67-4" data-line-number="4"><span class="cf">for</span> path <span class="kw">in</span> paths:</a>
+<a class="sourceLine" id="cb67-5" data-line-number="5">    sname <span class="op">=</span> os.path.basename(path).replace(<span class="st">&#39;_accepted_hits.bam&#39;</span>, <span class="st">&#39;&#39;</span>)</a>
+<a class="sourceLine" id="cb67-6" data-line-number="6">    bamfile <span class="op">=</span> pysam.AlignmentFile(path)</a>
+<a class="sourceLine" id="cb67-7" data-line-number="7">    gene_counts<span class="op">=</span>{}</a>
+<a class="sourceLine" id="cb67-8" data-line-number="8">    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, <span class="st">&#39;r&#39;</span>) <span class="im">as</span> f:</a>
+<a class="sourceLine" id="cb67-9" data-line-number="9">        <span class="cf">for</span> line <span class="kw">in</span> f:</a>
+<a class="sourceLine" id="cb67-10" data-line-number="10">            tokens <span class="op">=</span> line.split(<span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>)</a>
+<a class="sourceLine" id="cb67-11" data-line-number="11">            current_gene <span class="op">=</span> (tokens[<span class="dv">0</span>], <span class="bu">int</span>(tokens[<span class="dv">1</span>]), <span class="bu">int</span>(tokens[<span class="dv">2</span>]))</a>
+<a class="sourceLine" id="cb67-12" data-line-number="12">            count <span class="op">=</span> read_count(current_gene, bamfile)</a>
+<a class="sourceLine" id="cb67-13" data-line-number="13">            gene_counts.update({tokens[<span class="dv">3</span>].rstrip() : count})  </a>
+<a class="sourceLine" id="cb67-14" data-line-number="14">    counts.append(gene_counts)</a>
+<a class="sourceLine" id="cb67-15" data-line-number="15">    samples.append(sname)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb68-1" data-line-number="1">df <span class="op">=</span> pd.DataFrame.from_dict(counts)</a>
+<a class="sourceLine" id="cb68-2" data-line-number="2">df.index <span class="op">=</span> samples</a>
+<a class="sourceLine" id="cb68-3" data-line-number="3">df <span class="op">=</span> df.sort_index().T</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb69-1" data-line-number="1">df.head(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##             sample_01  sample_02  sample_03  ...  sample_08  sample_09  sample_10
 ## DEFB125          1016        465       1146  ...       1260        285        426
 ## DEFB126           559        223        555  ...        749        132        240
@@ -243,6 +238,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## NRSN2-AS1        4344       1921       5404  ...       5986       1337       1737
 ## 
 ## [10 rows x 10 columns]</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb71-1" data-line-number="1">df.shape</a></code></pre></div>
+<pre><code>## (1357, 10)</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb73-1" data-line-number="1">KiR <span class="op">=</span> np.exp((np.log(df)).mean(axis<span class="op">=</span><span class="dv">1</span>)) <span class="co">#geometric mean</span></a></code></pre></div>
+<pre><code>## /home/rstudio/.local/share/r-miniconda/envs/compbio/bin/python:1: RuntimeWarning: divide by zero encountered in log</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb75-1" data-line-number="1">df <span class="op">=</span> df[(KiR <span class="op">!=</span> <span class="dv">0</span>).values]</a>
+<a class="sourceLine" id="cb75-2" data-line-number="2">KiR <span class="op">=</span> KiR[(KiR <span class="op">!=</span> <span class="dv">0</span>).values]</a>
+<a class="sourceLine" id="cb75-3" data-line-number="3">df.shape</a></code></pre></div>
+<pre><code>## (1347, 10)</code></pre>
+<div id="diferencijalna-eskpresija" class="section level2">
+<h2><span class="header-section-number">4.1</span> Diferencijalna Eskpresija</h2>
+<ul>
+<li>Gen ili transkript nazivamo diferencijalno ekspresovanim ako je uocena statisticki znacajna promena u ekspresiji izmedju neke dve grupe uzoraka koje posmatramo.</li>
+<li>Otkrivanje diferencijalno ekspresovanih gena je cesto cilj statisticke analize RNK sekvenciranih podataka.</li>
+</ul>
 </div>
 <div id="between-sample-normalization" class="section level2">
 <h2><span class="header-section-number">4.2</span> Between-sample normalization</h2>
@@ -494,8 +503,8 @@ Harold Pimentel: <a href="https://haroldpimentel.wordpress.com/2014/12/08/in-rna
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb73"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb73-1" data-line-number="1">aux <span class="op">=</span> df.divide(KiR.values, axis <span class="op">=</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb73-2" data-line-number="2">aux.head(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb77-1" data-line-number="1">aux <span class="op">=</span> df.divide(KiR.values, axis <span class="op">=</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb77-2" data-line-number="2">aux.head(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##             sample_01  sample_02  sample_03  ...  sample_08  sample_09  sample_10
 ## DEFB125      1.351510   0.618555   1.524440  ...   1.676086   0.379115   0.566677
 ## DEFB126      1.411339   0.563021   1.401240  ...   1.891043   0.333268   0.605942
@@ -509,10 +518,10 @@ Harold Pimentel: <a href="https://haroldpimentel.wordpress.com/2014/12/08/in-rna
 ## NRSN2-AS1    1.335328   0.590508   1.661168  ...   1.840072   0.410988   0.533947
 ## 
 ## [10 rows x 10 columns]</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb75-1" data-line-number="1">sizeF <span class="op">=</span> aux.median(axis <span class="op">=</span> <span class="dv">0</span>).values</a>
-<a class="sourceLine" id="cb75-2" data-line-number="2">normdf <span class="op">=</span> df.divide(sizeF, axis <span class="op">=</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb79-1" data-line-number="1">sizeF <span class="op">=</span> aux.median(axis <span class="op">=</span> <span class="dv">0</span>).values</a>
+<a class="sourceLine" id="cb79-2" data-line-number="2">normdf <span class="op">=</span> df.divide(sizeF, axis <span class="op">=</span> <span class="dv">1</span>)</a></code></pre></div>
 <p>Normalized, this is how our simulated dataset looks like:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb76-1" data-line-number="1">normdf.head(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb80-1" data-line-number="1">normdf.head(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##               sample_01    sample_02  ...    sample_09    sample_10
 ## DEFB125      799.307029   844.137999  ...   708.873105   816.735707
 ## DEFB126      439.776210   404.823169  ...   328.320175   460.132793
@@ -531,30 +540,31 @@ Harold Pimentel: <a href="https://haroldpimentel.wordpress.com/2014/12/08/in-rna
 <h2><span class="header-section-number">4.3</span> Exploratory analysis</h2>
 <p>Data quality assessment and quality control (i.e. the removal of insufficiently good data) are essential steps of any data analysis. These steps should typically be performed very early in the analysis of a new data set, preceding or in parallel to the differential expression testing.</p>
 <p>The dataset we are investigating is simulated, but let us pretend that samples 6 through 10 are coming from the “treated” population and that samples 1 through 5 are “untreated” or “control” samples.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</a>
-<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</a>
-<a class="sourceLine" id="cb78-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb78-4" data-line-number="4">pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb78-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb78-6" data-line-number="6">principalComponents <span class="op">=</span> pca.fit_transform(normdf.T)</a>
-<a class="sourceLine" id="cb78-7" data-line-number="7">principalComponents</a></code></pre></div>
-<pre><code>## array([[ 7253.66901946, -1133.0858518 ],
-##        [ 6777.83482879,  -351.8259295 ],
-##        [ 6777.5841612 ,  1550.29503569],
-##        [ 6891.70586134,  -334.63078674],
-##        [ 7100.44333788,   351.9640596 ],
-##        [-7020.20823953,  2833.66966978],
-##        [-7027.03427084, -2662.13331895],
-##        [-7052.22861383,   957.48901253],
-##        [-6578.86674374, -1450.58626455],
-##        [-7122.89934072,   238.84437394]])</code></pre>
-<div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb80-1" data-line-number="1">principalDf <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> principalComponents</a>
-<a class="sourceLine" id="cb80-2" data-line-number="2">             , columns <span class="op">=</span> [<span class="st">&#39;principal component 1&#39;</span>, <span class="st">&#39;principal component 2&#39;</span>])</a>
-<a class="sourceLine" id="cb80-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb80-4" data-line-number="4">categories <span class="op">=</span> np.array([<span class="st">&quot;untreated&quot;</span>, <span class="st">&quot;treated&quot;</span>])</a>
-<a class="sourceLine" id="cb80-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb80-6" data-line-number="6">finalDf <span class="op">=</span> pd.concat([principalDf, pd.DataFrame(np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>), columns<span class="op">=</span>[<span class="st">&#39;condition&#39;</span>])], axis <span class="op">=</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb80-7" data-line-number="7">finalDf</a></code></pre></div>
+<p>A useful initial step in an RNA-seq analysis is often to assess overall similarity between samples:</p>
+<pre><code>Which samples are similar to each other, which are different?
+Does this fit to the expectation from the experiment’s design?
+What are the major sources of variation in the dataset?</code></pre>
+<p>To explore the similarity of our samples, we will be performing sample-level QC using Principal Component Analysis (PCA) and hierarchical clustering methods. Our sample-level QC allows us to see how well our replicates cluster together, as well as, observe whether our experimental condition represents the major source of variation in the data. Performing sample-level QC can also identify any sample outliers, which may need to be explored further to determine whether they need to be removed prior to DE analysis.</p>
+<br>
+<center>
+<iframe width="560" height="315" align="middle" src="https://www.youtube.com/embed/_UVHneBUBW0" frameborder="0" allowfullscreen>
+</iframe>
+</center>
+<p><br></p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</a>
+<a class="sourceLine" id="cb83-2" data-line-number="2"><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</a>
+<a class="sourceLine" id="cb83-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb83-4" data-line-number="4">pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb83-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb83-6" data-line-number="6">principalComponents <span class="op">=</span> pca.fit_transform(normdf.T)</a>
+<a class="sourceLine" id="cb83-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb83-8" data-line-number="8">principalDf <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> principalComponents</a>
+<a class="sourceLine" id="cb83-9" data-line-number="9">             , columns <span class="op">=</span> [<span class="st">&#39;principal component 1&#39;</span>, <span class="st">&#39;principal component 2&#39;</span>])</a>
+<a class="sourceLine" id="cb83-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb83-11" data-line-number="11">categories <span class="op">=</span> np.array([<span class="st">&quot;untreated&quot;</span>, <span class="st">&quot;treated&quot;</span>])</a>
+<a class="sourceLine" id="cb83-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb83-13" data-line-number="13">finalDf <span class="op">=</span> pd.concat([principalDf, pd.DataFrame(np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>), columns<span class="op">=</span>[<span class="st">&#39;condition&#39;</span>])], axis <span class="op">=</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb83-14" data-line-number="14">finalDf</a></code></pre></div>
 <pre><code>##    principal component 1  principal component 2  condition
 ## 0            7253.669019           -1133.085852  untreated
 ## 1            6777.834829            -351.825929  untreated
@@ -566,45 +576,50 @@ Harold Pimentel: <a href="https://haroldpimentel.wordpress.com/2014/12/08/in-rna
 ## 7           -7052.228614             957.489013    treated
 ## 8           -6578.866744           -1450.586265    treated
 ## 9           -7122.899341             238.844374    treated</code></pre>
-<div class="sourceCode" id="cb82"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb82-1" data-line-number="1">fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>,<span class="dv">6</span>))</a>
-<a class="sourceLine" id="cb82-2" data-line-number="2">ax <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>) </a>
-<a class="sourceLine" id="cb82-3" data-line-number="3">ax.set_xlabel(<span class="st">&#39;Principal Component 1&#39;</span>, fontsize <span class="op">=</span> <span class="dv">15</span>)</a>
-<a class="sourceLine" id="cb82-4" data-line-number="4">ax.set_ylabel(<span class="st">&#39;Principal Component 2&#39;</span>, fontsize <span class="op">=</span> <span class="dv">15</span>)</a>
-<a class="sourceLine" id="cb82-5" data-line-number="5">ax.set_title(<span class="st">&#39;2 Component PCA&#39;</span>, fontsize <span class="op">=</span> <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb82-6" data-line-number="6">conditions <span class="op">=</span> categories<span class="op">;</span> colors <span class="op">=</span> [<span class="st">&#39;r&#39;</span>, <span class="st">&#39;g&#39;</span>]</a>
-<a class="sourceLine" id="cb82-7" data-line-number="7"><span class="cf">for</span> target, color <span class="kw">in</span> <span class="bu">zip</span>(conditions,colors):</a>
-<a class="sourceLine" id="cb82-8" data-line-number="8">    indicesToKeep <span class="op">=</span> finalDf[<span class="st">&#39;condition&#39;</span>] <span class="op">==</span> target</a>
-<a class="sourceLine" id="cb82-9" data-line-number="9">    ax.scatter(finalDf.loc[indicesToKeep, <span class="st">&#39;principal component 1&#39;</span>], </a>
-<a class="sourceLine" id="cb82-10" data-line-number="10">               finalDf.loc[indicesToKeep, <span class="st">&#39;principal component 2&#39;</span>], </a>
-<a class="sourceLine" id="cb82-11" data-line-number="11">               c <span class="op">=</span> color, s <span class="op">=</span> <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb82-12" data-line-number="12">ax.legend(conditions)<span class="op">;</span> ax.grid()</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-47-1.png" width="768" /></p>
-<p><img src="images/pca.png" width="700"></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">pcaDF &lt;-<span class="st"> </span>reticulate<span class="op">::</span>py<span class="op">$</span>finalDf</a>
+<a class="sourceLine" id="cb85-2" data-line-number="2">pcaDF</a></code></pre></div>
+<pre><code>##    principal component 1 principal component 2 condition
+## 1               7253.669            -1133.0859 untreated
+## 2               6777.835             -351.8259 untreated
+## 3               6777.584             1550.2950 untreated
+## 4               6891.706             -334.6308 untreated
+## 5               7100.443              351.9641 untreated
+## 6              -7020.208             2833.6697   treated
+## 7              -7027.034            -2662.1333   treated
+## 8              -7052.229              957.4890   treated
+## 9              -6578.867            -1450.5863   treated
+## 10             -7122.899              238.8444   treated</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw">ggplot</span>(pcaDF, <span class="kw">aes</span>(<span class="dt">x=</span><span class="st">`</span><span class="dt">principal component 1</span><span class="st">`</span>, <span class="dt">y=</span><span class="st">`</span><span class="dt">principal component 2</span><span class="st">`</span>, <span class="dt">color =</span> condition)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<p><img src="images/gpca1.png" width="600"></p>
+<p><img src="images/gpca2.png" width="600"></p>
+<p><img src="images/gpca3" width="600"></p>
 <p><img src="images/cldendrogram.png" width="600"></p>
 </div>
 <div id="intro-to-statistical-inference" class="section level2">
 <h2><span class="header-section-number">4.4</span> Intro to statistical inference</h2>
 <p>For each gene, we are interested in differences in mean expression between the two sample groups.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="im">import</span> seaborn <span class="im">as</span> sns</a>
-<a class="sourceLine" id="cb83-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb83-3" data-line-number="3">aux <span class="op">=</span> {<span class="st">&quot;norm&quot;</span> : normdf.loc[<span class="st">&#39;AL031055.1&#39;</span>], <span class="st">&quot;group&quot;</span> : np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>)}</a>
-<a class="sourceLine" id="cb83-4" data-line-number="4">df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>aux)</a>
-<a class="sourceLine" id="cb83-5" data-line-number="5">sns.stripplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df, jitter<span class="op">=</span><span class="va">True</span>).set_title(<span class="st">&#39;AL031055.1&#39;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-48-1.png" width="768" /></p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb84-1" data-line-number="1">aux <span class="op">=</span> {<span class="st">&quot;norm&quot;</span> : normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>], <span class="st">&quot;group&quot;</span> : np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>)}</a>
-<a class="sourceLine" id="cb84-2" data-line-number="2">df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>aux)</a>
-<a class="sourceLine" id="cb84-3" data-line-number="3">sns.stripplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df, jitter<span class="op">=</span><span class="va">True</span>).set_title(<span class="st">&#39;AL023803.2&#39;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-49-1.png" width="768" /></p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb85-1" data-line-number="1">sns.boxplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df).set_title(<span class="st">&#39;AL023803.2&#39;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-50-1.png" width="768" /></p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb86-1" data-line-number="1">cMean <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>][<span class="dv">0</span>:<span class="dv">5</span>].mean()</a>
-<a class="sourceLine" id="cb86-2" data-line-number="2">tMean <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>][<span class="dv">5</span>:<span class="dv">10</span>].mean()</a>
-<a class="sourceLine" id="cb86-3" data-line-number="3"><span class="bu">print</span>(cMean)</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="im">import</span> seaborn <span class="im">as</span> sns</a>
+<a class="sourceLine" id="cb88-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb88-3" data-line-number="3">aux <span class="op">=</span> {<span class="st">&quot;norm&quot;</span> : normdf.loc[<span class="st">&#39;AL031055.1&#39;</span>], <span class="st">&quot;group&quot;</span> : np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>)}</a>
+<a class="sourceLine" id="cb88-4" data-line-number="4">df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>aux)</a>
+<a class="sourceLine" id="cb88-5" data-line-number="5">sns.stripplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df, jitter<span class="op">=</span><span class="va">True</span>).set_title(<span class="st">&#39;AL031055.1&#39;</span>)</a></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb89-1" data-line-number="1">aux <span class="op">=</span> {<span class="st">&quot;norm&quot;</span> : normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>], <span class="st">&quot;group&quot;</span> : np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>)}</a>
+<a class="sourceLine" id="cb89-2" data-line-number="2">df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>aux)</a>
+<a class="sourceLine" id="cb89-3" data-line-number="3">sns.stripplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df, jitter<span class="op">=</span><span class="va">True</span>).set_title(<span class="st">&#39;AL023803.2&#39;</span>)</a></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb90-1" data-line-number="1">sns.boxplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df).set_title(<span class="st">&#39;AL023803.2&#39;</span>)</a></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb91-1" data-line-number="1">cMean <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>][<span class="dv">0</span>:<span class="dv">5</span>].mean()</a>
+<a class="sourceLine" id="cb91-2" data-line-number="2">tMean <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>][<span class="dv">5</span>:<span class="dv">10</span>].mean()</a>
+<a class="sourceLine" id="cb91-3" data-line-number="3"><span class="bu">print</span>(cMean)</a></code></pre></div>
 <pre><code>## 354.8722544056803</code></pre>
-<div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="bu">print</span>(tMean)</a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="bu">print</span>(tMean)</a></code></pre></div>
 <pre><code>## 402.20746388364734</code></pre>
-<div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb90-1" data-line-number="1">diff <span class="op">=</span> tMean <span class="op">-</span> cMean</a>
-<a class="sourceLine" id="cb90-2" data-line-number="2">diff</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb95-1" data-line-number="1">diff <span class="op">=</span> tMean <span class="op">-</span> cMean</a>
+<a class="sourceLine" id="cb95-2" data-line-number="2">diff</a></code></pre></div>
 <pre><code>## 47.335209477967055</code></pre>
 <p>So the expression level for AL023803.2 in treated samples is about 10% higher. But these averages are <strong>random variables</strong>. They can take many values.</p>
 <p>If we repeat the experiment, by sequencing samples from a new batch of patients (or even resequencing the same ones) we get different means. Every time we repeat this experiment, we get a different value of mean difference.</p>
@@ -612,33 +627,33 @@ Harold Pimentel: <a href="https://haroldpimentel.wordpress.com/2014/12/08/in-rna
 <p>So what do we do?</p>
 <p>Because we do not have access to entire populations of untreated and treated samples, we cannot confidently say just by comparing the mean expression values that a gene is differentialy expressed.</p>
 <p>We can perform a simple <strong>permutation test</strong>. Permutation tests take advantage of the fact that if we randomly shuffle the treated and untreated labels for the 10 measurements that we have - then the null is true. So we shuffle the labels, calculate the mean difference and assume that the ensuing distribution approximates the null distribution. Here is how we generate a null distribution by shuffling the data 1,000 times:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb92-1" data-line-number="1">normexp <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>]</a>
-<a class="sourceLine" id="cb92-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb92-3" data-line-number="3">np.random.seed(<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb92-4" data-line-number="4">means <span class="op">=</span>[]</a>
-<a class="sourceLine" id="cb92-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb92-6" data-line-number="6"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>) :</a>
-<a class="sourceLine" id="cb92-7" data-line-number="7">    aux <span class="op">=</span> np.random.permutation(normexp)</a>
-<a class="sourceLine" id="cb92-8" data-line-number="8">    cmean <span class="op">=</span> aux[<span class="dv">0</span>:<span class="dv">5</span>].mean()</a>
-<a class="sourceLine" id="cb92-9" data-line-number="9">    tmean <span class="op">=</span> aux[<span class="dv">5</span>:<span class="dv">10</span>].mean()</a>
-<a class="sourceLine" id="cb92-10" data-line-number="10">    means.append(tmean<span class="op">-</span>cmean)</a></code></pre></div>
-<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb93-1" data-line-number="1">plt.hist(means, bins <span class="op">=</span> <span class="dv">20</span>)</a></code></pre></div>
-<pre><code>## (array([ 5., 14., 25., 34., 30., 74., 69., 61., 90., 83., 98., 73., 83.,
-##        74., 59., 43., 35., 27., 19.,  4.]), array([-76.25188009, -68.62669208, -61.00150407, -53.37631606,
-##        -45.75112805, -38.12594004, -30.50075204, -22.87556403,
-##        -15.25037602,  -7.62518801,   0.        ,   7.62518801,
-##         15.25037602,  22.87556403,  30.50075204,  38.12594004,
-##         45.75112805,  53.37631606,  61.00150407,  68.62669208,
-##         76.25188009]), &lt;a list of 20 Patch objects&gt;)</code></pre>
-<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb95-1" data-line-number="1">plt.axvline(diff, color<span class="op">=</span><span class="st">&#39;k&#39;</span>, linestyle<span class="op">=</span><span class="st">&#39;dashed&#39;</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb95-2" data-line-number="2">plt.axvline(<span class="op">-</span>diff, color<span class="op">=</span><span class="st">&#39;k&#39;</span>, linestyle<span class="op">=</span><span class="st">&#39;dashed&#39;</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb95-3" data-line-number="3">plt.show()</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-54-1.png" width="768" /></p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb96-1" data-line-number="1">absmeans <span class="op">=</span> [<span class="bu">abs</span>(x) <span class="cf">for</span> x <span class="kw">in</span> means]</a>
-<a class="sourceLine" id="cb96-2" data-line-number="2">absdiff <span class="op">=</span> <span class="bu">abs</span>(diff)</a>
-<a class="sourceLine" id="cb96-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb96-4" data-line-number="4">p <span class="op">=</span> <span class="bu">sum</span>(absmeans <span class="op">&gt;</span> absdiff)<span class="op">/</span><span class="bu">len</span>(absmeans)</a>
-<a class="sourceLine" id="cb96-5" data-line-number="5">p</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb97-1" data-line-number="1">normexp <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>]</a>
+<a class="sourceLine" id="cb97-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb97-3" data-line-number="3">np.random.seed(<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb97-4" data-line-number="4">means <span class="op">=</span>[]</a>
+<a class="sourceLine" id="cb97-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb97-6" data-line-number="6"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>) :</a>
+<a class="sourceLine" id="cb97-7" data-line-number="7">    aux <span class="op">=</span> np.random.permutation(normexp)</a>
+<a class="sourceLine" id="cb97-8" data-line-number="8">    cmean <span class="op">=</span> aux[<span class="dv">0</span>:<span class="dv">5</span>].mean()</a>
+<a class="sourceLine" id="cb97-9" data-line-number="9">    tmean <span class="op">=</span> aux[<span class="dv">5</span>:<span class="dv">10</span>].mean()</a>
+<a class="sourceLine" id="cb97-10" data-line-number="10">    means.append(tmean<span class="op">-</span>cmean)</a></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1">betaHat &lt;-<span class="st"> </span>reticulate<span class="op">::</span>py<span class="op">$</span>diff</a>
+<a class="sourceLine" id="cb98-2" data-line-number="2">b1 &lt;-<span class="st"> </span><span class="kw">unlist</span>(reticulate<span class="op">::</span>py<span class="op">$</span>means)</a>
+<a class="sourceLine" id="cb98-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb98-4" data-line-number="4"><span class="kw">hist</span>(b1, <span class="dt">breaks =</span> <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb98-5" data-line-number="5"><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(betaHat, <span class="op">-</span>betaHat), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">(<span class="kw">sum</span>(b1 <span class="op">&gt;</span><span class="st"> </span><span class="kw">abs</span>(betaHat)) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(b1 <span class="op">&lt;</span><span class="st"> </span>(<span class="op">-</span><span class="kw">abs</span>(betaHat))) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(<span class="kw">length</span>(b1) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## [1] 0.1358641</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="co"># plt.hist(means, bins = 20)</span></a>
+<a class="sourceLine" id="cb101-2" data-line-number="2"><span class="co"># plt.axvline(diff, color=&#39;k&#39;, linestyle=&#39;dashed&#39;, linewidth=2)</span></a>
+<a class="sourceLine" id="cb101-3" data-line-number="3"><span class="co"># plt.axvline(-diff, color=&#39;k&#39;, linestyle=&#39;dashed&#39;, linewidth=2)</span></a>
+<a class="sourceLine" id="cb101-4" data-line-number="4"><span class="co"># plt.show()</span></a></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb102-1" data-line-number="1">absmeans <span class="op">=</span> [<span class="bu">abs</span>(x) <span class="cf">for</span> x <span class="kw">in</span> means]</a>
+<a class="sourceLine" id="cb102-2" data-line-number="2">absdiff <span class="op">=</span> <span class="bu">abs</span>(diff)</a>
+<a class="sourceLine" id="cb102-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb102-4" data-line-number="4">p <span class="op">=</span> <span class="bu">sum</span>(absmeans <span class="op">&gt;</span> absdiff)<span class="op">/</span><span class="bu">len</span>(absmeans)</a>
+<a class="sourceLine" id="cb102-5" data-line-number="5">p</a></code></pre></div>
 <pre><code>## 0.135</code></pre>
 <ul>
 <li><strong>Null hypothesis</strong>: there is no significant difference between specified populations, any observed difference being due to sampling or experimental error.</li>
@@ -685,34 +700,34 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 <p>So for small sample sizes we shall be computing that same ratio:</p>
 <p><span class="math display">\[\frac{\bar{Y}-\bar{X}}{\sqrt{\frac{s_{Y}^{2}}{N}+\frac{s_{X}^{2}}{M}}}\]</span></p>
 <p>only this time we shall be comparing it to the t-distribution instead of normal. All such tests are usually called Student’s t-tests, though strictly speaking that name should only be used if the variances of the two populations are also assumed to be equal; the form of the test used when this assumption is dropped is sometimes called Welch’s t-test and that’s the one that we’ll be implementing.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="kw">def</span> welch_test(a, b):</a>
-<a class="sourceLine" id="cb98-2" data-line-number="2">    </a>
-<a class="sourceLine" id="cb98-3" data-line-number="3">    <span class="co"># pandas.Series.var() returns an unbiased variance estimate, normalized by N-1 by default</span></a>
-<a class="sourceLine" id="cb98-4" data-line-number="4">    var_a <span class="op">=</span> a.var()</a>
-<a class="sourceLine" id="cb98-5" data-line-number="5">    var_b <span class="op">=</span> b.var()</a>
-<a class="sourceLine" id="cb98-6" data-line-number="6">    </a>
-<a class="sourceLine" id="cb98-7" data-line-number="7">    Na <span class="op">=</span> <span class="bu">len</span>(a)</a>
-<a class="sourceLine" id="cb98-8" data-line-number="8">    Nb <span class="op">=</span> <span class="bu">len</span>(b)</a>
-<a class="sourceLine" id="cb98-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb98-10" data-line-number="10">    <span class="co"># std deviation estimate</span></a>
-<a class="sourceLine" id="cb98-11" data-line-number="11">    s <span class="op">=</span> np.sqrt(var_a<span class="op">/</span>Na <span class="op">+</span> var_b<span class="op">/</span>Nb)</a>
-<a class="sourceLine" id="cb98-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb98-13" data-line-number="13">    <span class="co"># calculate the t-statistics</span></a>
-<a class="sourceLine" id="cb98-14" data-line-number="14">    t <span class="op">=</span> (a.mean() <span class="op">-</span> b.mean())<span class="op">/</span>s</a>
-<a class="sourceLine" id="cb98-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb98-16" data-line-number="16">    <span class="co"># degrees of freedom - Welch–Satterthwaite equation, yeah it&#39;s a bit more complicated than Na + Nb - 2</span></a>
-<a class="sourceLine" id="cb98-17" data-line-number="17">    deg <span class="op">=</span> (((var_a)<span class="op">/</span>Na <span class="op">+</span> (var_b)<span class="op">/</span>Nb)<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span> ((var_a<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(Na<span class="op">**</span><span class="dv">2</span><span class="op">*</span>(Na<span class="dv">-1</span>)) <span class="op">+</span> (var_b<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(Nb<span class="op">**</span><span class="dv">2</span><span class="op">*</span>(Nb<span class="dv">-1</span>)))</a>
-<a class="sourceLine" id="cb98-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb98-19" data-line-number="19">    <span class="co"># p-value after comparison with the t     </span></a>
-<a class="sourceLine" id="cb98-20" data-line-number="20">    p <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>stats.t.sf(np.<span class="bu">abs</span>(t), deg)</a>
-<a class="sourceLine" id="cb98-21" data-line-number="21">    <span class="cf">return</span> (p)</a>
-<a class="sourceLine" id="cb98-22" data-line-number="22">    </a>
-<a class="sourceLine" id="cb98-23" data-line-number="23">p <span class="op">=</span> [(index, welch_test(row.values[<span class="dv">0</span>:<span class="dv">5</span>], row.values[<span class="dv">5</span>:<span class="dv">10</span>])) <span class="cf">for</span> index, row <span class="kw">in</span> normdf.iterrows()]</a></code></pre></div>
-<div class="sourceCode" id="cb99"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb99-1" data-line-number="1">res <span class="op">=</span> pd.DataFrame(p, columns<span class="op">=</span>[<span class="st">&#39;gene&#39;</span>, <span class="st">&#39;pval&#39;</span>])</a>
-<a class="sourceLine" id="cb99-2" data-line-number="2">res <span class="op">=</span> res.set_index(<span class="st">&#39;gene&#39;</span>)</a>
-<a class="sourceLine" id="cb99-3" data-line-number="3">res.shape</a></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="kw">def</span> welch_test(a, b):</a>
+<a class="sourceLine" id="cb104-2" data-line-number="2">    </a>
+<a class="sourceLine" id="cb104-3" data-line-number="3">    <span class="co"># pandas.Series.var() returns an unbiased variance estimate, normalized by N-1 by default</span></a>
+<a class="sourceLine" id="cb104-4" data-line-number="4">    var_a <span class="op">=</span> a.var()</a>
+<a class="sourceLine" id="cb104-5" data-line-number="5">    var_b <span class="op">=</span> b.var()</a>
+<a class="sourceLine" id="cb104-6" data-line-number="6">    </a>
+<a class="sourceLine" id="cb104-7" data-line-number="7">    Na <span class="op">=</span> <span class="bu">len</span>(a)</a>
+<a class="sourceLine" id="cb104-8" data-line-number="8">    Nb <span class="op">=</span> <span class="bu">len</span>(b)</a>
+<a class="sourceLine" id="cb104-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb104-10" data-line-number="10">    <span class="co"># std deviation estimate</span></a>
+<a class="sourceLine" id="cb104-11" data-line-number="11">    s <span class="op">=</span> np.sqrt(var_a<span class="op">/</span>Na <span class="op">+</span> var_b<span class="op">/</span>Nb)</a>
+<a class="sourceLine" id="cb104-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb104-13" data-line-number="13">    <span class="co"># calculate the t-statistics</span></a>
+<a class="sourceLine" id="cb104-14" data-line-number="14">    t <span class="op">=</span> (a.mean() <span class="op">-</span> b.mean())<span class="op">/</span>s</a>
+<a class="sourceLine" id="cb104-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb104-16" data-line-number="16">    <span class="co"># degrees of freedom - Welch–Satterthwaite equation, yeah it&#39;s a bit more complicated than Na + Nb - 2</span></a>
+<a class="sourceLine" id="cb104-17" data-line-number="17">    deg <span class="op">=</span> (((var_a)<span class="op">/</span>Na <span class="op">+</span> (var_b)<span class="op">/</span>Nb)<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span> ((var_a<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(Na<span class="op">**</span><span class="dv">2</span><span class="op">*</span>(Na<span class="dv">-1</span>)) <span class="op">+</span> (var_b<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(Nb<span class="op">**</span><span class="dv">2</span><span class="op">*</span>(Nb<span class="dv">-1</span>)))</a>
+<a class="sourceLine" id="cb104-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb104-19" data-line-number="19">    <span class="co"># p-value after comparison with the t     </span></a>
+<a class="sourceLine" id="cb104-20" data-line-number="20">    p <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>stats.t.sf(np.<span class="bu">abs</span>(t), deg)</a>
+<a class="sourceLine" id="cb104-21" data-line-number="21">    <span class="cf">return</span> (p)</a>
+<a class="sourceLine" id="cb104-22" data-line-number="22">    </a>
+<a class="sourceLine" id="cb104-23" data-line-number="23">p <span class="op">=</span> [(index, welch_test(row.values[<span class="dv">0</span>:<span class="dv">5</span>], row.values[<span class="dv">5</span>:<span class="dv">10</span>])) <span class="cf">for</span> index, row <span class="kw">in</span> normdf.iterrows()]</a></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb105-1" data-line-number="1">res <span class="op">=</span> pd.DataFrame(p, columns<span class="op">=</span>[<span class="st">&#39;gene&#39;</span>, <span class="st">&#39;pval&#39;</span>])</a>
+<a class="sourceLine" id="cb105-2" data-line-number="2">res <span class="op">=</span> res.set_index(<span class="st">&#39;gene&#39;</span>)</a>
+<a class="sourceLine" id="cb105-3" data-line-number="3">res.shape</a></code></pre></div>
 <pre><code>## (1347, 1)</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb101-1" data-line-number="1">res.head(<span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb107-1" data-line-number="1">res.head(<span class="dv">6</span>)</a></code></pre></div>
 <pre><code>##                  pval
 ## gene                 
 ## DEFB125  6.449128e-01
@@ -729,32 +744,23 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 <li>In our simulated dataset, just from chromosome 20 (which is one of the shortest in human genome) we have 1347 genes.</li>
 <li>If you use the standard cutoff of 0.05 when calling p-value significant, you’ll know that since p-values are uniformly distributed when the null is true, about 1 out of every 20 times you’ll still call that result statistically significant, even when there is no true biological effect.</li>
 </ul>
-<div class="sourceCode" id="cb103"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb103-1" data-line-number="1">np.random.seed(<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb103-2" data-line-number="2">pvals <span class="op">=</span>[]</a>
-<a class="sourceLine" id="cb103-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb103-4" data-line-number="4"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20000</span>) :</a>
-<a class="sourceLine" id="cb103-5" data-line-number="5">    firstg <span class="op">=</span> np.random.normal(<span class="dv">32</span>, <span class="dv">5</span>, <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb103-6" data-line-number="6">    secondg <span class="op">=</span> np.random.normal(<span class="dv">32</span>, <span class="dv">5</span>, <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb103-7" data-line-number="7">    pval <span class="op">=</span> welch_test(firstg, secondg)</a>
-<a class="sourceLine" id="cb103-8" data-line-number="8">    pvals.append(pval)</a>
-<a class="sourceLine" id="cb103-9" data-line-number="9">    </a>
-<a class="sourceLine" id="cb103-10" data-line-number="10">plt.hist(pvals, bins <span class="op">=</span> <span class="dv">20</span>)</a></code></pre></div>
-<pre><code>## (array([1100., 1133., 1006.,  962., 1008., 1065., 1031., 1028.,  958.,
-##        1018.,  973., 1025.,  988.,  988.,  997.,  894.,  955.,  956.,
-##         980.,  935.]), array([2.62397516e-05, 5.00226809e-02, 1.00019122e-01, 1.50015563e-01,
-##        2.00012004e-01, 2.50008446e-01, 3.00004887e-01, 3.50001328e-01,
-##        3.99997769e-01, 4.49994210e-01, 4.99990652e-01, 5.49987093e-01,
-##        5.99983534e-01, 6.49979975e-01, 6.99976416e-01, 7.49972857e-01,
-##        7.99969299e-01, 8.49965740e-01, 8.99962181e-01, 9.49958622e-01,
-##        9.99955063e-01]), &lt;a list of 20 Patch objects&gt;)</code></pre>
-<div class="sourceCode" id="cb105"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb105-1" data-line-number="1">plt.show()</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-59-1.png" width="768" /></p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb109-1" data-line-number="1">np.random.seed(<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb109-2" data-line-number="2">pvals <span class="op">=</span>[]</a>
+<a class="sourceLine" id="cb109-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb109-4" data-line-number="4"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20000</span>) :</a>
+<a class="sourceLine" id="cb109-5" data-line-number="5">    firstg <span class="op">=</span> np.random.normal(<span class="dv">32</span>, <span class="dv">5</span>, <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb109-6" data-line-number="6">    secondg <span class="op">=</span> np.random.normal(<span class="dv">32</span>, <span class="dv">5</span>, <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb109-7" data-line-number="7">    pval <span class="op">=</span> welch_test(firstg, secondg)</a>
+<a class="sourceLine" id="cb109-8" data-line-number="8">    pvals.append(pval)</a></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1">pvals &lt;-<span class="st"> </span><span class="kw">unlist</span>(reticulate<span class="op">::</span>py<span class="op">$</span>pvals)</a>
+<a class="sourceLine" id="cb110-2" data-line-number="2"><span class="kw">hist</span>(pvals, <span class="dt">breaks =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
 <p><img src="images/significant1.png" width="700"></p>
 <p><img src="images/significant2.png" width="700"></p>
 <p><img src="images/significant3.png" width="700"></p>
 <p><img src="images/significant4.png" width="700"></p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb106-1" data-line-number="1">res[<span class="st">&#39;pval&#39;</span>].plot.hist(bins<span class="op">=</span><span class="dv">20</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-60-1.png" width="768" /></p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb111-1" data-line-number="1">res[<span class="st">&#39;pval&#39;</span>].plot.hist(bins<span class="op">=</span><span class="dv">20</span>)</a></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
 <table>
 <thead>
 <tr class="header">
@@ -811,19 +817,19 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 <li><p><span style="color:blue">Benjamini-Hochberg correction</span>: the p-values are sorted in increasing order and the i-th p-value is considered significant if it’s less or equal to <span class="math inline">\(\frac{i\alpha}{n}\)</span>.</p></li>
 <li><p><span style="color:red">Bonferroni correction</span>: p-values less or equal to α/n are considered significant.</p></li>
 </ul>
-<div class="sourceCode" id="cb107"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb107-1" data-line-number="1">res <span class="op">=</span> res.sort_values(by<span class="op">=</span>[<span class="st">&#39;pval&#39;</span>])</a>
-<a class="sourceLine" id="cb107-2" data-line-number="2">m <span class="op">=</span> res.shape[<span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb107-3" data-line-number="3">qval <span class="op">=</span> np.zeros(m)</a>
-<a class="sourceLine" id="cb107-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb107-5" data-line-number="5"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, m):</a>
-<a class="sourceLine" id="cb107-6" data-line-number="6">    qval[i] <span class="op">=</span> (res[<span class="st">&#39;pval&#39;</span>][i]<span class="op">*</span>m<span class="op">/</span>(i<span class="op">+</span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb107-7" data-line-number="7">    </a>
-<a class="sourceLine" id="cb107-8" data-line-number="8">res[<span class="st">&#39;qval&#39;</span>] <span class="op">=</span> qval</a>
-<a class="sourceLine" id="cb107-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb107-10" data-line-number="10">alpha <span class="op">=</span> <span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb107-11" data-line-number="11">res[<span class="st">&#39;de&#39;</span>] <span class="op">=</span> res[<span class="st">&#39;qval&#39;</span>] <span class="op">&lt;</span> alpha</a></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb112-1" data-line-number="1">res <span class="op">=</span> res.sort_values(by<span class="op">=</span>[<span class="st">&#39;pval&#39;</span>])</a>
+<a class="sourceLine" id="cb112-2" data-line-number="2">m <span class="op">=</span> res.shape[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb112-3" data-line-number="3">qval <span class="op">=</span> np.zeros(m)</a>
+<a class="sourceLine" id="cb112-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb112-5" data-line-number="5"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, m):</a>
+<a class="sourceLine" id="cb112-6" data-line-number="6">    qval[i] <span class="op">=</span> (res[<span class="st">&#39;pval&#39;</span>][i]<span class="op">*</span>m<span class="op">/</span>(i<span class="op">+</span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb112-7" data-line-number="7">    </a>
+<a class="sourceLine" id="cb112-8" data-line-number="8">res[<span class="st">&#39;qval&#39;</span>] <span class="op">=</span> qval</a>
+<a class="sourceLine" id="cb112-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb112-10" data-line-number="10">alpha <span class="op">=</span> <span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb112-11" data-line-number="11">res[<span class="st">&#39;de&#39;</span>] <span class="op">=</span> res[<span class="st">&#39;qval&#39;</span>] <span class="op">&lt;</span> alpha</a></code></pre></div>
 <p>After performing Benjamini-Hochberg (FDR) correction:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb108-1" data-line-number="1">res.head(<span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb113-1" data-line-number="1">res.head(<span class="dv">6</span>)</a></code></pre></div>
 <pre><code>##                    pval      qval    de
 ## gene                                   
 ## FLRT3      9.418961e-10  0.000001  True
@@ -832,8 +838,8 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 ## TOP1       5.383997e-09  0.000002  True
 ## RALGAPB    5.399923e-09  0.000001  True
 ## RTFDC1     7.302393e-08  0.000016  True</code></pre>
-<div class="sourceCode" id="cb110"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb110-1" data-line-number="1">res[<span class="st">&#39;qval&#39;</span>].plot.hist(bins<span class="op">=</span><span class="dv">20</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-63-1.png" width="768" /></p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb115-1" data-line-number="1">res[<span class="st">&#39;qval&#39;</span>].plot.hist(bins<span class="op">=</span><span class="dv">20</span>)</a></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
 
 </div>
 </div>

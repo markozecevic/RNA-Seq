@@ -7,25 +7,24 @@ matplotlib <- import("matplotlib", convert = TRUE)
 matplotlib$use("Agg")
 ```
 
+```{r, message = FALSE}
+library(Biobase)
+library(DESeq2)
+library(broom)
+library(MASS)
+library(ggplot2)
+```
+
 ```{python}
 import pysam
 from scipy import stats
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import glob
 import os
 
 import pandas as pd
 import numpy as np
 ```
-
-```{python}
-paths = glob.glob("/opt/aligned/*.bam")
-paths
-```
-
-
-
-
 
 ```{python}
 def read_count(gene, bamfile):
@@ -43,7 +42,10 @@ def read_count(gene, bamfile):
     return pysam_gene_count
 ```
 
-
+```{python}
+paths = glob.glob("/opt/aligned/*.bam")
+paths
+```
 
 ```{python}
 counts = []
@@ -56,16 +58,12 @@ for path in paths:
     with open('/opt/gencode.v27.chr20.bed', 'r') as f:
         for line in f:
             tokens = line.split('\t')
-            gene_local = (tokens[0], int(tokens[1]), int(tokens[2]))
-            count = read_count(gene_local, bamfile)
+            current_gene = (tokens[0], int(tokens[1]), int(tokens[2]))
+            count = read_count(current_gene, bamfile)
             gene_counts.update({tokens[3].rstrip() : count})  
     counts.append(gene_counts)
     samples.append(sname)
 ```
-
-
-
-
 
 ```{python}
 df = pd.DataFrame.from_dict(counts)
@@ -74,23 +72,22 @@ df = df.sort_index().T
 ```
 
 
-
 ```{python}
-KiR = np.exp((np.log(df)).mean(axis=1))
+df.head(10)
+df.shape
+```
+
+```{python, warning = FALSE}
+KiR = np.exp((np.log(df)).mean(axis=1)) #geometric mean
 df = df[(KiR != 0).values]
 KiR = KiR[(KiR != 0).values]
+df.shape
 ```
 
 ## Diferencijalna Eskpresija
 
-- A gene or transcript is declared differentially expressed if an observed change in read counts between two experimental conditions is statistically significant, i.e. if the difference is greater than what would be expected just due to random variation.
-- Detecting differentially expressed genes/transcripts across sample groups is among the major goals in the statistical analysis of RNA-seq data.
-
-
-
-```{python}
-df.head(10)
-```
+- Gen ili transkript nazivamo diferencijalno ekspresovanim ako je uocena statisticki znacajna promena u ekspresiji izmedju neke dve grupe uzoraka koje posmatramo.
+- Otkrivanje diferencijalno ekspresovanih gena je cesto cilj statisticke analize RNK sekvenciranih podataka.
 
 ## Between-sample normalization
 
@@ -174,17 +171,12 @@ aux = df.divide(KiR.values, axis = 0)
 aux.head(10)
 ```
 
-
-
-
-
 ```{python}
 sizeF = aux.median(axis = 0).values
 normdf = df.divide(sizeF, axis = 1)
 ```
 
 Normalized, this is how our simulated dataset looks like:
-
 
 ```{python}
 normdf.head(10)
@@ -196,7 +188,15 @@ Data quality assessment and quality control (i.e. the removal of insufficiently 
 
 The dataset we are investigating is simulated, but let us pretend that samples 6 through 10 are coming from the "treated" population and that samples 1 through 5 are "untreated" or "control" samples.
 
+A useful initial step in an RNA-seq analysis is often to assess overall similarity between samples:
 
+    Which samples are similar to each other, which are different?
+    Does this fit to the expectation from the experiment’s design?
+    What are the major sources of variation in the dataset?
+
+To explore the similarity of our samples, we will be performing sample-level QC using Principal Component Analysis (PCA) and hierarchical clustering methods. Our sample-level QC allows us to see how well our replicates cluster together, as well as, observe whether our experimental condition represents the major source of variation in the data. Performing sample-level QC can also identify any sample outliers, which may need to be explored further to determine whether they need to be removed prior to DE analysis.
+
+<br><center><iframe width="560" height="315" align="middle" src="https://www.youtube.com/embed/_UVHneBUBW0" frameborder="0" allowfullscreen></iframe></center><br>
 
 ```{python}
 from sklearn.decomposition import PCA
@@ -205,12 +205,7 @@ from sklearn.preprocessing import StandardScaler
 pca = PCA(n_components=2)
 
 principalComponents = pca.fit_transform(normdf.T)
-principalComponents
-```
 
-
-
-```{python}
 principalDf = pd.DataFrame(data = principalComponents
              , columns = ['principal component 1', 'principal component 2'])
 
@@ -220,26 +215,21 @@ finalDf = pd.concat([principalDf, pd.DataFrame(np.repeat(categories, [5, 5], axi
 finalDf
 ```
 
-
-
-
-
-```{python}
-fig = plt.figure(figsize = (8,6))
-ax = fig.add_subplot(1,1,1) 
-ax.set_xlabel('Principal Component 1', fontsize = 15)
-ax.set_ylabel('Principal Component 2', fontsize = 15)
-ax.set_title('2 Component PCA', fontsize = 20)
-conditions = categories; colors = ['r', 'g']
-for target, color in zip(conditions,colors):
-    indicesToKeep = finalDf['condition'] == target
-    ax.scatter(finalDf.loc[indicesToKeep, 'principal component 1'], 
-               finalDf.loc[indicesToKeep, 'principal component 2'], 
-               c = color, s = 50)
-ax.legend(conditions); ax.grid()
+```{r}
+pcaDF <- reticulate::py$finalDf
+pcaDF
 ```
 
-<img src="images/pca.png" width="700">
+```{r}
+ggplot(pcaDF, aes(x=`principal component 1`, y=`principal component 2`, color = condition)) + 
+  geom_point()
+```
+
+<img src="images/gpca1.png" width="600">
+
+<img src="images/gpca2.png" width="600">
+
+<img src="images/gpca3" width="600">
 
 <img src="images/cldendrogram.png" width="600">
 
@@ -255,26 +245,15 @@ df = pd.DataFrame(data=aux)
 sns.stripplot(x="group", y="norm", data=df, jitter=True).set_title('AL031055.1')
 ```
 
-
-
-
-
 ```{python}
 aux = {"norm" : normdf.loc['AL023803.2'], "group" : np.repeat(categories, [5, 5], axis=0)}
 df = pd.DataFrame(data=aux)
 sns.stripplot(x="group", y="norm", data=df, jitter=True).set_title('AL023803.2')
 ```
 
-
-
-
 ```{python}
 sns.boxplot(x="group", y="norm", data=df).set_title('AL023803.2')
 ```
-
-
-
-
 
 ```{python}
 cMean = normdf.loc['AL023803.2'][0:5].mean()
@@ -282,9 +261,6 @@ tMean = normdf.loc['AL023803.2'][5:10].mean()
 print(cMean)
 print(tMean)
 ```
-
-
-
 
 ```{python}
 diff = tMean - cMean
@@ -316,18 +292,20 @@ for i in range(1000) :
     means.append(tmean-cmean)
 ```
 
+```{r}
+betaHat <- reticulate::py$diff
+b1 <- unlist(reticulate::py$means)
 
+hist(b1, breaks = 50)
+abline(v=c(betaHat, -betaHat), col = "red")
 
-```{python}
-plt.hist(means, bins = 20)
-plt.axvline(diff, color='k', linestyle='dashed', linewidth=2)
-plt.axvline(-diff, color='k', linestyle='dashed', linewidth=2)
-plt.show()
+(sum(b1 > abs(betaHat)) + sum(b1 < (-abs(betaHat))) + 1)/(length(b1) + 1)
+
+# plt.hist(means, bins = 20)
+# plt.axvline(diff, color='k', linestyle='dashed', linewidth=2)
+# plt.axvline(-diff, color='k', linestyle='dashed', linewidth=2)
+# plt.show()
 ```
-
-
-
-
 
 ```{python}
 absmeans = [abs(x) for x in means]
@@ -436,18 +414,11 @@ def welch_test(a, b):
 p = [(index, welch_test(row.values[0:5], row.values[5:10])) for index, row in normdf.iterrows()]
 ```
 
-
-
-
-
 ```{python}
 res = pd.DataFrame(p, columns=['gene', 'pval'])
 res = res.set_index('gene')
 res.shape
 ```
-
-
-
 
 ```{python}
 res.head(6)
@@ -459,8 +430,6 @@ res.head(6)
 - In our simulated dataset, just from chromosome 20 (which is one of the shortest in human genome) we have 1347 genes.
 - If you use the standard cutoff of 0.05 when calling p-value significant, you'll know that since p-values are uniformly distributed when the null is true, about 1 out of every 20 times you'll still call that result statistically significant, even when there is no true biological effect.
 
-
-
 ```{python}
 np.random.seed(6)
 pvals =[]
@@ -470,9 +439,11 @@ for i in range(20000) :
     secondg = np.random.normal(32, 5, 20)
     pval = welch_test(firstg, secondg)
     pvals.append(pval)
-    
-plt.hist(pvals, bins = 20)
-plt.show()
+```
+
+```{r}
+pvals <- unlist(reticulate::py$pvals)
+hist(pvals, breaks = 20)
 ```
 
 <img src="images/significant1.png" width="700">
@@ -482,7 +453,6 @@ plt.show()
 <img src="images/significant3.png" width="700">
 
 <img src="images/significant4.png" width="700">
-
 
 ```{python}
 res['pval'].plot.hist(bins=20)
