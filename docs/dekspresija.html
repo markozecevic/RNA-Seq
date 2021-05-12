@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Diferencijalna ekspresija | Analiza RNA-Seq podataka</title>
   <meta name="description" content="Materijali za deo kursa posvecen analizi RNA-Seq podataka" />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Diferencijalna ekspresija | Analiza RNA-Seq podataka" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="marko.zecevic@sbgenomics.com" />
 
 
-<meta name="date" content="2020-04-09" />
+<meta name="date" content="2021-05-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,12 +50,15 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -64,14 +67,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -115,6 +120,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 </head>
 
 <body>
@@ -129,12 +135,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Podesavanja</a></li>
 <li class="chapter" data-level="1" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>1</b> Uvod</a><ul>
-<li class="chapter" data-level="1.1" data-path="uvod.html"><a href="uvod.html#centralna-dogma-molekularne-biologije"><i class="fa fa-check"></i><b>1.1</b> Centralna dogma molekularne biologije</a></li>
-<li class="chapter" data-level="1.2" data-path="uvod.html"><a href="uvod.html#transkripti"><i class="fa fa-check"></i><b>1.2</b> Transkripti</a></li>
-<li class="chapter" data-level="1.3" data-path="uvod.html"><a href="uvod.html#analysis-goals"><i class="fa fa-check"></i><b>1.3</b> Analysis goals</a></li>
-<li class="chapter" data-level="1.4" data-path="uvod.html"><a href="uvod.html#sample-preparation"><i class="fa fa-check"></i><b>1.4</b> Sample preparation</a></li>
-<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#dnk-mikročip-microarray"><i class="fa fa-check"></i><b>1.5</b> DNK mikročip (microarray)</a></li>
-<li class="chapter" data-level="1.6" data-path="uvod.html"><a href="uvod.html#rna-seq"><i class="fa fa-check"></i><b>1.6</b> RNA-Seq</a></li>
+<li class="chapter" data-level="1.1" data-path="uvod.html"><a href="uvod.html#dnk-i-rnk"><i class="fa fa-check"></i><b>1.1</b> DNK i RNK</a></li>
+<li class="chapter" data-level="1.2" data-path="uvod.html"><a href="uvod.html#centralna-dogma-molekularne-biologije"><i class="fa fa-check"></i><b>1.2</b> Centralna dogma molekularne biologije</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="uvod.html"><a href="uvod.html#transkripcija"><i class="fa fa-check"></i><b>1.2.1</b> Transkripcija</a></li>
+<li class="chapter" data-level="1.2.2" data-path="uvod.html"><a href="uvod.html#splajsovanje"><i class="fa fa-check"></i><b>1.2.2</b> Splajsovanje</a></li>
+<li class="chapter" data-level="1.2.3" data-path="uvod.html"><a href="uvod.html#translacija"><i class="fa fa-check"></i><b>1.2.3</b> Translacija</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="uvod.html"><a href="uvod.html#vrste-rnk"><i class="fa fa-check"></i><b>1.3</b> Vrste RNK</a></li>
+<li class="chapter" data-level="1.4" data-path="uvod.html"><a href="uvod.html#alternativno-splajsovanje"><i class="fa fa-check"></i><b>1.4</b> Alternativno splajsovanje</a></li>
+<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#ciljevi-proucavanja-rnk"><i class="fa fa-check"></i><b>1.5</b> Ciljevi proucavanja RNK</a></li>
+<li class="chapter" data-level="1.6" data-path="uvod.html"><a href="uvod.html#rnk-sekvenciranje"><i class="fa fa-check"></i><b>1.6</b> RNK sekvenciranje</a></li>
+<li class="chapter" data-level="1.7" data-path="uvod.html"><a href="uvod.html#dnk-mikročip-microarray"><i class="fa fa-check"></i><b>1.7</b> DNK mikročip (microarray)</a></li>
+<li class="chapter" data-level="1.8" data-path="uvod.html"><a href="uvod.html#literatura"><i class="fa fa-check"></i><b>1.8</b> Literatura</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="poravnanje.html"><a href="poravnanje.html"><i class="fa fa-check"></i><b>2</b> Poravnanje</a><ul>
 <li class="chapter" data-level="2.1" data-path="poravnanje.html"><a href="poravnanje.html#alignment-challenges"><i class="fa fa-check"></i><b>2.1</b> Alignment challenges</a></li>
@@ -177,54 +189,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="dekspresija" class="section level1">
 <h1><span class="header-section-number">4</span> Diferencijalna ekspresija</h1>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">library</span>(Biobase)</a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="kw">library</span>(DESeq2)</a>
-<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="kw">library</span>(broom)</a>
-<a class="sourceLine" id="cb62-4" data-line-number="4"><span class="kw">library</span>(MASS)</a>
-<a class="sourceLine" id="cb62-5" data-line-number="5"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
-<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="im">import</span> pysam</a>
-<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="im">from</span> scipy <span class="im">import</span> stats</a>
-<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="co"># import matplotlib.pyplot as plt</span></a>
-<a class="sourceLine" id="cb63-4" data-line-number="4"><span class="im">import</span> glob</a>
-<a class="sourceLine" id="cb63-5" data-line-number="5"><span class="im">import</span> os</a>
-<a class="sourceLine" id="cb63-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb63-7" data-line-number="7"><span class="im">import</span> pandas <span class="im">as</span> pd</a>
-<a class="sourceLine" id="cb63-8" data-line-number="8"><span class="im">import</span> numpy <span class="im">as</span> np</a></code></pre></div>
-<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">def</span> read_count(gene, bamfile):</a>
-<a class="sourceLine" id="cb64-2" data-line-number="2">    <span class="co">&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="co">    Compute the number of reads contained in a bamfile that overlap</span></a>
-<a class="sourceLine" id="cb64-4" data-line-number="4"><span class="co">    a given interval</span></a>
-<a class="sourceLine" id="cb64-5" data-line-number="5"><span class="co">    &quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb64-6" data-line-number="6">    bam_iter <span class="op">=</span> bamfile.fetch(gene[<span class="dv">0</span>], gene[<span class="dv">1</span>], gene[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb64-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb64-8" data-line-number="8">    pysam_gene_count <span class="op">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb64-9" data-line-number="9">    </a>
-<a class="sourceLine" id="cb64-10" data-line-number="10">    <span class="cf">for</span> x <span class="kw">in</span> bam_iter:</a>
-<a class="sourceLine" id="cb64-11" data-line-number="11">        pysam_gene_count <span class="op">+=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb64-12" data-line-number="12">        </a>
-<a class="sourceLine" id="cb64-13" data-line-number="13">    <span class="cf">return</span> pysam_gene_count</a></code></pre></div>
-<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb65-1" data-line-number="1">paths <span class="op">=</span> glob.glob(<span class="st">&quot;/opt/aligned/*.bam&quot;</span>)</a>
-<a class="sourceLine" id="cb65-2" data-line-number="2">paths</a></code></pre></div>
-<pre><code>## [&#39;/opt/aligned/sample_02_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_05_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_03_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_06_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_10_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_07_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_09_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_08_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_04_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_01_accepted_hits.bam&#39;]</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb67-1" data-line-number="1">counts <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb67-2" data-line-number="2">samples <span class="op">=</span> []</a>
-<a class="sourceLine" id="cb67-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb67-4" data-line-number="4"><span class="cf">for</span> path <span class="kw">in</span> paths:</a>
-<a class="sourceLine" id="cb67-5" data-line-number="5">    sname <span class="op">=</span> os.path.basename(path).replace(<span class="st">&#39;_accepted_hits.bam&#39;</span>, <span class="st">&#39;&#39;</span>)</a>
-<a class="sourceLine" id="cb67-6" data-line-number="6">    bamfile <span class="op">=</span> pysam.AlignmentFile(path)</a>
-<a class="sourceLine" id="cb67-7" data-line-number="7">    gene_counts<span class="op">=</span>{}</a>
-<a class="sourceLine" id="cb67-8" data-line-number="8">    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, <span class="st">&#39;r&#39;</span>) <span class="im">as</span> f:</a>
-<a class="sourceLine" id="cb67-9" data-line-number="9">        <span class="cf">for</span> line <span class="kw">in</span> f:</a>
-<a class="sourceLine" id="cb67-10" data-line-number="10">            tokens <span class="op">=</span> line.split(<span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>)</a>
-<a class="sourceLine" id="cb67-11" data-line-number="11">            current_gene <span class="op">=</span> (tokens[<span class="dv">0</span>], <span class="bu">int</span>(tokens[<span class="dv">1</span>]), <span class="bu">int</span>(tokens[<span class="dv">2</span>]))</a>
-<a class="sourceLine" id="cb67-12" data-line-number="12">            count <span class="op">=</span> read_count(current_gene, bamfile)</a>
-<a class="sourceLine" id="cb67-13" data-line-number="13">            gene_counts.update({tokens[<span class="dv">3</span>].rstrip() : count})  </a>
-<a class="sourceLine" id="cb67-14" data-line-number="14">    counts.append(gene_counts)</a>
-<a class="sourceLine" id="cb67-15" data-line-number="15">    samples.append(sname)</a></code></pre></div>
-<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb68-1" data-line-number="1">df <span class="op">=</span> pd.DataFrame.from_dict(counts)</a>
-<a class="sourceLine" id="cb68-2" data-line-number="2">df.index <span class="op">=</span> samples</a>
-<a class="sourceLine" id="cb68-3" data-line-number="3">df <span class="op">=</span> df.sort_index().T</a></code></pre></div>
-<div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb69-1" data-line-number="1">df.head(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="dekspresija.html#cb62-1"></a><span class="kw">library</span>(Biobase)</span>
+<span id="cb62-2"><a href="dekspresija.html#cb62-2"></a><span class="kw">library</span>(DESeq2)</span>
+<span id="cb62-3"><a href="dekspresija.html#cb62-3"></a><span class="kw">library</span>(broom)</span>
+<span id="cb62-4"><a href="dekspresija.html#cb62-4"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb62-5"><a href="dekspresija.html#cb62-5"></a><span class="kw">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="dekspresija.html#cb63-1"></a><span class="im">import</span> pysam</span>
+<span id="cb63-2"><a href="dekspresija.html#cb63-2"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb63-3"><a href="dekspresija.html#cb63-3"></a><span class="co"># import matplotlib.pyplot as plt</span></span>
+<span id="cb63-4"><a href="dekspresija.html#cb63-4"></a><span class="im">import</span> glob</span>
+<span id="cb63-5"><a href="dekspresija.html#cb63-5"></a><span class="im">import</span> os</span>
+<span id="cb63-6"><a href="dekspresija.html#cb63-6"></a></span>
+<span id="cb63-7"><a href="dekspresija.html#cb63-7"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb63-8"><a href="dekspresija.html#cb63-8"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="dekspresija.html#cb64-1"></a><span class="kw">def</span> read_count(gene, bamfile):</span>
+<span id="cb64-2"><a href="dekspresija.html#cb64-2"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb64-3"><a href="dekspresija.html#cb64-3"></a><span class="co">    Compute the number of reads contained in a bamfile that overlap</span></span>
+<span id="cb64-4"><a href="dekspresija.html#cb64-4"></a><span class="co">    a given interval</span></span>
+<span id="cb64-5"><a href="dekspresija.html#cb64-5"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb64-6"><a href="dekspresija.html#cb64-6"></a>    bam_iter <span class="op">=</span> bamfile.fetch(gene[<span class="dv">0</span>], gene[<span class="dv">1</span>], gene[<span class="dv">2</span>])</span>
+<span id="cb64-7"><a href="dekspresija.html#cb64-7"></a></span>
+<span id="cb64-8"><a href="dekspresija.html#cb64-8"></a>    pysam_gene_count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb64-9"><a href="dekspresija.html#cb64-9"></a>    </span>
+<span id="cb64-10"><a href="dekspresija.html#cb64-10"></a>    <span class="cf">for</span> x <span class="kw">in</span> bam_iter:</span>
+<span id="cb64-11"><a href="dekspresija.html#cb64-11"></a>        pysam_gene_count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb64-12"><a href="dekspresija.html#cb64-12"></a>        </span>
+<span id="cb64-13"><a href="dekspresija.html#cb64-13"></a>    <span class="cf">return</span> pysam_gene_count</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="dekspresija.html#cb65-1"></a>paths <span class="op">=</span> glob.glob(<span class="st">&quot;/opt/aligned/*.bam&quot;</span>)</span>
+<span id="cb65-2"><a href="dekspresija.html#cb65-2"></a>paths</span></code></pre></div>
+<pre><code>## [&#39;/opt/aligned/sample_07_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_10_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_03_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_09_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_02_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_05_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_01_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_06_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_04_accepted_hits.bam&#39;, &#39;/opt/aligned/sample_08_accepted_hits.bam&#39;]</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="dekspresija.html#cb67-1"></a>counts <span class="op">=</span> []</span>
+<span id="cb67-2"><a href="dekspresija.html#cb67-2"></a>samples <span class="op">=</span> []</span>
+<span id="cb67-3"><a href="dekspresija.html#cb67-3"></a></span>
+<span id="cb67-4"><a href="dekspresija.html#cb67-4"></a><span class="cf">for</span> path <span class="kw">in</span> paths:</span>
+<span id="cb67-5"><a href="dekspresija.html#cb67-5"></a>    sname <span class="op">=</span> os.path.basename(path).replace(<span class="st">&#39;_accepted_hits.bam&#39;</span>, <span class="st">&#39;&#39;</span>)</span>
+<span id="cb67-6"><a href="dekspresija.html#cb67-6"></a>    bamfile <span class="op">=</span> pysam.AlignmentFile(path)</span>
+<span id="cb67-7"><a href="dekspresija.html#cb67-7"></a>    gene_counts<span class="op">=</span>{}</span>
+<span id="cb67-8"><a href="dekspresija.html#cb67-8"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, <span class="st">&#39;r&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb67-9"><a href="dekspresija.html#cb67-9"></a>        <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb67-10"><a href="dekspresija.html#cb67-10"></a>            tokens <span class="op">=</span> line.split(<span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>)</span>
+<span id="cb67-11"><a href="dekspresija.html#cb67-11"></a>            current_gene <span class="op">=</span> (tokens[<span class="dv">0</span>], <span class="bu">int</span>(tokens[<span class="dv">1</span>]), <span class="bu">int</span>(tokens[<span class="dv">2</span>]))</span>
+<span id="cb67-12"><a href="dekspresija.html#cb67-12"></a>            count <span class="op">=</span> read_count(current_gene, bamfile)</span>
+<span id="cb67-13"><a href="dekspresija.html#cb67-13"></a>            gene_counts.update({tokens[<span class="dv">3</span>].rstrip() : count})  </span>
+<span id="cb67-14"><a href="dekspresija.html#cb67-14"></a>    counts.append(gene_counts)</span>
+<span id="cb67-15"><a href="dekspresija.html#cb67-15"></a>    samples.append(sname)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="dekspresija.html#cb68-1"></a>df <span class="op">=</span> pd.DataFrame.from_dict(counts)</span>
+<span id="cb68-2"><a href="dekspresija.html#cb68-2"></a>df.index <span class="op">=</span> samples</span>
+<span id="cb68-3"><a href="dekspresija.html#cb68-3"></a>df <span class="op">=</span> df.sort_index().T</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="dekspresija.html#cb69-1"></a>df.head(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##             sample_01  sample_02  sample_03  ...  sample_08  sample_09  sample_10
 ## DEFB125          1016        465       1146  ...       1260        285        426
 ## DEFB126           559        223        555  ...        749        132        240
@@ -238,13 +250,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## NRSN2-AS1        4344       1921       5404  ...       5986       1337       1737
 ## 
 ## [10 rows x 10 columns]</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb71-1" data-line-number="1">df.shape</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="dekspresija.html#cb71-1"></a>df.shape</span></code></pre></div>
 <pre><code>## (1357, 10)</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb73-1" data-line-number="1">KiR <span class="op">=</span> np.exp((np.log(df)).mean(axis<span class="op">=</span><span class="dv">1</span>)) <span class="co">#geometric mean</span></a></code></pre></div>
-<pre><code>## /home/rstudio/.local/share/r-miniconda/envs/compbio/bin/python:1: RuntimeWarning: divide by zero encountered in log</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb75-1" data-line-number="1">df <span class="op">=</span> df[(KiR <span class="op">!=</span> <span class="dv">0</span>).values]</a>
-<a class="sourceLine" id="cb75-2" data-line-number="2">KiR <span class="op">=</span> KiR[(KiR <span class="op">!=</span> <span class="dv">0</span>).values]</a>
-<a class="sourceLine" id="cb75-3" data-line-number="3">df.shape</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="dekspresija.html#cb73-1"></a>KiR <span class="op">=</span> np.exp((np.log(df)).mean(axis<span class="op">=</span><span class="dv">1</span>)) <span class="co">#geometric mean</span></span>
+<span id="cb73-2"><a href="dekspresija.html#cb73-2"></a>df <span class="op">=</span> df[(KiR <span class="op">!=</span> <span class="dv">0</span>).values]</span>
+<span id="cb73-3"><a href="dekspresija.html#cb73-3"></a>KiR <span class="op">=</span> KiR[(KiR <span class="op">!=</span> <span class="dv">0</span>).values]</span>
+<span id="cb73-4"><a href="dekspresija.html#cb73-4"></a>df.shape</span></code></pre></div>
 <pre><code>## (1347, 10)</code></pre>
 <div id="diferencijalna-eskpresija" class="section level2">
 <h2><span class="header-section-number">4.1</span> Diferencijalna Eskpresija</h2>
@@ -372,7 +383,7 @@ Harold Pimentel: <a href="https://haroldpimentel.wordpress.com/2014/12/08/in-rna
 </tbody>
 </table>
 <ul>
-<li>Between sample normalization procedures estimate <strong>sample-specific normalization factors</strong> that are used to rescale the observed counts.</li>
+<li><p>Between sample normalization procedures estimate <strong>sample-specific normalization factors</strong> that are used to rescale the observed counts.</p></li>
 <li><p>Using these normalization methods, the sum of the normalized counts across all genes are therefore not necessarily equal between samples (as it would be if only the library sizes were used for normalization), but the goal is instead to make the normalized counts for non-differentially expressed genes similar between the samples.</p></li>
 <li><p>Popular examples of these normalization procedures are <strong>TMM</strong> (trimmed mean of M-values) and <strong>DESeq</strong>. These two methods perform similarly and are both based on an assumption that most genes are equivalently expressed in the samples, and that the differentially expressed genes are divided more or less equally between up- and downregulation.</p></li>
 <li><p>With <strong>DESeq</strong> sample-specific normalization constants are estimated with the median-of-ratios method:</p></li>
@@ -503,8 +514,8 @@ Harold Pimentel: <a href="https://haroldpimentel.wordpress.com/2014/12/08/in-rna
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb77"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb77-1" data-line-number="1">aux <span class="op">=</span> df.divide(KiR.values, axis <span class="op">=</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb77-2" data-line-number="2">aux.head(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="dekspresija.html#cb75-1"></a>aux <span class="op">=</span> df.divide(KiR.values, axis <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb75-2"><a href="dekspresija.html#cb75-2"></a>aux.head(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##             sample_01  sample_02  sample_03  ...  sample_08  sample_09  sample_10
 ## DEFB125      1.351510   0.618555   1.524440  ...   1.676086   0.379115   0.566677
 ## DEFB126      1.411339   0.563021   1.401240  ...   1.891043   0.333268   0.605942
@@ -518,10 +529,10 @@ Harold Pimentel: <a href="https://haroldpimentel.wordpress.com/2014/12/08/in-rna
 ## NRSN2-AS1    1.335328   0.590508   1.661168  ...   1.840072   0.410988   0.533947
 ## 
 ## [10 rows x 10 columns]</code></pre>
-<div class="sourceCode" id="cb79"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb79-1" data-line-number="1">sizeF <span class="op">=</span> aux.median(axis <span class="op">=</span> <span class="dv">0</span>).values</a>
-<a class="sourceLine" id="cb79-2" data-line-number="2">normdf <span class="op">=</span> df.divide(sizeF, axis <span class="op">=</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="dekspresija.html#cb77-1"></a>sizeF <span class="op">=</span> aux.median(axis <span class="op">=</span> <span class="dv">0</span>).values</span>
+<span id="cb77-2"><a href="dekspresija.html#cb77-2"></a>normdf <span class="op">=</span> df.divide(sizeF, axis <span class="op">=</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>Normalized, this is how our simulated dataset looks like:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb80-1" data-line-number="1">normdf.head(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="dekspresija.html#cb78-1"></a>normdf.head(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##               sample_01    sample_02  ...    sample_09    sample_10
 ## DEFB125      799.307029   844.137999  ...   708.873105   816.735707
 ## DEFB126      439.776210   404.823169  ...   328.320175   460.132793
@@ -541,9 +552,11 @@ Harold Pimentel: <a href="https://haroldpimentel.wordpress.com/2014/12/08/in-rna
 <p>Data quality assessment and quality control (i.e. the removal of insufficiently good data) are essential steps of any data analysis. These steps should typically be performed very early in the analysis of a new data set, preceding or in parallel to the differential expression testing.</p>
 <p>The dataset we are investigating is simulated, but let us pretend that samples 6 through 10 are coming from the “treated” population and that samples 1 through 5 are “untreated” or “control” samples.</p>
 <p>A useful initial step in an RNA-seq analysis is often to assess overall similarity between samples:</p>
-<pre><code>Which samples are similar to each other, which are different?
-Does this fit to the expectation from the experiment’s design?
-What are the major sources of variation in the dataset?</code></pre>
+<ul>
+<li>Which samples are similar to each other, which are different?</li>
+<li>Does this fit to the expectation from the experiment’s design?</li>
+<li>What are the major sources of variation in the dataset?</li>
+</ul>
 <p>To explore the similarity of our samples, we will be performing sample-level QC using Principal Component Analysis (PCA) and hierarchical clustering methods. Our sample-level QC allows us to see how well our replicates cluster together, as well as, observe whether our experimental condition represents the major source of variation in the data. Performing sample-level QC can also identify any sample outliers, which may need to be explored further to determine whether they need to be removed prior to DE analysis.</p>
 <br>
 <center>
@@ -551,20 +564,19 @@ What are the major sources of variation in the dataset?</code></pre>
 </iframe>
 </center>
 <p><br></p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</a>
-<a class="sourceLine" id="cb83-2" data-line-number="2"><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</a>
-<a class="sourceLine" id="cb83-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb83-4" data-line-number="4">pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb83-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb83-6" data-line-number="6">principalComponents <span class="op">=</span> pca.fit_transform(normdf.T)</a>
-<a class="sourceLine" id="cb83-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb83-8" data-line-number="8">principalDf <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> principalComponents</a>
-<a class="sourceLine" id="cb83-9" data-line-number="9">             , columns <span class="op">=</span> [<span class="st">&#39;principal component 1&#39;</span>, <span class="st">&#39;principal component 2&#39;</span>])</a>
-<a class="sourceLine" id="cb83-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb83-11" data-line-number="11">categories <span class="op">=</span> np.array([<span class="st">&quot;untreated&quot;</span>, <span class="st">&quot;treated&quot;</span>])</a>
-<a class="sourceLine" id="cb83-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb83-13" data-line-number="13">finalDf <span class="op">=</span> pd.concat([principalDf, pd.DataFrame(np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>), columns<span class="op">=</span>[<span class="st">&#39;condition&#39;</span>])], axis <span class="op">=</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb83-14" data-line-number="14">finalDf</a></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="dekspresija.html#cb80-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb80-2"><a href="dekspresija.html#cb80-2"></a></span>
+<span id="cb80-3"><a href="dekspresija.html#cb80-3"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb80-4"><a href="dekspresija.html#cb80-4"></a></span>
+<span id="cb80-5"><a href="dekspresija.html#cb80-5"></a>principalComponents <span class="op">=</span> pca.fit_transform(normdf.T)</span>
+<span id="cb80-6"><a href="dekspresija.html#cb80-6"></a></span>
+<span id="cb80-7"><a href="dekspresija.html#cb80-7"></a>principalDf <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> principalComponents</span>
+<span id="cb80-8"><a href="dekspresija.html#cb80-8"></a>             , columns <span class="op">=</span> [<span class="st">&#39;principal component 1&#39;</span>, <span class="st">&#39;principal component 2&#39;</span>])</span>
+<span id="cb80-9"><a href="dekspresija.html#cb80-9"></a></span>
+<span id="cb80-10"><a href="dekspresija.html#cb80-10"></a>categories <span class="op">=</span> np.array([<span class="st">&quot;untreated&quot;</span>, <span class="st">&quot;treated&quot;</span>])</span>
+<span id="cb80-11"><a href="dekspresija.html#cb80-11"></a></span>
+<span id="cb80-12"><a href="dekspresija.html#cb80-12"></a>finalDf <span class="op">=</span> pd.concat([principalDf, pd.DataFrame(np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>), columns<span class="op">=</span>[<span class="st">&#39;condition&#39;</span>])], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb80-13"><a href="dekspresija.html#cb80-13"></a>finalDf</span></code></pre></div>
 <pre><code>##    principal component 1  principal component 2  condition
 ## 0            7253.669019           -1133.085852  untreated
 ## 1            6777.834829            -351.825929  untreated
@@ -576,8 +588,8 @@ What are the major sources of variation in the dataset?</code></pre>
 ## 7           -7052.228614             957.489013    treated
 ## 8           -6578.866744           -1450.586265    treated
 ## 9           -7122.899341             238.844374    treated</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">pcaDF &lt;-<span class="st"> </span>reticulate<span class="op">::</span>py<span class="op">$</span>finalDf</a>
-<a class="sourceLine" id="cb85-2" data-line-number="2">pcaDF</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="dekspresija.html#cb82-1"></a>pcaDF &lt;-<span class="st"> </span>reticulate<span class="op">::</span>py<span class="op">$</span>finalDf</span>
+<span id="cb82-2"><a href="dekspresija.html#cb82-2"></a>pcaDF</span></code></pre></div>
 <pre><code>##    principal component 1 principal component 2 condition
 ## 1               7253.669            -1133.0859 untreated
 ## 2               6777.835             -351.8259 untreated
@@ -589,8 +601,8 @@ What are the major sources of variation in the dataset?</code></pre>
 ## 8              -7052.229              957.4890   treated
 ## 9              -6578.867            -1450.5863   treated
 ## 10             -7122.899              238.8444   treated</code></pre>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw">ggplot</span>(pcaDF, <span class="kw">aes</span>(<span class="dt">x=</span><span class="st">`</span><span class="dt">principal component 1</span><span class="st">`</span>, <span class="dt">y=</span><span class="st">`</span><span class="dt">principal component 2</span><span class="st">`</span>, <span class="dt">color =</span> condition)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="dekspresija.html#cb84-1"></a><span class="kw">ggplot</span>(pcaDF, <span class="kw">aes</span>(<span class="dt">x=</span><span class="st">`</span><span class="dt">principal component 1</span><span class="st">`</span>, <span class="dt">y=</span><span class="st">`</span><span class="dt">principal component 2</span><span class="st">`</span>, <span class="dt">color =</span> condition)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb84-2"><a href="dekspresija.html#cb84-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="RNA-Seq_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p><img src="images/gpca1.png" width="600"></p>
 <p><img src="images/gpca2.png" width="600"></p>
@@ -600,26 +612,26 @@ What are the major sources of variation in the dataset?</code></pre>
 <div id="intro-to-statistical-inference" class="section level2">
 <h2><span class="header-section-number">4.4</span> Intro to statistical inference</h2>
 <p>For each gene, we are interested in differences in mean expression between the two sample groups.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="im">import</span> seaborn <span class="im">as</span> sns</a>
-<a class="sourceLine" id="cb88-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb88-3" data-line-number="3">aux <span class="op">=</span> {<span class="st">&quot;norm&quot;</span> : normdf.loc[<span class="st">&#39;AL031055.1&#39;</span>], <span class="st">&quot;group&quot;</span> : np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>)}</a>
-<a class="sourceLine" id="cb88-4" data-line-number="4">df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>aux)</a>
-<a class="sourceLine" id="cb88-5" data-line-number="5">sns.stripplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df, jitter<span class="op">=</span><span class="va">True</span>).set_title(<span class="st">&#39;AL031055.1&#39;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb89-1" data-line-number="1">aux <span class="op">=</span> {<span class="st">&quot;norm&quot;</span> : normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>], <span class="st">&quot;group&quot;</span> : np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>)}</a>
-<a class="sourceLine" id="cb89-2" data-line-number="2">df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>aux)</a>
-<a class="sourceLine" id="cb89-3" data-line-number="3">sns.stripplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df, jitter<span class="op">=</span><span class="va">True</span>).set_title(<span class="st">&#39;AL023803.2&#39;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb90-1" data-line-number="1">sns.boxplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df).set_title(<span class="st">&#39;AL023803.2&#39;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb91-1" data-line-number="1">cMean <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>][<span class="dv">0</span>:<span class="dv">5</span>].mean()</a>
-<a class="sourceLine" id="cb91-2" data-line-number="2">tMean <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>][<span class="dv">5</span>:<span class="dv">10</span>].mean()</a>
-<a class="sourceLine" id="cb91-3" data-line-number="3"><span class="bu">print</span>(cMean)</a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="dekspresija.html#cb85-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb85-2"><a href="dekspresija.html#cb85-2"></a></span>
+<span id="cb85-3"><a href="dekspresija.html#cb85-3"></a>aux <span class="op">=</span> {<span class="st">&quot;norm&quot;</span> : normdf.loc[<span class="st">&#39;AL031055.1&#39;</span>], <span class="st">&quot;group&quot;</span> : np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>)}</span>
+<span id="cb85-4"><a href="dekspresija.html#cb85-4"></a>df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>aux)</span>
+<span id="cb85-5"><a href="dekspresija.html#cb85-5"></a>sns.stripplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df, jitter<span class="op">=</span><span class="va">True</span>).set_title(<span class="st">&#39;AL031055.1&#39;</span>)</span></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="dekspresija.html#cb86-1"></a>aux <span class="op">=</span> {<span class="st">&quot;norm&quot;</span> : normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>], <span class="st">&quot;group&quot;</span> : np.repeat(categories, [<span class="dv">5</span>, <span class="dv">5</span>], axis<span class="op">=</span><span class="dv">0</span>)}</span>
+<span id="cb86-2"><a href="dekspresija.html#cb86-2"></a>df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>aux)</span>
+<span id="cb86-3"><a href="dekspresija.html#cb86-3"></a>sns.stripplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df, jitter<span class="op">=</span><span class="va">True</span>).set_title(<span class="st">&#39;AL023803.2&#39;</span>)</span></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="dekspresija.html#cb87-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">&quot;group&quot;</span>, y<span class="op">=</span><span class="st">&quot;norm&quot;</span>, data<span class="op">=</span>df).set_title(<span class="st">&#39;AL023803.2&#39;</span>)</span></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-3-5.png" width="672" /></p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="dekspresija.html#cb88-1"></a>cMean <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>][<span class="dv">0</span>:<span class="dv">5</span>].mean()</span>
+<span id="cb88-2"><a href="dekspresija.html#cb88-2"></a>tMean <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>][<span class="dv">5</span>:<span class="dv">10</span>].mean()</span>
+<span id="cb88-3"><a href="dekspresija.html#cb88-3"></a><span class="bu">print</span>(cMean)</span></code></pre></div>
 <pre><code>## 354.8722544056803</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="bu">print</span>(tMean)</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb90-1"><a href="dekspresija.html#cb90-1"></a><span class="bu">print</span>(tMean)</span></code></pre></div>
 <pre><code>## 402.20746388364734</code></pre>
-<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb95-1" data-line-number="1">diff <span class="op">=</span> tMean <span class="op">-</span> cMean</a>
-<a class="sourceLine" id="cb95-2" data-line-number="2">diff</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb92-1"><a href="dekspresija.html#cb92-1"></a>diff <span class="op">=</span> tMean <span class="op">-</span> cMean</span>
+<span id="cb92-2"><a href="dekspresija.html#cb92-2"></a>diff</span></code></pre></div>
 <pre><code>## 47.335209477967055</code></pre>
 <p>So the expression level for AL023803.2 in treated samples is about 10% higher. But these averages are <strong>random variables</strong>. They can take many values.</p>
 <p>If we repeat the experiment, by sequencing samples from a new batch of patients (or even resequencing the same ones) we get different means. Every time we repeat this experiment, we get a different value of mean difference.</p>
@@ -627,33 +639,28 @@ What are the major sources of variation in the dataset?</code></pre>
 <p>So what do we do?</p>
 <p>Because we do not have access to entire populations of untreated and treated samples, we cannot confidently say just by comparing the mean expression values that a gene is differentialy expressed.</p>
 <p>We can perform a simple <strong>permutation test</strong>. Permutation tests take advantage of the fact that if we randomly shuffle the treated and untreated labels for the 10 measurements that we have - then the null is true. So we shuffle the labels, calculate the mean difference and assume that the ensuing distribution approximates the null distribution. Here is how we generate a null distribution by shuffling the data 1,000 times:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb97-1" data-line-number="1">normexp <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>]</a>
-<a class="sourceLine" id="cb97-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb97-3" data-line-number="3">np.random.seed(<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb97-4" data-line-number="4">means <span class="op">=</span>[]</a>
-<a class="sourceLine" id="cb97-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb97-6" data-line-number="6"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>) :</a>
-<a class="sourceLine" id="cb97-7" data-line-number="7">    aux <span class="op">=</span> np.random.permutation(normexp)</a>
-<a class="sourceLine" id="cb97-8" data-line-number="8">    cmean <span class="op">=</span> aux[<span class="dv">0</span>:<span class="dv">5</span>].mean()</a>
-<a class="sourceLine" id="cb97-9" data-line-number="9">    tmean <span class="op">=</span> aux[<span class="dv">5</span>:<span class="dv">10</span>].mean()</a>
-<a class="sourceLine" id="cb97-10" data-line-number="10">    means.append(tmean<span class="op">-</span>cmean)</a></code></pre></div>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1">betaHat &lt;-<span class="st"> </span>reticulate<span class="op">::</span>py<span class="op">$</span>diff</a>
-<a class="sourceLine" id="cb98-2" data-line-number="2">b1 &lt;-<span class="st"> </span><span class="kw">unlist</span>(reticulate<span class="op">::</span>py<span class="op">$</span>means)</a>
-<a class="sourceLine" id="cb98-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb98-4" data-line-number="4"><span class="kw">hist</span>(b1, <span class="dt">breaks =</span> <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb98-5" data-line-number="5"><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(betaHat, <span class="op">-</span>betaHat), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">(<span class="kw">sum</span>(b1 <span class="op">&gt;</span><span class="st"> </span><span class="kw">abs</span>(betaHat)) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(b1 <span class="op">&lt;</span><span class="st"> </span>(<span class="op">-</span><span class="kw">abs</span>(betaHat))) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(<span class="kw">length</span>(b1) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
-<pre><code>## [1] 0.1358641</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="co"># plt.hist(means, bins = 20)</span></a>
-<a class="sourceLine" id="cb101-2" data-line-number="2"><span class="co"># plt.axvline(diff, color=&#39;k&#39;, linestyle=&#39;dashed&#39;, linewidth=2)</span></a>
-<a class="sourceLine" id="cb101-3" data-line-number="3"><span class="co"># plt.axvline(-diff, color=&#39;k&#39;, linestyle=&#39;dashed&#39;, linewidth=2)</span></a>
-<a class="sourceLine" id="cb101-4" data-line-number="4"><span class="co"># plt.show()</span></a></code></pre></div>
-<div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb102-1" data-line-number="1">absmeans <span class="op">=</span> [<span class="bu">abs</span>(x) <span class="cf">for</span> x <span class="kw">in</span> means]</a>
-<a class="sourceLine" id="cb102-2" data-line-number="2">absdiff <span class="op">=</span> <span class="bu">abs</span>(diff)</a>
-<a class="sourceLine" id="cb102-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb102-4" data-line-number="4">p <span class="op">=</span> <span class="bu">sum</span>(absmeans <span class="op">&gt;</span> absdiff)<span class="op">/</span><span class="bu">len</span>(absmeans)</a>
-<a class="sourceLine" id="cb102-5" data-line-number="5">p</a></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="dekspresija.html#cb94-1"></a>normexp <span class="op">=</span> normdf.loc[<span class="st">&#39;AL023803.2&#39;</span>]</span>
+<span id="cb94-2"><a href="dekspresija.html#cb94-2"></a></span>
+<span id="cb94-3"><a href="dekspresija.html#cb94-3"></a>np.random.seed(<span class="dv">6</span>)</span>
+<span id="cb94-4"><a href="dekspresija.html#cb94-4"></a>means <span class="op">=</span>[]</span>
+<span id="cb94-5"><a href="dekspresija.html#cb94-5"></a></span>
+<span id="cb94-6"><a href="dekspresija.html#cb94-6"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>) :</span>
+<span id="cb94-7"><a href="dekspresija.html#cb94-7"></a>    aux <span class="op">=</span> np.random.permutation(normexp)</span>
+<span id="cb94-8"><a href="dekspresija.html#cb94-8"></a>    cmean <span class="op">=</span> aux[<span class="dv">0</span>:<span class="dv">5</span>].mean()</span>
+<span id="cb94-9"><a href="dekspresija.html#cb94-9"></a>    tmean <span class="op">=</span> aux[<span class="dv">5</span>:<span class="dv">10</span>].mean()</span>
+<span id="cb94-10"><a href="dekspresija.html#cb94-10"></a>    means.append(tmean<span class="op">-</span>cmean)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="dekspresija.html#cb95-1"></a>betaHat &lt;-<span class="st"> </span>reticulate<span class="op">::</span>py<span class="op">$</span>diff</span>
+<span id="cb95-2"><a href="dekspresija.html#cb95-2"></a>b1 &lt;-<span class="st"> </span><span class="kw">unlist</span>(reticulate<span class="op">::</span>py<span class="op">$</span>means)</span>
+<span id="cb95-3"><a href="dekspresija.html#cb95-3"></a></span>
+<span id="cb95-4"><a href="dekspresija.html#cb95-4"></a><span class="kw">hist</span>(b1, <span class="dt">breaks =</span> <span class="dv">50</span>)</span>
+<span id="cb95-5"><a href="dekspresija.html#cb95-5"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(betaHat, <span class="op">-</span>betaHat), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-55-7.png" width="672" /></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="dekspresija.html#cb96-1"></a><span class="co"># sum(abs(b1) &gt; abs(betaHat))/length(b1)</span></span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb97-1"><a href="dekspresija.html#cb97-1"></a>absmeans <span class="op">=</span> [<span class="bu">abs</span>(x) <span class="cf">for</span> x <span class="kw">in</span> means]</span>
+<span id="cb97-2"><a href="dekspresija.html#cb97-2"></a>absdiff <span class="op">=</span> <span class="bu">abs</span>(diff)</span>
+<span id="cb97-3"><a href="dekspresija.html#cb97-3"></a></span>
+<span id="cb97-4"><a href="dekspresija.html#cb97-4"></a>p <span class="op">=</span> <span class="bu">sum</span>(absmeans <span class="op">&gt;</span> absdiff)<span class="op">/</span><span class="bu">len</span>(absmeans)</span>
+<span id="cb97-5"><a href="dekspresija.html#cb97-5"></a>p</span></code></pre></div>
 <pre><code>## 0.135</code></pre>
 <ul>
 <li><strong>Null hypothesis</strong>: there is no significant difference between specified populations, any observed difference being due to sampling or experimental error.</li>
@@ -700,34 +707,34 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 <p>So for small sample sizes we shall be computing that same ratio:</p>
 <p><span class="math display">\[\frac{\bar{Y}-\bar{X}}{\sqrt{\frac{s_{Y}^{2}}{N}+\frac{s_{X}^{2}}{M}}}\]</span></p>
 <p>only this time we shall be comparing it to the t-distribution instead of normal. All such tests are usually called Student’s t-tests, though strictly speaking that name should only be used if the variances of the two populations are also assumed to be equal; the form of the test used when this assumption is dropped is sometimes called Welch’s t-test and that’s the one that we’ll be implementing.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="kw">def</span> welch_test(a, b):</a>
-<a class="sourceLine" id="cb104-2" data-line-number="2">    </a>
-<a class="sourceLine" id="cb104-3" data-line-number="3">    <span class="co"># pandas.Series.var() returns an unbiased variance estimate, normalized by N-1 by default</span></a>
-<a class="sourceLine" id="cb104-4" data-line-number="4">    var_a <span class="op">=</span> a.var()</a>
-<a class="sourceLine" id="cb104-5" data-line-number="5">    var_b <span class="op">=</span> b.var()</a>
-<a class="sourceLine" id="cb104-6" data-line-number="6">    </a>
-<a class="sourceLine" id="cb104-7" data-line-number="7">    Na <span class="op">=</span> <span class="bu">len</span>(a)</a>
-<a class="sourceLine" id="cb104-8" data-line-number="8">    Nb <span class="op">=</span> <span class="bu">len</span>(b)</a>
-<a class="sourceLine" id="cb104-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb104-10" data-line-number="10">    <span class="co"># std deviation estimate</span></a>
-<a class="sourceLine" id="cb104-11" data-line-number="11">    s <span class="op">=</span> np.sqrt(var_a<span class="op">/</span>Na <span class="op">+</span> var_b<span class="op">/</span>Nb)</a>
-<a class="sourceLine" id="cb104-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb104-13" data-line-number="13">    <span class="co"># calculate the t-statistics</span></a>
-<a class="sourceLine" id="cb104-14" data-line-number="14">    t <span class="op">=</span> (a.mean() <span class="op">-</span> b.mean())<span class="op">/</span>s</a>
-<a class="sourceLine" id="cb104-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb104-16" data-line-number="16">    <span class="co"># degrees of freedom - Welch–Satterthwaite equation, yeah it&#39;s a bit more complicated than Na + Nb - 2</span></a>
-<a class="sourceLine" id="cb104-17" data-line-number="17">    deg <span class="op">=</span> (((var_a)<span class="op">/</span>Na <span class="op">+</span> (var_b)<span class="op">/</span>Nb)<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span> ((var_a<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(Na<span class="op">**</span><span class="dv">2</span><span class="op">*</span>(Na<span class="dv">-1</span>)) <span class="op">+</span> (var_b<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(Nb<span class="op">**</span><span class="dv">2</span><span class="op">*</span>(Nb<span class="dv">-1</span>)))</a>
-<a class="sourceLine" id="cb104-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb104-19" data-line-number="19">    <span class="co"># p-value after comparison with the t     </span></a>
-<a class="sourceLine" id="cb104-20" data-line-number="20">    p <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>stats.t.sf(np.<span class="bu">abs</span>(t), deg)</a>
-<a class="sourceLine" id="cb104-21" data-line-number="21">    <span class="cf">return</span> (p)</a>
-<a class="sourceLine" id="cb104-22" data-line-number="22">    </a>
-<a class="sourceLine" id="cb104-23" data-line-number="23">p <span class="op">=</span> [(index, welch_test(row.values[<span class="dv">0</span>:<span class="dv">5</span>], row.values[<span class="dv">5</span>:<span class="dv">10</span>])) <span class="cf">for</span> index, row <span class="kw">in</span> normdf.iterrows()]</a></code></pre></div>
-<div class="sourceCode" id="cb105"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb105-1" data-line-number="1">res <span class="op">=</span> pd.DataFrame(p, columns<span class="op">=</span>[<span class="st">&#39;gene&#39;</span>, <span class="st">&#39;pval&#39;</span>])</a>
-<a class="sourceLine" id="cb105-2" data-line-number="2">res <span class="op">=</span> res.set_index(<span class="st">&#39;gene&#39;</span>)</a>
-<a class="sourceLine" id="cb105-3" data-line-number="3">res.shape</a></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb99-1"><a href="dekspresija.html#cb99-1"></a><span class="kw">def</span> welch_test(a, b):</span>
+<span id="cb99-2"><a href="dekspresija.html#cb99-2"></a>    </span>
+<span id="cb99-3"><a href="dekspresija.html#cb99-3"></a>    <span class="co"># pandas.Series.var() returns an unbiased variance estimate, normalized by N-1 by default</span></span>
+<span id="cb99-4"><a href="dekspresija.html#cb99-4"></a>    var_a <span class="op">=</span> a.var()</span>
+<span id="cb99-5"><a href="dekspresija.html#cb99-5"></a>    var_b <span class="op">=</span> b.var()</span>
+<span id="cb99-6"><a href="dekspresija.html#cb99-6"></a>    </span>
+<span id="cb99-7"><a href="dekspresija.html#cb99-7"></a>    Na <span class="op">=</span> <span class="bu">len</span>(a)</span>
+<span id="cb99-8"><a href="dekspresija.html#cb99-8"></a>    Nb <span class="op">=</span> <span class="bu">len</span>(b)</span>
+<span id="cb99-9"><a href="dekspresija.html#cb99-9"></a></span>
+<span id="cb99-10"><a href="dekspresija.html#cb99-10"></a>    <span class="co"># std deviation estimate</span></span>
+<span id="cb99-11"><a href="dekspresija.html#cb99-11"></a>    s <span class="op">=</span> np.sqrt(var_a<span class="op">/</span>Na <span class="op">+</span> var_b<span class="op">/</span>Nb)</span>
+<span id="cb99-12"><a href="dekspresija.html#cb99-12"></a></span>
+<span id="cb99-13"><a href="dekspresija.html#cb99-13"></a>    <span class="co"># calculate the t-statistics</span></span>
+<span id="cb99-14"><a href="dekspresija.html#cb99-14"></a>    t <span class="op">=</span> (a.mean() <span class="op">-</span> b.mean())<span class="op">/</span>s</span>
+<span id="cb99-15"><a href="dekspresija.html#cb99-15"></a></span>
+<span id="cb99-16"><a href="dekspresija.html#cb99-16"></a>    <span class="co"># degrees of freedom - Welch–Satterthwaite equation, yeah it&#39;s a bit more complicated than Na + Nb - 2</span></span>
+<span id="cb99-17"><a href="dekspresija.html#cb99-17"></a>    deg <span class="op">=</span> (((var_a)<span class="op">/</span>Na <span class="op">+</span> (var_b)<span class="op">/</span>Nb)<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span> ((var_a<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(Na<span class="op">**</span><span class="dv">2</span><span class="op">*</span>(Na<span class="dv">-1</span>)) <span class="op">+</span> (var_b<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(Nb<span class="op">**</span><span class="dv">2</span><span class="op">*</span>(Nb<span class="dv">-1</span>)))</span>
+<span id="cb99-18"><a href="dekspresija.html#cb99-18"></a></span>
+<span id="cb99-19"><a href="dekspresija.html#cb99-19"></a>    <span class="co"># p-value after comparison with the t     </span></span>
+<span id="cb99-20"><a href="dekspresija.html#cb99-20"></a>    p <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>stats.t.sf(np.<span class="bu">abs</span>(t), deg)</span>
+<span id="cb99-21"><a href="dekspresija.html#cb99-21"></a>    <span class="cf">return</span> (p)</span>
+<span id="cb99-22"><a href="dekspresija.html#cb99-22"></a>    </span>
+<span id="cb99-23"><a href="dekspresija.html#cb99-23"></a>p <span class="op">=</span> [(index, welch_test(row.values[<span class="dv">0</span>:<span class="dv">5</span>], row.values[<span class="dv">5</span>:<span class="dv">10</span>])) <span class="cf">for</span> index, row <span class="kw">in</span> normdf.iterrows()]</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="dekspresija.html#cb100-1"></a>res <span class="op">=</span> pd.DataFrame(p, columns<span class="op">=</span>[<span class="st">&#39;gene&#39;</span>, <span class="st">&#39;pval&#39;</span>])</span>
+<span id="cb100-2"><a href="dekspresija.html#cb100-2"></a>res <span class="op">=</span> res.set_index(<span class="st">&#39;gene&#39;</span>)</span>
+<span id="cb100-3"><a href="dekspresija.html#cb100-3"></a>res.shape</span></code></pre></div>
 <pre><code>## (1347, 1)</code></pre>
-<div class="sourceCode" id="cb107"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb107-1" data-line-number="1">res.head(<span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb102-1"><a href="dekspresija.html#cb102-1"></a>res.head(<span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##                  pval
 ## gene                 
 ## DEFB125  6.449128e-01
@@ -744,23 +751,23 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 <li>In our simulated dataset, just from chromosome 20 (which is one of the shortest in human genome) we have 1347 genes.</li>
 <li>If you use the standard cutoff of 0.05 when calling p-value significant, you’ll know that since p-values are uniformly distributed when the null is true, about 1 out of every 20 times you’ll still call that result statistically significant, even when there is no true biological effect.</li>
 </ul>
-<div class="sourceCode" id="cb109"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb109-1" data-line-number="1">np.random.seed(<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb109-2" data-line-number="2">pvals <span class="op">=</span>[]</a>
-<a class="sourceLine" id="cb109-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb109-4" data-line-number="4"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20000</span>) :</a>
-<a class="sourceLine" id="cb109-5" data-line-number="5">    firstg <span class="op">=</span> np.random.normal(<span class="dv">32</span>, <span class="dv">5</span>, <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb109-6" data-line-number="6">    secondg <span class="op">=</span> np.random.normal(<span class="dv">32</span>, <span class="dv">5</span>, <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb109-7" data-line-number="7">    pval <span class="op">=</span> welch_test(firstg, secondg)</a>
-<a class="sourceLine" id="cb109-8" data-line-number="8">    pvals.append(pval)</a></code></pre></div>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1">pvals &lt;-<span class="st"> </span><span class="kw">unlist</span>(reticulate<span class="op">::</span>py<span class="op">$</span>pvals)</a>
-<a class="sourceLine" id="cb110-2" data-line-number="2"><span class="kw">hist</span>(pvals, <span class="dt">breaks =</span> <span class="dv">20</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb104-1"><a href="dekspresija.html#cb104-1"></a>np.random.seed(<span class="dv">6</span>)</span>
+<span id="cb104-2"><a href="dekspresija.html#cb104-2"></a>pvals <span class="op">=</span>[]</span>
+<span id="cb104-3"><a href="dekspresija.html#cb104-3"></a></span>
+<span id="cb104-4"><a href="dekspresija.html#cb104-4"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20000</span>) :</span>
+<span id="cb104-5"><a href="dekspresija.html#cb104-5"></a>    firstg <span class="op">=</span> np.random.normal(<span class="dv">32</span>, <span class="dv">5</span>, <span class="dv">20</span>)</span>
+<span id="cb104-6"><a href="dekspresija.html#cb104-6"></a>    secondg <span class="op">=</span> np.random.normal(<span class="dv">32</span>, <span class="dv">5</span>, <span class="dv">20</span>)</span>
+<span id="cb104-7"><a href="dekspresija.html#cb104-7"></a>    pval <span class="op">=</span> welch_test(firstg, secondg)</span>
+<span id="cb104-8"><a href="dekspresija.html#cb104-8"></a>    pvals.append(pval)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="dekspresija.html#cb105-1"></a>pvals &lt;-<span class="st"> </span><span class="kw">unlist</span>(reticulate<span class="op">::</span>py<span class="op">$</span>pvals)</span>
+<span id="cb105-2"><a href="dekspresija.html#cb105-2"></a><span class="kw">hist</span>(pvals, <span class="dt">breaks =</span> <span class="dv">20</span>)</span></code></pre></div>
 <p><img src="RNA-Seq_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 <p><img src="images/significant1.png" width="700"></p>
 <p><img src="images/significant2.png" width="700"></p>
 <p><img src="images/significant3.png" width="700"></p>
 <p><img src="images/significant4.png" width="700"></p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb111-1" data-line-number="1">res[<span class="st">&#39;pval&#39;</span>].plot.hist(bins<span class="op">=</span><span class="dv">20</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb106-1"><a href="dekspresija.html#cb106-1"></a>res[<span class="st">&#39;pval&#39;</span>].plot.hist(bins<span class="op">=</span><span class="dv">20</span>)</span></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <table>
 <thead>
 <tr class="header">
@@ -808,7 +815,7 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 <p><span class="math display">\[FDR=E\left \lfloor \frac{V}{V+S} \right \rfloor\]</span></p>
 <p>is the expected proportion of “discoveries” (rejected null hypotheses) that are false (incorrect rejections).</p>
 <ul>
-<li>Suppose 1200 out of 20,000 genes are found significant at 0.05 level (threshold <span class="math inline">\(\alpha = 0.05\)</span>).
+<li><p>Suppose 1200 out of 20,000 genes are found significant at 0.05 level (threshold <span class="math inline">\(\alpha = 0.05\)</span>).</p>
 <ul>
 <li>No correction: expect 0.05 * 20,000 = 1000 false positives</li>
 <li><span style="color:blue">False Discovery Rate correction</span>: expect 0.05 * 1200 = 60 false positives</li>
@@ -817,19 +824,19 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 <li><p><span style="color:blue">Benjamini-Hochberg correction</span>: the p-values are sorted in increasing order and the i-th p-value is considered significant if it’s less or equal to <span class="math inline">\(\frac{i\alpha}{n}\)</span>.</p></li>
 <li><p><span style="color:red">Bonferroni correction</span>: p-values less or equal to α/n are considered significant.</p></li>
 </ul>
-<div class="sourceCode" id="cb112"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb112-1" data-line-number="1">res <span class="op">=</span> res.sort_values(by<span class="op">=</span>[<span class="st">&#39;pval&#39;</span>])</a>
-<a class="sourceLine" id="cb112-2" data-line-number="2">m <span class="op">=</span> res.shape[<span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb112-3" data-line-number="3">qval <span class="op">=</span> np.zeros(m)</a>
-<a class="sourceLine" id="cb112-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb112-5" data-line-number="5"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, m):</a>
-<a class="sourceLine" id="cb112-6" data-line-number="6">    qval[i] <span class="op">=</span> (res[<span class="st">&#39;pval&#39;</span>][i]<span class="op">*</span>m<span class="op">/</span>(i<span class="op">+</span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb112-7" data-line-number="7">    </a>
-<a class="sourceLine" id="cb112-8" data-line-number="8">res[<span class="st">&#39;qval&#39;</span>] <span class="op">=</span> qval</a>
-<a class="sourceLine" id="cb112-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb112-10" data-line-number="10">alpha <span class="op">=</span> <span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb112-11" data-line-number="11">res[<span class="st">&#39;de&#39;</span>] <span class="op">=</span> res[<span class="st">&#39;qval&#39;</span>] <span class="op">&lt;</span> alpha</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb107-1"><a href="dekspresija.html#cb107-1"></a>res <span class="op">=</span> res.sort_values(by<span class="op">=</span>[<span class="st">&#39;pval&#39;</span>])</span>
+<span id="cb107-2"><a href="dekspresija.html#cb107-2"></a>m <span class="op">=</span> res.shape[<span class="dv">0</span>]</span>
+<span id="cb107-3"><a href="dekspresija.html#cb107-3"></a>qval <span class="op">=</span> np.zeros(m)</span>
+<span id="cb107-4"><a href="dekspresija.html#cb107-4"></a></span>
+<span id="cb107-5"><a href="dekspresija.html#cb107-5"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, m):</span>
+<span id="cb107-6"><a href="dekspresija.html#cb107-6"></a>    qval[i] <span class="op">=</span> (res[<span class="st">&#39;pval&#39;</span>][i]<span class="op">*</span>m<span class="op">/</span>(i<span class="op">+</span><span class="dv">1</span>))</span>
+<span id="cb107-7"><a href="dekspresija.html#cb107-7"></a>    </span>
+<span id="cb107-8"><a href="dekspresija.html#cb107-8"></a>res[<span class="st">&#39;qval&#39;</span>] <span class="op">=</span> qval</span>
+<span id="cb107-9"><a href="dekspresija.html#cb107-9"></a></span>
+<span id="cb107-10"><a href="dekspresija.html#cb107-10"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb107-11"><a href="dekspresija.html#cb107-11"></a>res[<span class="st">&#39;de&#39;</span>] <span class="op">=</span> res[<span class="st">&#39;qval&#39;</span>] <span class="op">&lt;</span> alpha</span></code></pre></div>
 <p>After performing Benjamini-Hochberg (FDR) correction:</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb113-1" data-line-number="1">res.head(<span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb108-1"><a href="dekspresija.html#cb108-1"></a>res.head(<span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##                    pval      qval    de
 ## gene                                   
 ## FLRT3      9.418961e-10  0.000001  True
@@ -838,8 +845,8 @@ variances <span class="math inline">\(\sigma_{X}^{2} + \sigma_{Y}^{2}\)</span>. 
 ## TOP1       5.383997e-09  0.000002  True
 ## RALGAPB    5.399923e-09  0.000001  True
 ## RTFDC1     7.302393e-08  0.000016  True</code></pre>
-<div class="sourceCode" id="cb115"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb115-1" data-line-number="1">res[<span class="st">&#39;qval&#39;</span>].plot.hist(bins<span class="op">=</span><span class="dv">20</span>)</a></code></pre></div>
-<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb110-1"><a href="dekspresija.html#cb110-1"></a>res[<span class="st">&#39;qval&#39;</span>].plot.hist(bins<span class="op">=</span><span class="dv">20</span>)</span></code></pre></div>
+<p><img src="RNA-Seq_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
 
 </div>
 </div>
@@ -879,6 +886,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

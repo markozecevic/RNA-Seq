@@ -190,9 +190,9 @@ The dataset we are investigating is simulated, but let us pretend that samples 6
 
 A useful initial step in an RNA-seq analysis is often to assess overall similarity between samples:
 
-    Which samples are similar to each other, which are different?
-    Does this fit to the expectation from the experiment’s design?
-    What are the major sources of variation in the dataset?
+- Which samples are similar to each other, which are different?
+- Does this fit to the expectation from the experiment’s design?
+- What are the major sources of variation in the dataset?
 
 To explore the similarity of our samples, we will be performing sample-level QC using Principal Component Analysis (PCA) and hierarchical clustering methods. Our sample-level QC allows us to see how well our replicates cluster together, as well as, observe whether our experimental condition represents the major source of variation in the data. Performing sample-level QC can also identify any sample outliers, which may need to be explored further to determine whether they need to be removed prior to DE analysis.
 
@@ -200,7 +200,6 @@ To explore the similarity of our samples, we will be performing sample-level QC 
 
 ```{python}
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
 
 pca = PCA(n_components=2)
 
@@ -299,12 +298,7 @@ b1 <- unlist(reticulate::py$means)
 hist(b1, breaks = 50)
 abline(v=c(betaHat, -betaHat), col = "red")
 
-(sum(b1 > abs(betaHat)) + sum(b1 < (-abs(betaHat))) + 1)/(length(b1) + 1)
-
-# plt.hist(means, bins = 20)
-# plt.axvline(diff, color='k', linestyle='dashed', linewidth=2)
-# plt.axvline(-diff, color='k', linestyle='dashed', linewidth=2)
-# plt.show()
+# sum(abs(b1) > abs(betaHat))/length(b1)
 ```
 
 ```{python}
