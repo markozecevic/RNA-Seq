@@ -24,7 +24,7 @@
 <meta name="author" content="marko.zecevic@sbgenomics.com" />
 
 
-<meta name="date" content="2021-05-12" />
+<meta name="date" content="2021-05-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Podesavanja</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Podešavanja</a></li>
 <li class="chapter" data-level="1" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>1</b> Uvod</a><ul>
 <li class="chapter" data-level="1.1" data-path="uvod.html"><a href="uvod.html#dnk-i-rnk"><i class="fa fa-check"></i><b>1.1</b> DNK i RNK</a></li>
 <li class="chapter" data-level="1.2" data-path="uvod.html"><a href="uvod.html#centralna-dogma-molekularne-biologije"><i class="fa fa-check"></i><b>1.2</b> Centralna dogma molekularne biologije</a><ul>
@@ -190,19 +190,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Analiza RNA-Seq podataka</h1>
 <p class="author"><em><a href="mailto:marko.zecevic@sbgenomics.com" class="email">marko.zecevic@sbgenomics.com</a></em></p>
-<p class="date" style="margin-top: 1.5em;"><em>2021-05-12</em></p>
+<p class="date" style="margin-top: 1.5em;"><em>2021-05-15</em></p>
 </div>
-<div id="podesavanja" class="section level1 unnumbered">
-<h1>Podesavanja</h1>
-<p>Linux okruzenje sa instaliranim neophodnim paketima i RStudiom je dokerizovano i postavljeno na <a href="https://hub.docker.com/r/markoz/rnastudio/">Docker Hub</a>.</p>
+<div id="podešavanja" class="section level1 unnumbered">
+<h1>Podešavanja</h1>
+<p>Linux okruženje sa instaliranim neophodnim paketima i RStudiom je dokerizovano i postavljeno na <a href="https://hub.docker.com/r/markoz/rnastudio/">Docker Hub</a>.</p>
 <p>Nakon <a href="https://docs.docker.com/install/">instalacije Docker-a</a>, potrebno je odraditi pull (~4.3 GB download).</p>
-<pre class="console"><code>docker pull markoz/rnastudio</code></pre>
-<p>Zatim treba klonirati GitHub repo sa meterijalima.</p>
+<pre class="console"><code>docker pull markoz/rnastudio:2021</code></pre>
+<p>Opciono, možete klonirati GitHub repo sa meterijalima.</p>
 <pre class="console"><code>git clone git@github.com:markozecevic/RNA-Seq.git</code></pre>
-<p>Kada u lokalu imate i Docker image i materijale, pokrenucete Docker kontejner komandom (potrebno je zameniti <code>/putanja/do/repozitorijuma/RNA-Seq</code> sa pravom putanjom kloniranog repozitorijuma):</p>
-<pre class="console"><code>docker run -e PASSWORD=etf -p 8787:8787 -v /putanja/do/repozitorijuma/RNA-Seq:/home/rstudio/materijali -e ROOT=TRUE markoz/rnastudio</code></pre>
+<p>Kada u lokalu imate i Docker image i materijale, pokrenućete Docker container komandom (potrebno je zameniti <code>/putanja/do/repozitorijuma/RNA-Seq</code> sa pravom putanjom kloniranog repozitorijuma u vašem lokalnom sistemu):</p>
+<pre class="console"><code>docker run -e PASSWORD=etf -p 8787:8787 -v /putanja/do/repozitorijuma/RNA-Seq:/home/rstudio/materijali -e ROOT=TRUE markoz/rnastudio:2021</code></pre>
 <p>U browseru otvoriti <a href="http://localhost:8787/" class="uri">http://localhost:8787/</a> (user: “rstudio, pass:”etf").</p>
-<p>Sledece komande ce podesiti radni folder i izrenderovati materijale:</p>
+<p>Sledeće komande će podesiti radni folder i izrenderovati materijale, ali ohrabrujemo vas da primenite interaktivniji pristup, i izvršavate ćeliju po ćeliju:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1"></a><span class="kw">setwd</span>(<span class="st">&quot;~/materijali&quot;</span>)</span>
 <span id="cb4-2"><a href="index.html#cb4-2"></a>bookdown<span class="op">::</span><span class="kw">render_book</span>(<span class="st">&quot;index.Rmd&quot;</span>, <span class="st">&quot;bookdown::gitbook&quot;</span>)</span></code></pre></div>
 

@@ -24,7 +24,7 @@
 <meta name="author" content="marko.zecevic@sbgenomics.com" />
 
 
-<meta name="date" content="2021-05-12" />
+<meta name="date" content="2021-05-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Podesavanja</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Podešavanja</a></li>
 <li class="chapter" data-level="1" data-path="uvod.html"><a href="uvod.html"><i class="fa fa-check"></i><b>1</b> Uvod</a><ul>
 <li class="chapter" data-level="1.1" data-path="uvod.html"><a href="uvod.html#dnk-i-rnk"><i class="fa fa-check"></i><b>1.1</b> DNK i RNK</a></li>
 <li class="chapter" data-level="1.2" data-path="uvod.html"><a href="uvod.html#centralna-dogma-molekularne-biologije"><i class="fa fa-check"></i><b>1.2</b> Centralna dogma molekularne biologije</a><ul>
@@ -280,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-9"><a href="kvantifikacija.html#cb18-9"></a>        naive_gene_count <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb18-10"><a href="kvantifikacija.html#cb18-10"></a> </span>
 <span id="cb18-11"><a href="kvantifikacija.html#cb18-11"></a><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))   </span></code></pre></div>
-<pre><code>## --- 2.4410059452056885 seconds ---</code></pre>
+<pre><code>## --- 2.5485103130340576 seconds ---</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="kvantifikacija.html#cb20-1"></a><span class="bu">print</span>(naive_gene_count)</span></code></pre></div>
 <pre><code>## 1016</code></pre>
 <p>The problem with this approach is that to do this, you will need to store the entire file in memory. Worse than that, in order to find the reads within a single gene, you would need to iterate over the entire file, which can contain hundreds of millions of reads. This is quite slow even for a single gene, but will only increase if you want to look at many genes.</p>
@@ -295,7 +295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-6"><a href="kvantifikacija.html#cb23-6"></a>    pysam_gene_count <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb23-7"><a href="kvantifikacija.html#cb23-7"></a></span>
 <span id="cb23-8"><a href="kvantifikacija.html#cb23-8"></a><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))   </span></code></pre></div>
-<pre><code>## --- 0.019577980041503906 seconds ---</code></pre>
+<pre><code>## --- 0.021511554718017578 seconds ---</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="kvantifikacija.html#cb25-1"></a><span class="bu">print</span>(pysam_gene_count)</span></code></pre></div>
 <pre><code>## 1016</code></pre>
 <p>Not surprisingly, they are the same - the big difference is that the second method is significantly faster. The reason for this is that Pysam (like Samtools, Picard, and other similar toolkits) make use of clever tricks to index the file by genomic positions to more efficiently search for reads within a given genomic interval.</p>
@@ -332,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-10"><a href="kvantifikacija.html#cb30-10"></a>        gene_counts.update({tokens[<span class="dv">3</span>].rstrip() : count})  </span>
 <span id="cb30-11"><a href="kvantifikacija.html#cb30-11"></a>        </span>
 <span id="cb30-12"><a href="kvantifikacija.html#cb30-12"></a><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time)) </span></code></pre></div>
-<pre><code>## --- 2.376394510269165 seconds ---</code></pre>
+<pre><code>## --- 2.191601037979126 seconds ---</code></pre>
 <p>Now it’s easy to query the gene counts for different genes.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="kvantifikacija.html#cb32-1"></a><span class="bu">print</span>(gene_counts.get(<span class="st">&quot;ARFGEF2&quot;</span>))</span></code></pre></div>
 <pre><code>## 7283</code></pre>
@@ -471,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb53-3"><a href="kvantifikacija.html#cb53-3"></a>gene_counts <span class="op">=</span> tpm(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, bamfile)</span>
 <span id="cb53-4"><a href="kvantifikacija.html#cb53-4"></a></span>
 <span id="cb53-5"><a href="kvantifikacija.html#cb53-5"></a><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))  </span></code></pre></div>
-<pre><code>## --- 3.988384246826172 seconds ---</code></pre>
+<pre><code>## --- 3.098256826400757 seconds ---</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="kvantifikacija.html#cb55-1"></a>gene_counts.head(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##             raw_count  gene_length          tpm
 ## DEFB125          1016         9845   162.980261
@@ -516,7 +516,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-3"><a href="kvantifikacija.html#cb58-3"></a>gene_counts_rpkm <span class="op">=</span> rpkm(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, bamfile)</span>
 <span id="cb58-4"><a href="kvantifikacija.html#cb58-4"></a></span>
 <span id="cb58-5"><a href="kvantifikacija.html#cb58-5"></a><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))  </span></code></pre></div>
-<pre><code>## --- 3.5391578674316406 seconds ---</code></pre>
+<pre><code>## --- 3.0692479610443115 seconds ---</code></pre>
 <div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="kvantifikacija.html#cb60-1"></a>gene_counts_rpkm.head(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##             raw_count  gene_length        rpkm
 ## DEFB125        1016.0       9845.0   61.832560
