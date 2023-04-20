@@ -237,9 +237,9 @@ $$TPM_{i}=\frac{X_i}{\widetilde{l_{i}}}\cdot \left ( \frac{1}{\Sigma_{j}\frac{X_
 
 ```{python}
 counts = {'Gene Name': ['A(5kb)', 'B(10kb)', 'C(1kb)', 'D(20kb)'],
-          'Rep1 Counts': [10, 20, 10, 0],
-          'Rep2 Counts': [12, 25, 8, 0],
-          'Rep3 Counts': [30, 60, 15, 1]
+          'Rep1 Counts': [100000, 200000, 100000, 0],
+          'Rep2 Counts': [120000, 250000, 80000, 0],
+          'Rep3 Counts': [300000, 600000, 150000, 10000]
          }
 
 df = pd.DataFrame(counts, columns= ['Gene Name', 'Rep1 Counts', 'Rep2 Counts', 'Rep3 Counts']).set_index('Gene Name')
@@ -289,7 +289,7 @@ And now we perform the library size normalization, using abundances already norm
 
 ```{python}
 # library size normalization (division by 10 instead of 10^6)
-df_tpm = df_tpm.div(df_tpm.sum()/10).round(3)
+df_tpm = df_tpm.div(df_tpm.sum()/1000000).round(3)
 df_tpm.drop(['kb'], axis=1)
 ```
 

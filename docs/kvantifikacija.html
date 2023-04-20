@@ -280,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-9"><a href="kvantifikacija.html#cb18-9"></a>        naive_gene_count <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb18-10"><a href="kvantifikacija.html#cb18-10"></a> </span>
 <span id="cb18-11"><a href="kvantifikacija.html#cb18-11"></a><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))   </span></code></pre></div>
-<pre><code>## --- 3.3653252124786377 seconds ---</code></pre>
+<pre><code>## --- 2.245061159133911 seconds ---</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="kvantifikacija.html#cb20-1"></a><span class="bu">print</span>(naive_gene_count)</span></code></pre></div>
 <pre><code>## 1016</code></pre>
 <p>The problem with this approach is that to do this, you will need to store the entire file in memory. Worse than that, in order to find the reads within a single gene, you would need to iterate over the entire file, which can contain hundreds of millions of reads. This is quite slow even for a single gene, but will only increase if you want to look at many genes.</p>
@@ -295,7 +295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-6"><a href="kvantifikacija.html#cb23-6"></a>    pysam_gene_count <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb23-7"><a href="kvantifikacija.html#cb23-7"></a></span>
 <span id="cb23-8"><a href="kvantifikacija.html#cb23-8"></a><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))   </span></code></pre></div>
-<pre><code>## --- 0.02216053009033203 seconds ---</code></pre>
+<pre><code>## --- 0.027565956115722656 seconds ---</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="kvantifikacija.html#cb25-1"></a><span class="bu">print</span>(pysam_gene_count)</span></code></pre></div>
 <pre><code>## 1016</code></pre>
 <p>Not surprisingly, they are the same - the big difference is that the second method is significantly faster. The reason for this is that Pysam (like Samtools, Picard, and other similar toolkits) make use of clever tricks to index the file by genomic positions to more efficiently search for reads within a given genomic interval.</p>
@@ -332,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-10"><a href="kvantifikacija.html#cb30-10"></a>        gene_counts.update({tokens[<span class="dv">3</span>].rstrip() : count})  </span>
 <span id="cb30-11"><a href="kvantifikacija.html#cb30-11"></a>        </span>
 <span id="cb30-12"><a href="kvantifikacija.html#cb30-12"></a><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time)) </span></code></pre></div>
-<pre><code>## --- 1.6744635105133057 seconds ---</code></pre>
+<pre><code>## --- 1.477412462234497 seconds ---</code></pre>
 <p>Now it’s easy to query the gene counts for different genes.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="kvantifikacija.html#cb32-1"></a><span class="bu">print</span>(gene_counts.get(<span class="st">&quot;ARFGEF2&quot;</span>))</span></code></pre></div>
 <pre><code>## 7283</code></pre>
@@ -361,9 +361,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p><span class="math display">\[TPM_{i}=\frac{X_i}{\widetilde{l_{i}}}\cdot \left ( \frac{1}{\Sigma_{j}\frac{X_j}{\widetilde{l_{j}}}} \right ) \cdot 10^{6}\]</span></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="kvantifikacija.html#cb38-1"></a>counts <span class="op">=</span> {<span class="st">&#39;Gene Name&#39;</span>: [<span class="st">&#39;A(5kb)&#39;</span>, <span class="st">&#39;B(10kb)&#39;</span>, <span class="st">&#39;C(1kb)&#39;</span>, <span class="st">&#39;D(20kb)&#39;</span>],</span>
-<span id="cb38-2"><a href="kvantifikacija.html#cb38-2"></a>          <span class="st">&#39;Rep1 Counts&#39;</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">0</span>],</span>
-<span id="cb38-3"><a href="kvantifikacija.html#cb38-3"></a>          <span class="st">&#39;Rep2 Counts&#39;</span>: [<span class="dv">12</span>, <span class="dv">25</span>, <span class="dv">8</span>, <span class="dv">0</span>],</span>
-<span id="cb38-4"><a href="kvantifikacija.html#cb38-4"></a>          <span class="st">&#39;Rep3 Counts&#39;</span>: [<span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">15</span>, <span class="dv">1</span>]</span>
+<span id="cb38-2"><a href="kvantifikacija.html#cb38-2"></a>          <span class="st">&#39;Rep1 Counts&#39;</span>: [<span class="dv">100000</span>, <span class="dv">200000</span>, <span class="dv">100000</span>, <span class="dv">0</span>],</span>
+<span id="cb38-3"><a href="kvantifikacija.html#cb38-3"></a>          <span class="st">&#39;Rep2 Counts&#39;</span>: [<span class="dv">120000</span>, <span class="dv">250000</span>, <span class="dv">80000</span>, <span class="dv">0</span>],</span>
+<span id="cb38-4"><a href="kvantifikacija.html#cb38-4"></a>          <span class="st">&#39;Rep3 Counts&#39;</span>: [<span class="dv">300000</span>, <span class="dv">600000</span>, <span class="dv">150000</span>, <span class="dv">10000</span>]</span>
 <span id="cb38-5"><a href="kvantifikacija.html#cb38-5"></a>         }</span>
 <span id="cb38-6"><a href="kvantifikacija.html#cb38-6"></a></span>
 <span id="cb38-7"><a href="kvantifikacija.html#cb38-7"></a>df <span class="op">=</span> pd.DataFrame(counts, columns<span class="op">=</span> [<span class="st">&#39;Gene Name&#39;</span>, <span class="st">&#39;Rep1 Counts&#39;</span>, <span class="st">&#39;Rep2 Counts&#39;</span>, <span class="st">&#39;Rep3 Counts&#39;</span>]).set_index(<span class="st">&#39;Gene Name&#39;</span>)</span>
@@ -371,10 +371,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb38-9"><a href="kvantifikacija.html#cb38-9"></a>df</span></code></pre></div>
 <pre><code>##            Rep1 Counts  Rep2 Counts  Rep3 Counts
 ## Gene Name                                       
-## A(5kb)              10           12           30
-## B(10kb)             20           25           60
-## C(1kb)              10            8           15
-## D(20kb)              0            0            1</code></pre>
+## A(5kb)          100000       120000       300000
+## B(10kb)         200000       250000       600000
+## C(1kb)          100000        80000       150000
+## D(20kb)              0            0        10000</code></pre>
 <p>Let’s first calculate the abundances in FPKM units. We first divide by the total number of reads:</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="kvantifikacija.html#cb40-1"></a>df_rpkm <span class="op">=</span> df.div(df.<span class="bu">sum</span>()<span class="op">/</span><span class="dv">1000000</span>).<span class="bu">round</span>(<span class="dv">2</span>)</span>
 <span id="cb40-2"><a href="kvantifikacija.html#cb40-2"></a>df_rpkm</span></code></pre></div>
@@ -414,26 +414,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb46-7"><a href="kvantifikacija.html#cb46-7"></a>df_tpm.drop([<span class="st">&#39;kb&#39;</span>], axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##            Rep1 Counts  Rep2 Counts  Rep3 Counts
 ## Gene Name                                       
-## A(5kb)             5.0         6.00         15.0
-## B(10kb)            5.0         6.25         15.0
-## C(1kb)            10.0         8.00         15.0
-## D(20kb)            0.0         0.00          0.1</code></pre>
+## A(5kb)         50000.0      60000.0     150000.0
+## B(10kb)        50000.0      62500.0     150000.0
+## C(1kb)        100000.0      80000.0     150000.0
+## D(20kb)            0.0          0.0       1000.0</code></pre>
 <p>And now we perform the library size normalization, using abundances already normalized for gene length:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="kvantifikacija.html#cb48-1"></a><span class="co"># library size normalization (division by 10 instead of 10^6)</span></span>
-<span id="cb48-2"><a href="kvantifikacija.html#cb48-2"></a>df_tpm <span class="op">=</span> df_tpm.div(df_tpm.<span class="bu">sum</span>()<span class="op">/</span><span class="dv">10</span>).<span class="bu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb48-2"><a href="kvantifikacija.html#cb48-2"></a>df_tpm <span class="op">=</span> df_tpm.div(df_tpm.<span class="bu">sum</span>()<span class="op">/</span><span class="dv">1000000</span>).<span class="bu">round</span>(<span class="dv">3</span>)</span>
 <span id="cb48-3"><a href="kvantifikacija.html#cb48-3"></a>df_tpm.drop([<span class="st">&#39;kb&#39;</span>], axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##            Rep1 Counts  Rep2 Counts  Rep3 Counts
 ## Gene Name                                       
-## A(5kb)             2.5        2.963        3.326
-## B(10kb)            2.5        3.086        3.326
-## C(1kb)             5.0        3.951        3.326
-## D(20kb)            0.0        0.000        0.022</code></pre>
+## A(5kb)        250000.0   296296.296   332594.235
+## B(10kb)       250000.0   308641.975   332594.235
+## C(1kb)        500000.0   395061.728   332594.235
+## D(20kb)            0.0        0.000     2217.295</code></pre>
 <p>The sums of total normalized counts in each column are now equal (when using TPM)!</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="kvantifikacija.html#cb50-1"></a><span class="co"># TPM normalization sums per samples are equal (samples are comparable).</span></span>
 <span id="cb50-2"><a href="kvantifikacija.html#cb50-2"></a>df_tpm.drop([<span class="st">&#39;kb&#39;</span>], axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span></code></pre></div>
-<pre><code>## Rep1 Counts    10.0
-## Rep2 Counts    10.0
-## Rep3 Counts    10.0
+<pre><code>## Rep1 Counts    1000000.000
+## Rep2 Counts     999999.999
+## Rep3 Counts    1000000.000
 ## dtype: float64</code></pre>
 <div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="kvantifikacija.html#cb52-1"></a><span class="kw">def</span> tpm(genefile, bamfile):</span>
 <span id="cb52-2"><a href="kvantifikacija.html#cb52-2"></a>    <span class="co">&quot;&quot;&quot;</span></span>
@@ -471,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb53-3"><a href="kvantifikacija.html#cb53-3"></a>gene_counts <span class="op">=</span> tpm(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, bamfile)</span>
 <span id="cb53-4"><a href="kvantifikacija.html#cb53-4"></a></span>
 <span id="cb53-5"><a href="kvantifikacija.html#cb53-5"></a><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))  </span></code></pre></div>
-<pre><code>## --- 2.351795196533203 seconds ---</code></pre>
+<pre><code>## --- 2.403627634048462 seconds ---</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="kvantifikacija.html#cb55-1"></a>gene_counts.head(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##             raw_count  gene_length          tpm
 ## DEFB125          1016         9845   162.980261
@@ -516,7 +516,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-3"><a href="kvantifikacija.html#cb58-3"></a>gene_counts_rpkm <span class="op">=</span> rpkm(<span class="st">&#39;/opt/gencode.v27.chr20.bed&#39;</span>, bamfile)</span>
 <span id="cb58-4"><a href="kvantifikacija.html#cb58-4"></a></span>
 <span id="cb58-5"><a href="kvantifikacija.html#cb58-5"></a><span class="bu">print</span>(<span class="st">&quot;--- </span><span class="sc">%s</span><span class="st"> seconds ---&quot;</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))  </span></code></pre></div>
-<pre><code>## --- 2.4980952739715576 seconds ---</code></pre>
+<pre><code>## --- 2.5323965549468994 seconds ---</code></pre>
 <div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="kvantifikacija.html#cb60-1"></a>gene_counts_rpkm.head(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##             raw_count  gene_length        rpkm
 ## DEFB125        1016.0       9845.0   61.832560
