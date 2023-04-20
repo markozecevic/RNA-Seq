@@ -6,7 +6,7 @@ splajsovanje
 translacija
 vrste-rnk
 alternativno-splajsovanje
-ciljevi-proucavanja-rnk
+ciljevi-proučavanja-rnk
 rnk-sekvenciranje
 dnk-mikročip-microarray
 literatura

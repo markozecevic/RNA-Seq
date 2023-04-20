@@ -24,7 +24,7 @@
 <meta name="author" content="marko.zecevic@sbgenomics.com" />
 
 
-<meta name="date" content="2021-05-15" />
+<meta name="date" content="2023-04-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -143,7 +143,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="uvod.html"><a href="uvod.html#vrste-rnk"><i class="fa fa-check"></i><b>1.3</b> Vrste RNK</a></li>
 <li class="chapter" data-level="1.4" data-path="uvod.html"><a href="uvod.html#alternativno-splajsovanje"><i class="fa fa-check"></i><b>1.4</b> Alternativno splajsovanje</a></li>
-<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#ciljevi-proucavanja-rnk"><i class="fa fa-check"></i><b>1.5</b> Ciljevi proucavanja RNK</a></li>
+<li class="chapter" data-level="1.5" data-path="uvod.html"><a href="uvod.html#ciljevi-proučavanja-rnk"><i class="fa fa-check"></i><b>1.5</b> Ciljevi proučavanja RNK</a></li>
 <li class="chapter" data-level="1.6" data-path="uvod.html"><a href="uvod.html#rnk-sekvenciranje"><i class="fa fa-check"></i><b>1.6</b> RNK sekvenciranje</a></li>
 <li class="chapter" data-level="1.7" data-path="uvod.html"><a href="uvod.html#dnk-mikročip-microarray"><i class="fa fa-check"></i><b>1.7</b> DNK mikročip (microarray)</a></li>
 <li class="chapter" data-level="1.8" data-path="uvod.html"><a href="uvod.html#literatura"><i class="fa fa-check"></i><b>1.8</b> Literatura</a></li>
@@ -309,19 +309,18 @@ Standardni genetski kod [<a href="https://openstax.org/books/biology/pages/15-1-
 <p>Alternativno splajsovanje se javlja kao normalna pojava kod eukariota, gde znatno povećava raznovrsnost proteina. Kod ljudi preko 80% gena su alternativno splajsovani. Brojni modovi alternativnog splajsovanja su uočeni, od kojih najčešći jeste preskakanje egzona. U tom modu, pojedini egzon može biti uključen u iRNK pod nekim uslovima ili u pojedinim tkivima, i izostavljen iz iRNK u drugim.</p>
 <p>Ovo je nešto što će otežati problem mapiranja na referentni genom. Aligner mora biti ‘splice aware’!</p>
 </div>
-<div id="ciljevi-proucavanja-rnk" class="section level2">
-<h2><span class="header-section-number">1.5</span> Ciljevi proucavanja RNK</h2>
-<p>KVANTITAVINA/KVALITATIVNA ANALIZA</p>
-<ul>
-<li>Rekonstrukcija transkriptoma - kompletnog seta transkripata gena pronadjenih u celijama uzorka;</li>
-<li>Estimacija nivoa ekspresije gena/transkripata.</li>
-</ul>
+<div id="ciljevi-proučavanja-rnk" class="section level2">
+<h2><span class="header-section-number">1.5</span> Ciljevi proučavanja RNK</h2>
 <p><em>Zašto merimo ekspresiju gena?</em></p>
-<p>Proteini (belančevine) predstavljaju za žive sisteme najznačajnije organske molekule. Osim što izgrađuju ćeliju i njene delove, proteini obavljaju i sve osnovne funkcije u organizmu.</p>
-<p>I dalje je izuzetno komplikovano direktno izmeriti relativnu zastupljenost određenog proteina u uzorku. Trenutno raspoložive tehnologije su takve da je neuporedivo lakše (i jeftinije) izmeriti relativnu zastupljenost iRNK molekula koji kodira taj protein.</p>
+<p>Proteini (belančevine) su krajnji proizvod procesa opisanog centralnom dogmom molekularne biologije i predstavljaju za živi sistem najznačajnije organske molekule. Osim što izgrađuju ćeliju i njene delove, proteini obavljaju i sve osnovne funkcije u organizmu. Shodno tome, ako analiziramo status i funkcionalnost podaci o prisutnosti i relativnoj zastupljenosti određenih proteina su najinformativniji u analizi statusa i funkcionalnosti neke celije, tkiva ili organa. Nazalost, i dalje je izuzetno komplikovano direktno izmeriti relativnu zastupljenost određenog proteina u uzorku. Trenutno raspoložive tehnologije su takve da je neuporedivo lakše (i jeftinije) izmeriti relativnu zastupljenost iRNK molekula koji kodira taj protein.</p>
 <p><strong>Because gene expression correlates with protein expression!</strong></p>
 <p>Even though nearly every cell in an organism’s body contains the same set of genes, only a fraction of these genes are used in any given cell at any given time. It is this carefully controlled pattern of what is called “gene expression” that makes a liver cell different from a muscle cell, and a healthy cell different from a cancer cell.</p>
 <p>By measuring gene expression, we can identify active and inactive genes in a cell or tissue. This knowledge is important for drug discovery and creating diagnostic tests.</p>
+<p>U širem smislu, možemo razlikovati dva pristupa analizi RNK:</p>
+<ul>
+<li><em>Kvalitativni</em> pristup, koji za cilj ima rekonstrukciju transkriptoma - kompletnog seta transkripata gena prisutnih u ćelijama uzorka;</li>
+<li><em>Kvantitativni</em> pristup, koji za cilj ima estimaciju nivoa ekspresije gena tj. transkripata.</li>
+</ul>
 </div>
 <div id="rnk-sekvenciranje" class="section level2">
 <h2><span class="header-section-number">1.6</span> RNK sekvenciranje</h2>

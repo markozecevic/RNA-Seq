@@ -98,24 +98,22 @@ Alternativno splajsovanje se javlja kao normalna pojava kod eukariota, gde znatn
 
 Ovo je nešto što će otežati problem mapiranja na referentni genom. Aligner mora biti 'splice aware'!
 
-## Ciljevi proucavanja RNK
-
-KVANTITAVINA/KVALITATIVNA ANALIZA
-
-- Rekonstrukcija transkriptoma - kompletnog seta transkripata gena pronadjenih u celijama uzorka;
-- Estimacija nivoa ekspresije gena/transkripata. 
+## Ciljevi proučavanja RNK
 
 *Zašto merimo ekspresiju gena?*
 
-Proteini (belančevine) predstavljaju za žive sisteme najznačajnije organske molekule. Osim što izgrađuju ćeliju i njene delove, proteini obavljaju i sve osnovne funkcije u organizmu. 
-
-I dalje je izuzetno komplikovano direktno izmeriti relativnu zastupljenost određenog proteina u uzorku. Trenutno raspoložive tehnologije su takve da je neuporedivo lakše (i jeftinije) izmeriti relativnu zastupljenost iRNK molekula koji kodira taj protein.
+Proteini (belančevine) su krajnji proizvod procesa opisanog centralnom dogmom molekularne biologije i predstavljaju za živi sistem najznačajnije organske molekule. Osim što izgrađuju ćeliju i njene delove, proteini obavljaju i sve osnovne funkcije u organizmu. Shodno tome, ako analiziramo status i funkcionalnost podaci o prisutnosti i relativnoj zastupljenosti određenih proteina su najinformativniji u analizi statusa i funkcionalnosti neke celije, tkiva ili organa. Nazalost, i dalje je izuzetno komplikovano direktno izmeriti relativnu zastupljenost određenog proteina u uzorku. Trenutno raspoložive tehnologije su takve da je neuporedivo lakše (i jeftinije) izmeriti relativnu zastupljenost iRNK molekula koji kodira taj protein.
 
 **Because gene expression correlates with protein expression!**
 
 Even though nearly every cell in an organism's body contains the same set of genes, only a fraction of these genes are used in any given cell at any given time. It is this carefully controlled pattern of what is called "gene expression" that makes a liver cell different from a muscle cell, and a healthy cell different from a cancer cell. 
 
 By measuring gene expression, we can identify active and inactive genes in a cell or tissue. This knowledge is important for drug discovery and creating diagnostic tests.
+
+U širem smislu, možemo razlikovati dva pristupa analizi RNK:
+
+- *Kvalitativni* pristup, koji za cilj ima rekonstrukciju transkriptoma - kompletnog seta transkripata gena prisutnih u ćelijama uzorka;
+- *Kvantitativni* pristup, koji za cilj ima estimaciju nivoa ekspresije gena tj. transkripata. 
 
 ## RNK sekvenciranje
 

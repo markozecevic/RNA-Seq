@@ -237,7 +237,7 @@ $$TPM_{i}=\frac{X_i}{\widetilde{l_{i}}}\cdot \left ( \frac{1}{\Sigma_{j}\frac{X_
 
 ```{python}
 counts = {'Gene Name': ['A(5kb)', 'B(10kb)', 'C(1kb)', 'D(20kb)'],
-          'Rep1 Counts': [1000000, 2000000, 1000000, 0],
+          'Rep1 Counts': [10, 20, 10, 0],
           'Rep2 Counts': [12, 25, 8, 0],
           'Rep3 Counts': [30, 60, 15, 1]
          }
